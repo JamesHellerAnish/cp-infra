@@ -6,7 +6,7 @@
       <!-- Brand -->
       <div class="footer__brand">
         <div class="footer__logo">
-          <div class="footer__logo-icon">CP</div>
+          <img src="/images/cp-logo.webp" alt="CP Systems Logo" class="footer__logo-icon" />
           <div>
             <div class="footer__logo-name">CP Systems Pvt. Ltd.</div>
             <div class="footer__logo-tagline">Constructing a Better World</div>
@@ -44,6 +44,7 @@
           <li><a href="/projects/hailang-dam/">Hailang Dam</a></li>
           <li><a href="/projects/bhutan-mine/">Bhutan Mine</a></li>
           <li><a href="/projects/kekri-mine/">Kekri Mine</a></li>
+          <li><a href="/projects/other/">Other Projects</a></li>
         </ul>
       </div>
 
@@ -94,14 +95,8 @@
   .footer__logo-icon {
     width: 46px;
     height: 46px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: var(--navy);
+    object-fit: contain;
+    filter: brightness(0) invert(1);
     flex-shrink: 0;
   }
 

@@ -100,7 +100,7 @@ import Footer from '../../components/Footer.astro';
 </BaseLayout>
 
 <style>
-  .gallery-item { border-radius: var(--radius); overflow: hidden; }
+  .gallery-item { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
   .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
   .gallery-item:hover img { transform: scale(1.05); }
 </style>
