@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout title="Bhutan Granite Mine — CP Systems" description="85-acre granite mine in Wangdue, Bhutan with 8 Million MT reserves. Home of the premium CP-DRUK White Galaxy granite.">
+  <Header />
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Bhutan Granite Mine</h1>
+      <div class="page-header__breadcrumb">
+        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Bhutan Mine</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="content-block animate-on-scroll">
+        <div>
+          <span class="section-label">Mining Operations</span>
+          <h2 class="section-title">Bhutan Granite Mine, Wangdue</h2>
+          <p>
+            Operated by <strong>Karma CP Systems Private Limited</strong>, a subsidiary of CP Systems, the Bhutan Granite Mine is located in the Wangdue area and produces the premium <strong>CP-DRUK White Galaxy</strong> granite — a highly sought-after white granite used for flooring, countertops, facades, and custom applications worldwide.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Area</strong><br/>
+              <span>Approx. 85 Acres</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Reserves</strong><br/>
+              <span>8 Million MT</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Product</strong><br/>
+              <span>CP-DRUK White Galaxy</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Processing Unit</strong><br/>
+              <span>5 Acres, Tagena Wangdue</span>
+            </div>
+          </div>
+        </div>
+        <div class="content-block__image">
+          <img src="/images/pdf_fix_p6_img_1.jpg" alt="Bhutan Mine" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section section--beige">
+    <div class="container">
+      <span class="section-label">Mine Gallery</span>
+      <h2 class="section-title">Operations & Processing</h2>
+      <div class="grid grid--3" style="margin-top: 30px;">
+        <div class="gallery-item"><img src="/images/pdf_page_6_img_73.jpg" alt="Bhutan Mine 1" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_6_img_74.jpg" alt="Bhutan Mine 2" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_6_img_75.jpg" alt="Bhutan Mine 3" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_6_img_76.jpg" alt="Bhutan Mine 4" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_6_img_77.jpg" alt="Bhutan Mine 5" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_7_img_78.jpg" alt="Bhutan Stone Products" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crafted Products -->
+  <section class="section">
+    <div class="container" style="text-align: center;">
+      <span class="section-label" style="justify-content: center;">Crafted Products</span>
+      <h2 class="section-title">Articles Crafted from Bhutan Mine</h2>
+      <p class="section-desc" style="margin: 0 auto 30px; text-align: center;">
+        Handcrafted sculptures and artisanal products carved from our premium Bhutan granite — perfect for homes, gardens, meditation zones, and cultural spaces.
+      </p>
+      <div class="grid grid--4" style="margin-top: 20px;">
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_7_img_79.jpg" alt="Crafted 1" class="granite-card__img" />
+          <div class="granite-card__info"><div class="granite-card__name">Spiritual Icons</div></div>
+        </div>
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_7_img_80.jpg" alt="Crafted 2" class="granite-card__img" />
+          <div class="granite-card__info"><div class="granite-card__name">Custom Designs</div></div>
+        </div>
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_7_img_81.jpg" alt="Crafted 3" class="granite-card__img" />
+          <div class="granite-card__info"><div class="granite-card__name">Bespoke Art</div></div>
+        </div>
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_7_img_78.jpg" alt="Crafted 4" class="granite-card__img" />
+          <div class="granite-card__info"><div class="granite-card__name">Buddha Statues</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gallery-item { border-radius: var(--radius); overflow: hidden; }
+  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
+  .gallery-item:hover img { transform: scale(1.05); }
+</style>

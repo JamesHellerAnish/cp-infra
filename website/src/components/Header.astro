@@ -1,0 +1,356 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about/' },
+  {
+    label: 'Speciality',
+    href: '#',
+    children: [
+      { label: 'Hydropower & River Dredging', href: '/speciality/hydropower/' },
+      { label: 'Mining & Exploration', href: '/speciality/mining/' },
+      { label: 'Civil & Mechanical Works', href: '/speciality/civil/' },
+    ]
+  },
+  {
+    label: 'Project Gallery',
+    href: '#',
+    children: [
+      { label: 'Badrinath Dham', href: '/projects/badrinath-dham/' },
+      { label: 'Kedarnath Dham', href: '/projects/kedarnath-dham/' },
+      { label: 'Tehri Dam', href: '/projects/tehri-dam/' },
+      { label: 'Hailang Dam', href: '/projects/hailang-dam/' },
+      { label: 'Bhutan Mine', href: '/projects/bhutan-mine/' },
+      { label: 'Kekri Mine', href: '/projects/kekri-mine/' },
+    ]
+  },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<header class="header" id="header">
+  <!-- Top bar -->
+  <div class="header__topbar">
+    <div class="container header__topbar-inner">
+      <div class="header__contact-info">
+        <a href="tel:+919212150206">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          +91-9212150206, +91-9819953664
+        </a>
+        <a href="mailto:info@cp-infra.in">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          info@cp-infra.in
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="header__nav" id="mainNav">
+    <div class="container header__nav-inner">
+      <a href="/" class="header__logo">
+        <img src="/images/cp-logo.webp" alt="CP Systems Logo" class="header__logo-img" />
+        <div class="header__logo-text">
+          <span class="header__logo-name">CP Systems</span>
+          <span class="header__logo-tagline">Pvt. Ltd.</span>
+        </div>
+      </a>
+
+      <ul class="header__menu" id="navMenu">
+        {navItems.map(item => (
+          <li class={`header__menu-item ${item.children ? 'has-dropdown' : ''}`}>
+            <a
+              href={item.href}
+              class={`header__menu-link ${currentPath === item.href ? 'active' : ''}`}
+            >
+              {item.label}
+              {item.children && (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 10l5 5 5-5z"/>
+                </svg>
+              )}
+            </a>
+            {item.children && (
+              <ul class="header__dropdown">
+                {item.children.map(child => (
+                  <li>
+                    <a href={child.href} class={`header__dropdown-link ${currentPath === child.href ? 'active' : ''}`}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <button class="header__hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const mainNav = document.getElementById('mainNav');
+
+  hamburger?.addEventListener('click', () => {
+    navMenu?.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
+
+  // Sticky nav on scroll
+  window.addEventListener('scroll', () => {
+    if (mainNav) {
+      mainNav.classList.toggle('sticky', window.scrollY > 60);
+    }
+  });
+
+  // Close menu on link click (mobile)
+  document.querySelectorAll('.header__menu-link, .header__dropdown-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu?.classList.remove('open');
+      hamburger?.classList.remove('open');
+    });
+  });
+</script>
+
+<style>
+  .header__topbar {
+    background: var(--navy-dark);
+    padding: 8px 0;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .header__topbar-inner {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .header__contact-info {
+    display: flex;
+    gap: 24px;
+  }
+
+  .header__contact-info a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .header__contact-info a:hover {
+    color: var(--gold);
+  }
+
+  .header__nav {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition);
+  }
+
+  .header__nav.sticky {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .header__nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .header__logo-img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .header__logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header__logo-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .header__logo-tagline {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .header__menu {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__menu-item {
+    position: relative;
+  }
+
+  .header__menu-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 24px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .header__menu-link:hover,
+  .header__menu-link.active {
+    color: var(--gold);
+  }
+
+  .header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 260px;
+    background: var(--white);
+    border-radius: 0 0 var(--radius) var(--radius);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+    z-index: 100;
+    list-style: none;
+    padding: 8px 0;
+  }
+
+  .has-dropdown:hover .header__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header__dropdown-link {
+    display: block;
+    padding: 10px 24px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--dark-text);
+    transition: var(--transition);
+  }
+
+  .header__dropdown-link:hover,
+  .header__dropdown-link.active {
+    background: var(--beige);
+    color: var(--navy);
+    padding-left: 30px;
+  }
+
+  .header__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .header__hamburger span {
+    display: block;
+    width: 26px;
+    height: 2.5px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  .header__hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .header__hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .header__hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  @media (max-width: 1024px) {
+    .header__hamburger { display: flex; }
+
+    .header__menu {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 300px;
+      height: 100vh;
+      background: var(--navy);
+      flex-direction: column;
+      align-items: stretch;
+      padding: 80px 0 40px;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+    }
+
+    .header__menu.open {
+      right: 0;
+    }
+
+    .header__menu-link {
+      padding: 14px 24px;
+    }
+
+    .header__dropdown {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      background: var(--navy-dark);
+      border-radius: 0;
+    }
+
+    .header__dropdown-link {
+      color: rgba(255,255,255,0.7);
+      padding-left: 40px;
+    }
+
+    .header__dropdown-link:hover {
+      background: rgba(255,180,0,0.1);
+      color: var(--gold);
+      padding-left: 46px;
+    }
+
+    .header__contact-info { display: none; }
+  }
+</style>

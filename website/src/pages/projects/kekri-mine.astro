@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout title="Kekri Granite Mine — CP Systems" description="1 Hectare granite mine in Kekri, Rajasthan with 1 Million MT reserves. Steel Grey, Black Galaxy, and Red Galaxy granites.">
+  <Header />
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-header__title">Kekri Granite Mine</h1>
+      <div class="page-header__breadcrumb">
+        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Kekri Mine</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="content-block animate-on-scroll">
+        <div>
+          <span class="section-label">Mining Operations</span>
+          <h2 class="section-title">Kekri Granite Mine, Rajasthan</h2>
+          <p>
+            Located in Kekri, Rajasthan, this granite mine produces three premium granite varieties — <strong>Steel Grey</strong>, <strong>Black Galaxy</strong>, and <strong>Red Galaxy</strong>. With approximately 1 Million MT of reserves, the mine feeds our processing unit at Rajsamand (Udaipur) for producing finished granite products.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Area</strong><br/>
+              <span>1 Hectare</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Reserves</strong><br/>
+              <span>1 Million MT (Approx)</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Products</strong><br/>
+              <span>Steel Grey, Black & Red Galaxy</span>
+            </div>
+            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
+              <strong style="color: var(--navy); font-size: 0.85rem;">Processing</strong><br/>
+              <span>Rajsamand, Udaipur</span>
+            </div>
+          </div>
+        </div>
+        <div class="content-block__image">
+          <img src="/images/pdf_page_9_img_90.jpg" alt="Kekri Mine" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Granite Collection -->
+  <section class="section section--beige">
+    <div class="container" style="text-align: center;">
+      <span class="section-label" style="justify-content: center;">Premium Collection</span>
+      <h2 class="section-title">Kekri Granite Varieties</h2>
+      <div class="grid grid--3" style="margin-top: 30px;">
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_10_img_100.jpg" alt="Steel Grey" class="granite-card__img" />
+          <div class="granite-card__info">
+            <div class="granite-card__name">Steel Grey</div>
+            <div class="granite-card__location">Kekri, Rajasthan</div>
+          </div>
+        </div>
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_11_img_103.jpg" alt="Black Galaxy" class="granite-card__img" />
+          <div class="granite-card__info">
+            <div class="granite-card__name">Black Galaxy</div>
+            <div class="granite-card__location">Kekri, Rajasthan</div>
+          </div>
+        </div>
+        <div class="granite-card animate-on-scroll">
+          <img src="/images/pdf_page_11_img_102.jpg" alt="Red Galaxy" class="granite-card__img" />
+          <div class="granite-card__info">
+            <div class="granite-card__name">Red Galaxy</div>
+            <div class="granite-card__location">Kekri, Rajasthan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section section--navy">
+    <div class="container">
+      <span class="section-label">Mine Gallery</span>
+      <h2 class="section-title" style="color: var(--white);">Mining & Processing Operations</h2>
+      <div class="grid grid--3" style="margin-top: 30px;">
+        <div class="gallery-item"><img src="/images/pdf_page_9_img_88.jpg" alt="Kekri Mine 1" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_9_img_89.jpg" alt="Kekri Mine 2" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_9_img_90.jpg" alt="Kekri Mine 3" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_12_img_106.jpg" alt="Processing 1" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_12_img_107.jpg" alt="Processing 2" /></div>
+        <div class="gallery-item"><img src="/images/pdf_page_12_img_110.jpg" alt="Processing 3" /></div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gallery-item { border-radius: var(--radius); overflow: hidden; }
+  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
+  .gallery-item:hover img { transform: scale(1.05); }
+</style>
