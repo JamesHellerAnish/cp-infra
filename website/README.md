@@ -1,43 +1,24 @@
-# Astro Starter Kit: Minimal
+# CP Systems website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+The Astro source for [cp-infra.in](https://cp-infra.in).
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+Run from this `website` folder (Node 22.12 or later):
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command | What it does |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Build the site into `dist/`, which is what gets deployed |
+| `npm run preview` | Serve the built `dist/` locally |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Where things are
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `src/pages/` — one file per page: home, about, contact, `projects/*`, `speciality/*`.
+- `src/components/` — header, footer, page hero, project chapters, clips, photo rows, the India map and the granite picker.
+- `src/data/clips.json` — every site clip, its caption and the source video it was cut from.
+- `src/data/sites.ts` — offices and project sites shown on the home-page map.
+- `src/data/indiaMap.json` — India and Bhutan outlines, state lines and rivers for the map (Natural Earth, India point of view, public domain).
+- `public/media/` — the web clips and their poster frames.
+- `public/images/` — site photographs; `public/images/map/` holds the Natural Earth relief image.
