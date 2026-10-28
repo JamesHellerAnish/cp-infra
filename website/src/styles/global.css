@@ -71,7 +71,7 @@ p { max-width: 62ch; text-wrap: pretty; }
 strong { font-weight: 700; }
 
 .lead { font-size: var(--t-lead); line-height: 1.45; font-weight: 500; }
-.small, figcaption { font-size: var(--t-small); line-height: 1.45; color: var(--muted); }
+.small { font-size: var(--t-small); line-height: 1.45; color: var(--muted); }
 
 .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--gold); color: var(--navy-deep); padding: 10px 16px; font-weight: 700; }
 .skip:focus { left: 8px; }
@@ -83,10 +83,10 @@ strong { font-weight: 700; }
 
 .field-navy { background: var(--navy); color: var(--on-navy); }
 .field-navy h2, .field-navy h3, .field-navy h1 { color: var(--on-navy); }
-.field-navy .small, .field-navy figcaption { color: var(--on-navy-muted); }
+.field-navy .small { color: var(--on-navy-muted); }
 .field-deep { background: var(--navy-deep); color: var(--on-navy); }
 .field-deep h2, .field-deep h3 { color: var(--on-navy); }
-.field-deep figcaption, .field-deep .small { color: var(--on-navy-muted); }
+.field-deep .small { color: var(--on-navy-muted); }
 .field-surface { background: var(--surface); }
 
 /* --- Buttons and links --- */
@@ -146,8 +146,32 @@ strong { font-weight: 700; }
 .ratio-916 { aspect-ratio: 9 / 16; }
 .ratio-11 { aspect-ratio: 1 / 1; }
 
-figure figcaption { margin-top: 10px; }
+/* Captions: a plate fixed to the bottom of its picture, so the words read as part of the image.
+   A gold square marks a photograph, a gold triangle marks footage, and the arrow says it opens full size. */
+figure > figcaption {
+  position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 12px;
+  margin: 0; padding: 14px 16px 15px;
+  background: var(--navy); color: #fff;
+  font-size: 0.9375rem; line-height: 1.4; font-weight: 500;
+  transition: background-color var(--t-hover), color var(--t-hover);
+}
+figure > figcaption::before { content: ''; width: 10px; height: 10px; margin-top: 5px; background: var(--gold); }
+.clipfig > figcaption::before { width: 11px; height: 12px; margin-top: 4px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+figure:has([data-lb]) > figcaption::after {
+  content: ''; width: 14px; height: 14px; margin-top: 3px; background: currentColor; opacity: 0.55;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5'%3E%3Cpath d='M14 4h6v6M20 4l-8 8M10 20H4v-6M4 20l8-8'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5'%3E%3Cpath d='M14 4h6v6M20 4l-8 8M10 20H4v-6M4 20l8-8'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.field-navy figure > figcaption, .field-deep figure > figcaption { background: #0B3E86; }
+@media (hover: hover) and (pointer: fine) {
+  figure:has([data-lb]:hover) > figcaption { background: var(--gold); color: var(--navy-deep); }
+  figure:has([data-lb]:hover) > figcaption::before { background: var(--navy-deep); }
+  figure:has([data-lb]:hover) > figcaption::after { opacity: 1; }
+}
+figure:has([data-lb]:focus-visible) > figcaption { background: var(--gold); color: var(--navy-deep); }
 figure, .clipfig, .photo { min-width: 0; }
+.clipfig, .photo, .row__item figure { display: flex; flex-direction: column; }
+.clipfig > figcaption, .photo > figcaption, .row__item figure > figcaption { flex: 1; }
 
 .photo__open, .chapter__media button[data-lb] { display: block; width: 100%; height: 100%; cursor: zoom-in; }
 .photo__open img, .chapter__media button[data-lb] img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }

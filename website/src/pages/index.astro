@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Clip from '../components/Clip.astro';
+import IndiaMap from '../components/IndiaMap.astro';
 import clips from '../data/clips.json';
 
 const reel = clips['home-reel'];
@@ -203,19 +204,8 @@ const startMonth = 17;
         <h2 id="where-title">Pan India and Bhutan</h2>
         <p class="lead where__lead">From the shrines of Uttarakhand to granite benches in Wangdue and Kekri, run from a head office in New Delhi.</p>
       </div>
+      <IndiaMap />
       <div class="where__tiles">
-        <div class="where__photo">
-          <Clip name="badrinath-winter" bare ratio="" />
-          <p class="where__note">Badrinath in winter. Between October and April the temperature stays below zero and concrete takes longer to set, so the season is planned around it.</p>
-        </div>
-        <div class="where__colour">
-          <ul class="where__regions">
-            <li><strong>Uttarakhand</strong> Tehri, Badrinath, Kedarnath, VPHEP, Koteshwar, Maneri Bhali</li>
-            <li><strong>Bhutan</strong> Wangdue granite mine and processing unit</li>
-            <li><strong>Rajasthan</strong> Kekri granite mine, Barmer reservoir</li>
-            <li><strong>Delhi NCR</strong> Head office, Pitampura</li>
-          </ul>
-        </div>
         <dl class="facts where__facts" style="--cols:4">
           <div><dt>Established</dt><dd>1999</dd></div>
           <div><dt>Recognition</dt><dd>Udyog Ratan Award</dd></div>
@@ -407,11 +397,14 @@ const startMonth = 17;
   /* Scatter */
   .scatter h2 { font-size: clamp(2rem, 2.8vw, 2.5rem); }
   .scatter__list { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); margin-top: 64px; }
-  .sc { display: grid; align-self: start; align-content: start; gap: 12px; text-decoration: none; color: inherit; }
-  .sc__name { font-size: var(--t-small); font-weight: 700; color: var(--navy); }
-  .sc__what { font-size: var(--t-body); max-width: 46ch; }
+  .sc { display: grid; align-self: start; align-content: start; gap: 0; text-decoration: none; color: inherit; }
+  .sc .media { order: 0; }
+  .sc__name, .sc__what { background: var(--navy); transition: background-color var(--t-hover), color var(--t-hover); }
+  .sc__name { order: 1; display: flex; justify-content: space-between; gap: 16px; padding: 18px 20px 4px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.015em; color: #fff; }
+  .sc__name::after { content: '→'; color: var(--gold); transition: transform 300ms var(--ease-out); }
+  .sc__what { order: 2; padding: 0 20px 20px; font-size: 1rem; line-height: 1.45; color: var(--on-navy-muted); }
   .sc .media img { transition: transform 700ms var(--ease-out); }
-  @media (hover: hover) and (pointer: fine) { .sc:hover .media img { transform: scale(1.04); } .sc:hover .sc__name { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; } }
+  @media (hover: hover) and (pointer: fine) { .sc:hover .media img { transform: scale(1.04); } .sc:hover .sc__name, .sc:hover .sc__what { background: var(--gold); color: var(--navy-deep); } .sc:hover .sc__name::after { color: var(--navy-deep); transform: translateX(4px); } }
   .sc--a { grid-column: 1 / span 6; }
   .sc--a .media { aspect-ratio: 3 / 2; }
   .sc--b { grid-column: 9 / span 4; margin-top: -80px; }
@@ -453,23 +446,9 @@ const startMonth = 17;
   /* Where */
   .where h2 { font-size: clamp(2.5rem, 4vw, 3.75rem); }
   .where__lead { margin-top: 24px; max-width: 40ch; }
-  .where__tiles { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin-top: 72px; align-items: start; }
-  .where__photo { grid-column: 1 / span 8; position: relative; aspect-ratio: 16 / 10; }
-  .where__photo :global(.clipfig), .where__photo :global(.clip) { height: 100%; }
-  .where__note { position: absolute; top: 0; right: 0; z-index: 3; width: 320px; padding: 20px; background: var(--paper); font-size: 1rem; }
-  .where__colour { grid-column: 9 / span 4; background: var(--navy); color: #fff; padding: 28px; min-height: 60%; aspect-ratio: 4 / 5; display: flex; align-items: end; }
-  .where__regions { display: grid; gap: 18px; }
-  .where__regions li { font-size: 1rem; color: var(--on-navy-muted); line-height: 1.4; }
-  .where__regions strong { display: block; color: var(--gold); font-size: 1.375rem; letter-spacing: -0.01em; }
-  .where__facts { grid-column: 1 / -1; margin-top: 40px; }
-  @media (max-width: 900px) {
-    .where__photo, .where__colour { grid-column: 1 / -1; }
-    .where__photo { aspect-ratio: 4 / 3; }
-    .where__note { position: static; width: auto; padding: 16px 0 0; background: none; }
-    .where__photo { margin-bottom: 120px; }
-    .where__colour { aspect-ratio: 3 / 2; }
-  }
-  @media (max-width: 520px) { .where__photo { margin-bottom: 170px; } }
+  .where__lead { margin-bottom: 56px; }
+  .where__tiles { margin-top: 48px; }
+  .where__facts { margin-top: 0; }
 
   /* Visit */
   .visit { position: relative; min-height: 100svh; }
