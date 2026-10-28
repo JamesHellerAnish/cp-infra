@@ -1,0 +1,21 @@
+---
+import { others } from '../data/projects';
+export interface Props { current: string; title?: string }
+const { current, title = 'More of the work' } = Astro.props;
+const list = others(current);
+---
+
+<section class="section field-navy next">
+  <div class="wrap split">
+    <div class="split__a" data-reveal>
+      <h2>{title}</h2>
+      <p class="lead" style="margin-top:20px">Every CPS site has its own window, river and rock. Pick the next one.</p>
+      <a class="btn" href="/contact/" style="margin-top:32px">Discuss a project</a>
+    </div>
+    <nav class="split__b index" aria-label="Other projects">
+      {list.map((p) => (
+        <a href={p.href}><span class="index__name">{p.name}</span><span class="index__what">{p.place}</span></a>
+      ))}
+    </nav>
+  </div>
+</section>

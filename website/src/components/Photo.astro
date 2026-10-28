@@ -1,0 +1,20 @@
+---
+// A site photograph that opens in the viewer, together with the other media in its [data-gallery].
+export interface Props {
+  src: string;
+  caption: string;
+  ratio?: string;
+  showCaption?: boolean;
+  class?: string;
+}
+const { src, caption, ratio = 'ratio-32', showCaption = false, class: cls } = Astro.props;
+---
+
+<figure class:list={['photo', cls]}>
+  <div class:list={['media', ratio]}>
+    <button type="button" class="photo__open" data-lb={src} data-lb-caption={caption} aria-label={`Open photograph: ${caption}`}>
+      <img src={src} alt={caption} loading="lazy" decoding="async" />
+    </button>
+  </div>
+  {showCaption && <figcaption>{caption}</figcaption>}
+</figure>

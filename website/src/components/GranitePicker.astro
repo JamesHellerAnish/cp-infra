@@ -1,0 +1,86 @@
+---
+// Pick a granite and see the slab large, with the mine it comes from.
+export interface Props { only?: string[]; title?: string }
+const { only, title = 'Choose a granite' } = Astro.props;
+
+const all = [
+  { id: 'white-galaxy', name: 'CP-DRUK White Galaxy', mine: 'Bhutan Granite Mine, Wangdue', reserves: '8 million MT', img: '/images/pdf_fix_p10_img_5.jpg', note: 'A white granite with fine grey speckle. Cut and finished at the 5-acre unit at Tagena, Wangdue.' },
+  { id: 'steel-grey', name: 'Steel Grey', mine: 'Kekri Granite Mine, Rajasthan', reserves: '1 million MT', img: '/images/pdf_page_10_img_100.jpg', note: 'Quarried at Kekri and processed at Rajsamand, Udaipur.' },
+  { id: 'black-galaxy', name: 'Black Galaxy', mine: 'Kekri Granite Mine, Rajasthan', reserves: '1 million MT', img: '/images/pdf_page_11_img_103.jpg', note: 'Quarried at Kekri and processed at Rajsamand, Udaipur.' },
+  { id: 'red-galaxy', name: 'Red Galaxy', mine: 'Kekri Granite Mine, Rajasthan', reserves: '1 million MT', img: '/images/pdf_page_11_img_102.jpg', note: 'Quarried at Kekri and processed at Rajsamand, Udaipur.' },
+];
+const list = only ? all.filter((g) => only.includes(g.id)) : all;
+const uid = `gp-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<div class="gp" id={uid}>
+  <div class="gp__slab media">
+    {list.map((g, i) => <img src={g.img} alt={`${g.name} granite slab`} data-g={g.id} class:list={{ 'is-on': i === 0 }} loading="lazy" />)}
+  </div>
+  <div class="gp__side">
+    <h3 class="gp__title">{title}</h3>
+    <div class="gp__choices" role="radiogroup" aria-label={title}>
+      {list.map((g, i) => (
+        <button type="button" role="radio" aria-checked={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-g={g.id}>
+          <span class="gp__chip" style={`background-image:url(${g.img})`}></span>
+          <span>{g.name}</span>
+        </button>
+      ))}
+    </div>
+    {list.map((g, i) => (
+      <div class="gp__info" data-g={g.id} hidden={i !== 0}>
+        <dl class="facts" style="--cols:2">
+          <div><dt>From</dt><dd>{g.mine}</dd></div>
+          <div><dt>Reserves</dt><dd>{g.reserves}</dd></div>
+        </dl>
+        <p>{g.note} For flooring, countertops, facades and custom work.</p>
+      </div>
+    ))}
+    <a class="btn" href="/contact/?subject=Granite%20enquiry">Ask for a sample</a>
+  </div>
+</div>
+
+<script define:vars={{ uid }}>
+  const root = document.getElementById(uid);
+  const radios = [...root.querySelectorAll('[role="radio"]')];
+  function pick(btn, focus) {
+    const id = btn.dataset.g;
+    radios.forEach((r) => { const on = r === btn; r.setAttribute('aria-checked', String(on)); r.tabIndex = on ? 0 : -1; });
+    root.querySelectorAll('.gp__slab img').forEach((im) => im.classList.toggle('is-on', im.dataset.g === id));
+    root.querySelectorAll('.gp__info').forEach((el) => { el.hidden = el.dataset.g !== id; });
+    if (focus) btn.focus();
+  }
+  radios.forEach((r, i) => {
+    r.addEventListener('click', () => pick(r));
+    r.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      pick(radios[(i + d + radios.length) % radios.length], true);
+    });
+  });
+</script>
+
+<style>
+  .gp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); align-items: start; }
+  .gp__slab { grid-column: 1 / span 7; aspect-ratio: 1 / 1; position: relative; }
+  .gp__slab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 450ms ease, transform 900ms var(--ease-out); }
+  .gp__slab img.is-on { opacity: 1; transform: none; }
+  .gp__side { grid-column: 9 / span 4; display: grid; gap: 28px; }
+  .gp__title { font-size: clamp(1.75rem, 2.4vw, 2.25rem); font-weight: 800; letter-spacing: -0.025em; }
+  .gp__choices { display: grid; gap: 8px; }
+  .gp__choices button { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 16px; padding: 8px; text-align: left; font-weight: 700; color: var(--navy); background: transparent; transition: background-color var(--t-hover); }
+  .gp__choices button { position: relative; }
+  .gp__choices button[aria-checked='true'] { background: var(--surface); }
+  .gp__choices button[aria-checked='true']::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); }
+  .gp__choices button:active { transform: scale(0.99); }
+  @media (hover: hover) and (pointer: fine) { .gp__choices button:hover { background: var(--surface); } }
+  .gp__chip { width: 56px; height: 56px; background-size: cover; background-position: center; }
+  .field-navy .gp__choices button { color: #fff; }
+  .field-navy .gp__choices button[aria-checked='true'], .field-navy .gp__choices button:hover { background: rgba(255, 255, 255, 0.1); }
+  .field-navy .gp__info p { color: var(--on-navy); }
+  .gp__info p { margin-top: 20px; }
+  .gp__info .facts dd { font-size: 1.0625rem; }
+  @media (max-width: 900px) { .gp__slab, .gp__side { grid-column: 1 / -1; } .gp__slab { aspect-ratio: 4 / 3; } }
+  @media (prefers-reduced-motion: reduce) { .gp__slab img { transition: none; } }
+</style>

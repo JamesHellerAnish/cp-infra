@@ -1,153 +1,122 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import Clip from '../components/Clip.astro';
+import Photo from '../components/Photo.astro';
+
+const growth = [
+  { year: 'FY 2022–23', value: 24.3 },
+  { year: 'FY 2023–24', value: 61.9 },
+  { year: 'FY 2024–25', value: 143 },
+];
+const max = 143;
 ---
 
-<BaseLayout title="About Us — CP Systems Pvt. Ltd." description="Learn about CP Systems Pvt Ltd - our story, recognition, vision, and the expert team behind 3 decades of infrastructure excellence.">
-  <Header />
+<BaseLayout title="About CP Systems — Since 1999" description="CP Systems Pvt. Ltd., established 1999: an infrastructure contractor led by Sanjay Shandilya, CMD, recognised with the Udyog Ratan Award and Excellence Award.">
+  <PageHero
+    title="About CP Systems"
+    lead="An infrastructure contractor founded in 1999 and built on one habit: finishing difficult work on time."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+    image="/images/pdf_page_20_img_144.jpg"
+    imageAlt="The CPS site team at Tehri"
+    facts={[
+      { label: 'Established', value: '1999' },
+      { label: 'Head office', value: 'New Delhi' },
+      { label: 'Turnover FY 2024–25', value: '₹143 Cr' },
+      { label: 'Recognition', value: 'Udyog Ratan Award' },
+    ]}
+  />
 
-  <!-- Page Header -->
-  <div class="page-header">
-    <div style="position: absolute; inset: 0; z-index: 0;">
-      <div class="hero__collage" style="height: 100vh; position: absolute; inset: 0;">
-        <div class="hero__collage-item hero__collage-item--1"><img src="/images/pdf_page_15_img_123.jpg" alt="Badrinath Dham Riverfront" /></div>
-        <div class="hero__collage-item hero__collage-item--2"><img src="/images/pdf_page_13_img_112.jpg" alt="Kedarnath Dham Construction" /></div>
-        <div class="hero__collage-item hero__collage-item--3"><img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam" /></div>
-        <div class="hero__collage-item hero__collage-item--4"><img src="/images/pdf_page_18_img_136.jpg" alt="River Dredging Operations" /></div>
-        <div class="hero__collage-item hero__collage-item--5"><img src="/images/pdf_fix_p6_img_1.jpg" alt="Bhutan Granite Blocks" /></div>
-        <div class="hero__collage-item hero__collage-item--6"><img src="/images/pdf_page_21_img_145.jpg" alt="Hailang Dam VPHEP" /></div>
-        <div class="hero__collage-item hero__collage-item--7"><img src="/images/pdf_page_14_img_116.jpg" alt="Kedarnath Building" /></div>
-        <div class="hero__collage-item hero__collage-item--8"><img src="/images/pdf_page_9_img_90.jpg" alt="Kekri Mine Operations" /></div>
-        <div class="hero__collage-item hero__collage-item--9"><img src="/images/slide_54_img_3.jpg" alt="Baffle Wall Construction" /></div>
-        <div class="hero__collage-item hero__collage-item--10"><img src="/images/pdf_page_16_img_127.jpg" alt="Civic Center Badrinath" /></div>
-        <div class="hero__collage-item hero__collage-item--11"><img src="/images/pdf_fix_p10_img_5.jpg" alt="White Galaxy Granite" /></div>
-        <div class="hero__collage-item hero__collage-item--12"><img src="/images/pdf_page_19_img_138.jpg" alt="Tehri Tunnel Repair" /></div>
+  <section class="section" id="content" aria-labelledby="story-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="story-h">How we build</h2>
+        <p class="lead" style="margin-top:24px">CPS was founded on innovation, ingenuity and purpose, and on a firm belief in meaningful, timely execution.</p>
+        <p style="margin-top:18px">We are judged by what we build and by how we build it: with integrity, precision and a forward-thinking mind. Alongside execution, CPS has grown into civil and structural design and into turnkey project delivery, end to end.</p>
+        <p style="margin-top:18px">Our clients are government and semi-government departments, public sector undertakings, turnkey operators, promoters and builders.</p>
       </div>
-    </div>
-    <div class="page-header__overlay"></div>
-    
-    <div class="container">
-      <h1 class="page-header__title">About Us</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <span>About Us</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Our Story -->
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Our Story</span>
-          <h2 class="section-title">Built on Innovation, Ingenuity & Purpose</h2>
-          <p>
-            CPS is not just a company; it is an institution built on a foundation of innovation, ingenuity, and purpose. With a firm belief in meaningful and timely project execution, CPS stands out for its creative approach, technical excellence, and unwavering commitment to quality.
-          </p>
-          <br/>
-          <p>
-            We take pride in completing complex infrastructure projects with a focus on innovation and client satisfaction. Our work is not only defined by what we build but by how we build it — with integrity, precision, and a forward-thinking mindset.
-          </p>
-          <br/>
-          <p>
-            In addition to project execution, CPS is actively involved in the exploration and advancement of Civil and Structural Design, continually expanding its capabilities through strategic diversification. This progressive outlook has led to our successful foray into Turnkey Project Execution, reflecting our capacity to deliver end-to-end infrastructure solutions.
-          </p>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_2_img_3.png" alt="CP Systems Project Infrastructure" />
-        </div>
+      <div class="split__b ab__media" data-gallery>
+        <Clip name="tehri-epoxy-batching" caption="Epoxy mortar batching for the Tehri tunnel repair" />
+        <Photo src="/images/slide_32_img_0.jpg" caption="The Tehri tunnel works" ratio="ratio-32" showCaption />
       </div>
     </div>
   </section>
 
-  <!-- Recognition -->
-  <section class="section section--beige">
-    <div class="container">
-      <div class="content-block content-block--reverse animate-on-scroll">
-        <div>
-          <span class="section-label">Recognition</span>
-          <h2 class="section-title">Nationally Recognized Excellence</h2>
-          <p>
-            Our dedication to excellence has been recognized nationally with the <strong>"Udyog Ratan Award"</strong> and <strong>"Excellence Award"</strong> in 2000–2001, reinforcing our reputation as a reliable and visionary partner in the infrastructure sector.
-          </p>
-          <br/>
-          <p>
-            At the core of CPS lies a team of highly skilled and experienced professionals. The strength of our workforce is reflected in its versatility of expertise, ranging from Civil, Anti-Corrosive, Mechanical, and Electrical Works Execution. Our team members bring with them a wealth of technical and practical knowledge, gained through years of service with leading infrastructure companies.
-          </p>
-          <br/>
-          <p>
-            We attribute our success to the exceptional caliber of our personnel, many of whom have been associated with top-tier organizations, shaping the infrastructure development map of the nation.
-          </p>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_2_img_1.jpg" alt="MD with King of Bhutan" />
-        </div>
+  <section class="section field-navy" aria-labelledby="people-h">
+    <div class="wrap split">
+      <div class="split__a" data-gallery>
+        <Photo src="/images/pdf_page_2_img_1.jpg" caption="Sanjay Shandilya, CMD, with His Majesty the King of Bhutan" ratio="ratio-45" showCaption />
+      </div>
+      <div class="split__b" data-reveal>
+        <h2 id="people-h">Led from the site</h2>
+        <p class="lead" style="margin-top:24px;color:var(--on-navy)">Under Sanjay Shandilya, CMD, CP Systems has grown from a specialist contractor into a multi-disciplinary infrastructure company working across India and in Bhutan.</p>
+        <p style="margin-top:18px;color:var(--on-navy)">The team covers civil, anti-corrosive, mechanical and electrical execution. Many of our people came from leading infrastructure companies and helped shape the country's infrastructure map before joining CPS.</p>
       </div>
     </div>
   </section>
 
-  <!-- Vision & Growth -->
-  <section class="section">
-    <div class="container" style="text-align: center;">
-      <span class="section-label" style="justify-content: center;">Our Vision</span>
-      <h2 class="section-title">Delivering Exceptional Value</h2>
-      <p class="section-desc" style="margin: 0 auto 40px; text-align: center;">
-        The vision of CPS is to attain maximum heights in the industry — to become an industry leader delivering exceptional value through innovation, integrity, and excellence.
-      </p>
-
-      <div class="grid grid--4" style="margin-top: 40px;">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🌎</div>
-          <h4 class="service-card__title">New Markets</h4>
-          <p class="service-card__desc">Expanding reach to new geographies and sectors</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🤝</div>
-          <h4 class="service-card__title">Strong Partnerships</h4>
-          <p class="service-card__desc">Growing together with clients and partners</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">👷</div>
-          <h4 class="service-card__title">Skilled Team</h4>
-          <p class="service-card__desc">Powered by experienced professionals</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">✅</div>
-          <h4 class="service-card__title">Reliable Quality</h4>
-          <p class="service-card__desc">Trusted always for timely, quality delivery</p>
-        </div>
+  <section class="section" aria-labelledby="award-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="award-h">Udyog Ratan and Excellence Awards</h2>
+        <p class="lead" style="margin-top:24px">Recognised nationally in 2000–01 with the Udyog Ratan Award and the Excellence Award.</p>
+        <p style="margin-top:18px">Our aim is to reach the top of the industry by delivering exceptional value: new markets, strong partnerships, a skilled team and quality clients can rely on.</p>
+      </div>
+      <div class="split__b" data-gallery>
+        <Photo src="/images/pdf_page_2_img_2.jpg" caption="The Udyog Ratan Award and Excellence Award presented to Sanjay Shandilya" ratio="ratio-32" showCaption />
       </div>
     </div>
   </section>
 
-  <!-- Leadership -->
-  <section class="section section--navy">
-    <div class="container" style="text-align: center;">
-      <span class="section-label">Leadership</span>
-      <h2 class="section-title" style="color: var(--white);">Spearheaded by Vision</h2>
-      <p style="color: rgba(255,255,255,0.7); max-width: 700px; margin: 0 auto 40px; font-size: 1.05rem;">
-        Under the leadership of <strong style="color: var(--gold);">Mr. Sanjay Shandilya, CMD</strong>, CP Systems has grown from a specialized contractor to a multi-faceted infrastructure company operating across India and in Bhutan.
-      </p>
-      <div class="content-block__image" style="max-width: 500px; margin: 0 auto;">
-        <img src="/images/pdf_page_2_img_2.jpg" alt="Udyog Ratan Award" style="border-radius: 12px;" />
+  <section class="section field-surface" aria-labelledby="g-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="g-h">Growth, year by year</h2>
+        <p class="lead" style="margin-top:24px">Turnover rose 154.7% in FY 2023–24 and another 130.9% in FY 2024–25, driven by new markets, partnerships, skilled teams and reliable quality.</p>
       </div>
-      <p style="color: rgba(255,255,255,0.5); margin-top: 16px; font-size: 0.85rem;">
-        Udyog Rattan Award and Excellence Award being presented to Mr. Sanjay Shandilya, Managing Director, CP Systems Pvt. Ltd.
-      </p>
+      <figure class="split__b bars" aria-label="Turnover in crore rupees by financial year">
+        {growth.map((g) => (
+          <div class="bar" style={`--v:${g.value / max}`}>
+            <span class="bar__val">₹{g.value} Cr</span>
+            <span class="bar__fill"></span>
+            <span class="bar__year">{g.year}</span>
+          </div>
+        ))}
+      </figure>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section" style="text-align: center;">
-    <div class="container">
-      <h2 class="section-title">Ready to Build Together?</h2>
-      <p class="section-desc" style="margin: 0 auto 30px; text-align: center;">
-        Partner with CP Systems for your next infrastructure project. Our experience across diverse sectors and geographies ensures reliable, timely execution.
-      </p>
-      <a href="/contact/" class="btn btn--gold">Get In Touch →</a>
+  <section class="section field-navy" aria-labelledby="cta-h">
+    <div class="wrap split">
+      <h2 id="cta-h" class="split__a" data-reveal><span>Ready to build together?</span></h2>
+      <div class="split__b" data-reveal>
+        <p class="lead" style="color:var(--on-navy)">Tell us about the site, the window and the problem. We will tell you how we would do it.</p>
+        <a class="btn" href="/contact/" style="margin-top:28px">Discuss a project</a>
+      </div>
     </div>
   </section>
-
-  <Footer />
 </BaseLayout>
+
+<style>
+  .ab__media { display: grid; gap: 32px; }
+  .bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); align-items: end; height: 380px; }
+  .bar { display: grid; grid-template-rows: auto 1fr auto; height: 100%; gap: 10px; }
+  .bar__val { font-weight: 800; font-size: 1.375rem; color: var(--navy); font-variant-numeric: tabular-nums; align-self: end; }
+  .bar__fill { align-self: end; height: calc(var(--v) * 100%); min-height: 8px; background: var(--navy); transform-origin: bottom; }
+  .bar:last-child .bar__fill { background: var(--gold); }
+  .bar__year { font-size: var(--t-small); font-weight: 600; color: var(--muted); }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .bars .bar__fill { transform: scaleY(0); transition: transform 1100ms var(--ease-out); }
+    .js .bars.is-in .bar__fill { transform: none; }
+    .js .bars.is-in .bar:nth-child(2) .bar__fill { transition-delay: 120ms; }
+    .js .bars.is-in .bar:nth-child(3) .bar__fill { transition-delay: 240ms; }
+  }
+</style>
+
+<script>
+  const bars = document.querySelector('.bars');
+  if (bars) {
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { bars.classList.add('is-in'); io.disconnect(); } }, { threshold: 0.3 });
+    io.observe(bars);
+  }
+</script>

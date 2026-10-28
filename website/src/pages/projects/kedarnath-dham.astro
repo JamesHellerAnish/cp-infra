@@ -1,93 +1,65 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Clip from '../../components/Clip.astro';
+import Photo from '../../components/Photo.astro';
+import Gallery from '../../components/Gallery.astro';
+import NextProjects from '../../components/NextProjects.astro';
+
+const scope = [
+  'Excavation', 'Concreting', 'Cutting, binding and fixing reinforcement', 'Formwork',
+  'Structural steel trusses', 'False ceilings', 'Tile, Kota stone and granite', 'Doors, windows and ventilators',
+  'Stone cladding', 'Plumbing', 'Electrical work', 'Painting and finishing',
+];
 ---
 
-<BaseLayout title="Kedarnath Dham Project — CP Systems" description="Construction of Pilgrim Accommodation Block Q2Q at Shri Kedarnath Dham in extreme Himalayan terrain.">
-  <Header />
+<BaseLayout title="Kedarnath Dham — CP Systems" description="Pilgrim accommodation blocks Q2Q and Q1N at Shri Kedarnath Dham, built from excavation to finishing in Himalayan conditions.">
+  <PageHero
+    title="Kedarnath Dham"
+    lead="Pilgrim accommodation at Shri Kedarnath Dham, taken from excavation to the last coat of paint in a short Himalayan season."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }, { label: 'Kedarnath Dham' }]}
+    image="/images/expansion/kedarnath_q1n_1.jpg"
+    imageAlt="Pilgrim accommodation block Q1N at Kedarnath"
+    facts={[
+      { label: 'Blocks', value: 'Q2Q and Q1N' },
+      { label: 'Category', value: 'Civil & mechanical' },
+      { label: 'Location', value: 'Kedarnath, Uttarakhand' },
+    ]}
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Kedarnath Dham</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Kedarnath Dham</span>
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">Rooms for pilgrims at 3,583 m</h2>
+        <p class="lead" style="margin-top:24px">Blocks Q2Q and Q1N give pilgrims somewhere warm to sleep at one of India's most sacred sites.</p>
+        <p style="margin-top:18px">Every bag of cement and length of steel came up the valley; altitude and weather made the programme short and the work technically demanding. CPS did all of it, structure to finish.</p>
+        <ul class="scope" style="margin-top:32px">{scope.map((s) => <li>{s}</li>)}</ul>
       </div>
-    </div>
-  </div>
-
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Project Overview</span>
-          <h2 class="section-title">Pilgrim Accommodation at Kedarnath Dham</h2>
-          <p>
-            Construction of Pilgrim Accommodation Blocks Q2Q and Q1N at Shri Kedarnath Dham — one of India's most sacred pilgrimage sites. The projects demanded construction in challenging Himalayan terrain with extreme altitude and weather conditions, making them time-sensitive and technically complex endeavors.
-          </p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Category</strong><br/>
-              <span>Civil & Mechanical Works</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Location</strong><br/>
-              <span>Kedarnath, Uttarakhand</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_13_img_112.jpg" alt="Kedarnath Dham Project" />
-        </div>
+      <div class="split__b kd__media" data-gallery>
+        <Clip name="kedarnath-slab" />
+        <Clip name="kedarnath-finishes" />
+        <Photo src="/images/pdf_page_14_img_116.jpg" caption="Inside a finished room, Block Q2Q" ratio="ratio-45" showCaption class="kd__wide" />
       </div>
     </div>
   </section>
 
-  <section class="section section--beige">
-    <div class="container">
-      <span class="section-label">Scope of Work</span>
-      <h2 class="section-title">Construction Activities</h2>
-      <div class="grid grid--2" style="margin-top: 30px;">
-        <ul class="scope-list">
-          <li>Excavation</li>
-          <li>Concreting</li>
-          <li>Cutting, binding and fixing of reinforcement steel</li>
-          <li>Formwork of structure</li>
-          <li>Construction of truss using structural steel</li>
-          <li>False ceiling work</li>
-        </ul>
-        <ul class="scope-list">
-          <li>Tile, Kota, and Granite work</li>
-          <li>Fixing of doors, windows and ventilators</li>
-          <li>Stone cladding work</li>
-          <li>Plumbing work</li>
-          <li>Electrical work</li>
-          <li>Painting & finishing work</li>
-        </ul>
-      </div>
-    </div>
+  <section class="section field-navy" aria-label="Photographs of Block Q2Q">
+    <Gallery as="h2" title="Q2Q, frame to finish" items={[
+      { src: '/images/pdf_page_14_img_118.jpg', caption: 'Block Q2Q frame going up, mixer on the slab' },
+      { src: '/images/pdf_page_13_img_113.jpg', caption: 'Kedarnath temple under winter snow', tall: true },
+      { src: '/images/pdf_page_13_img_112.jpg', caption: 'Block Q2Q facade', tall: true },
+      { src: '/images/pdf_page_13_img_115.jpg', caption: 'Stone-clad facade and timber windows', tall: true },
+      { src: '/images/pdf_page_14_img_117.jpg', caption: 'Facade, Block Q2Q', tall: true },
+      { src: '/images/pdf_page_13_img_114.jpg', caption: 'Finished veranda with stone flooring', tall: true },
+      { src: '/images/expansion/kedarnath_q1n_2.jpg', caption: 'Block Q1N facade', tall: true },
+      { src: '/images/expansion/kedarnath_q1n_3.jpg', caption: 'Block Q1N veranda', tall: true },
+    ]} />
   </section>
 
-  <section class="section section--navy">
-    <div class="container">
-      <span class="section-label">Project Gallery</span>
-      <h2 class="section-title" style="color: var(--white);">Block Q2Q Construction Progress</h2>
-      <div class="grid grid--3" style="margin-top: 30px;">
-        <div class="gallery-item"><img src="/images/pdf_page_13_img_113.jpg" alt="Kedarnath Construction 1" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_13_img_114.jpg" alt="Kedarnath Construction 2" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_13_img_115.jpg" alt="Kedarnath Construction 3" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_14_img_116.jpg" alt="Kedarnath Building 1" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_14_img_117.jpg" alt="Kedarnath Building 2" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_14_img_118.jpg" alt="Kedarnath Building 3" /></div>
-      </div>
-    </div>
-  </section>
-
-  <Footer />
+  <NextProjects current="/projects/kedarnath-dham/" />
 </BaseLayout>
 
 <style>
-  .gallery-item { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
-  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.05); }
+  .kd__media { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .kd__media :global(.kd__wide) { grid-column: 1 / -1; }
 </style>

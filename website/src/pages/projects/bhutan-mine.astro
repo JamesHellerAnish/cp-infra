@@ -1,106 +1,110 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Clip from '../../components/Clip.astro';
+import Photo from '../../components/Photo.astro';
+import GranitePicker from '../../components/GranitePicker.astro';
+import NextProjects from '../../components/NextProjects.astro';
 ---
 
-<BaseLayout title="Bhutan Granite Mine — CP Systems" description="85-acre granite mine in Wangdue, Bhutan with 8 Million MT reserves. Home of the premium CP-DRUK White Galaxy granite.">
-  <Header />
+<BaseLayout title="Bhutan Granite Mine — CP Systems" description="An 85-acre granite mine in Wangdue, Bhutan, run by Karma CP Systems, producing CP-DRUK White Galaxy granite.">
+  <PageHero
+    title="Bhutan Granite Mine"
+    lead="Eighty-five acres of white granite above the Wangdue valley, quarried by wire saw and finished at our own processing unit."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }, { label: 'Bhutan Granite Mine' }]}
+    clip="bhutan-blocks-valley"
+    facts={[
+      { label: 'Area', value: 'About 85 acres' },
+      { label: 'Reserves', value: '8 million MT' },
+      { label: 'Product', value: 'CP-DRUK White Galaxy' },
+      { label: 'Processing unit', value: '5 acres, Tagena' },
+    ]}
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Bhutan Granite Mine</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Bhutan Mine</span>
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">From the bench to the slab</h2>
+        <p class="lead" style="margin-top:24px">The mine is run by Karma CP Systems Private Limited, a CP Systems subsidiary, and produces CP-DRUK White Galaxy for flooring, countertops and facades.</p>
+        <p style="margin-top:18px">Blocks are freed from the face with diamond wire saws, squared on the bench, stacked for dispatch and cut into slabs on gang saws at Tagena.</p>
       </div>
-    </div>
-  </div>
-
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Mining Operations</span>
-          <h2 class="section-title">Bhutan Granite Mine, Wangdue</h2>
-          <p>
-            Operated by <strong>Karma CP Systems Private Limited</strong>, a subsidiary of CP Systems, the Bhutan Granite Mine is located in the Wangdue area and produces the premium <strong>CP-DRUK White Galaxy</strong> granite — a highly sought-after white granite used for flooring, countertops, facades, and custom applications worldwide.
-          </p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Area</strong><br/>
-              <span>Approx. 85 Acres</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Reserves</strong><br/>
-              <span>8 Million MT</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Product</strong><br/>
-              <span>CP-DRUK White Galaxy</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Processing Unit</strong><br/>
-              <span>5 Acres, Tagena Wangdue</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_fix_p6_img_1.jpg" alt="Bhutan Mine" />
-        </div>
+      <div class="split__b bt__pair" data-gallery>
+        <Clip name="bhutan-wire-saw" />
+        <Clip name="granite-processing" />
       </div>
     </div>
   </section>
 
-  <!-- Gallery -->
-  <section class="section section--beige">
-    <div class="container">
-      <span class="section-label">Mine Gallery</span>
-      <h2 class="section-title">Operations & Processing</h2>
-      <div class="grid grid--3" style="margin-top: 30px;">
-        <div class="gallery-item"><img src="/images/pdf_page_6_img_73.jpg" alt="Bhutan Mine 1" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_6_img_74.jpg" alt="Bhutan Mine 2" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_6_img_75.jpg" alt="Bhutan Mine 3" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_6_img_76.jpg" alt="Bhutan Mine 4" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_6_img_77.jpg" alt="Bhutan Mine 5" /></div>
-        <div class="gallery-item"><img src="/images/pdf_page_7_img_78.jpg" alt="Bhutan Stone Products" /></div>
+  <section class="section field-navy" aria-labelledby="q-h">
+    <div class="wrap">
+      <h2 id="q-h" data-reveal><span>A day on the quarry</span></h2>
+      <div class="bt__grid" data-gallery>
+        <Clip name="bhutan-quarry-face" class="bt__a" />
+        <Clip name="bhutan-bench" class="bt__b" />
+        <Clip name="bhutan-stockyard" class="bt__c" />
+        <Clip name="bhutan-overlook" class="bt__d" />
+        <Photo src="/images/pdf_page_6_img_76.jpg" caption="Excavator turning a block off the face" ratio="ratio-169" showCaption class="bt__e" />
+        <Photo src="/images/pdf_page_6_img_75.jpg" caption="A block freed from the face" ratio="ratio-169" showCaption class="bt__f" />
+        <Photo src="/images/pdf_page_6_img_73.jpg" caption="Squared blocks ready for dispatch" ratio="ratio-169" showCaption class="bt__g" />
       </div>
     </div>
   </section>
 
-  <!-- Crafted Products -->
-  <section class="section">
-    <div class="container" style="text-align: center;">
-      <span class="section-label" style="justify-content: center;">Crafted Products</span>
-      <h2 class="section-title">Articles Crafted from Bhutan Mine</h2>
-      <p class="section-desc" style="margin: 0 auto 30px; text-align: center;">
-        Handcrafted sculptures and artisanal products carved from our premium Bhutan granite — perfect for homes, gardens, meditation zones, and cultural spaces.
-      </p>
-      <div class="grid grid--4" style="margin-top: 20px;">
-        <div class="granite-card animate-on-scroll">
-          <img src="/images/pdf_page_7_img_79.jpg" alt="Crafted 1" class="granite-card__img" />
-          <div class="granite-card__info"><div class="granite-card__name">Spiritual Icons</div></div>
-        </div>
-        <div class="granite-card animate-on-scroll">
-          <img src="/images/pdf_page_7_img_80.jpg" alt="Crafted 2" class="granite-card__img" />
-          <div class="granite-card__info"><div class="granite-card__name">Custom Designs</div></div>
-        </div>
-        <div class="granite-card animate-on-scroll">
-          <img src="/images/pdf_page_7_img_81.jpg" alt="Crafted 3" class="granite-card__img" />
-          <div class="granite-card__info"><div class="granite-card__name">Bespoke Art</div></div>
-        </div>
-        <div class="granite-card animate-on-scroll">
-          <img src="/images/pdf_page_7_img_78.jpg" alt="Crafted 4" class="granite-card__img" />
-          <div class="granite-card__info"><div class="granite-card__name">Buddha Statues</div></div>
-        </div>
+  <section class="section" aria-labelledby="unit-h">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <h2 id="unit-h" class="split__a">The Tagena processing unit</h2>
+        <p class="lead split__b">Five acres in a forested fold of the valley, with a gantry yard for blocks, a cutting shed and stock of finished White Galaxy slabs.</p>
+      </div>
+      <div class="unit" data-gallery>
+        <Photo src="/images/bhutan-factory/unit-in-valley.jpg" caption="The processing unit at Tagena, Wangdue" ratio="ratio-169" showCaption class="unit__a" />
+        <Photo src="/images/bhutan-factory/yard-gantry.jpg" caption="Gantry crane over the block yard" ratio="ratio-169" showCaption />
+        <Photo src="/images/bhutan-factory/finished-slabs.jpg" caption="Finished White Galaxy slabs in the shed" ratio="ratio-169" showCaption />
+        <Photo src="/images/bhutan-factory/cut-blocks.jpg" caption="Cut pieces stacked for dispatch" ratio="ratio-169" showCaption />
+        <Photo src="/images/bhutan-factory/processing-shed.jpg" caption="The cutting shed" ratio="ratio-169" showCaption />
       </div>
     </div>
   </section>
 
-  <Footer />
+  <section class="section field-surface" aria-label="CP-DRUK White Galaxy granite">
+    <div class="wrap">
+      <GranitePicker only={['white-galaxy']} title="CP-DRUK White Galaxy" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="craft-h">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <h2 id="craft-h" class="split__a">Carved from the same stone</h2>
+        <p class="lead split__b">Basins, stupas and panels carved from Bhutan granite, for homes, gardens, meditation spaces and cultural buildings.</p>
+      </div>
+      <div class="craft" data-gallery>
+        <Photo src="/images/pdf_page_7_img_80.jpg" caption="Granite stupa" ratio="ratio-45" showCaption />
+        <Photo src="/images/pdf_page_7_img_79.jpg" caption="Granite wash basin" ratio="ratio-45" showCaption />
+        <Photo src="/images/pdf_page_7_img_81.jpg" caption="Carved granite panels" ratio="ratio-45" showCaption />
+        <Photo src="/images/pdf_page_7_img_78.jpg" caption="Granite garden table and benches" ratio="ratio-45" showCaption />
+      </div>
+    </div>
+  </section>
+
+  <NextProjects current="/projects/bhutan-mine/" />
 </BaseLayout>
 
 <style>
-  .gallery-item { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
-  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.05); }
+  .bt__pair { display: grid; gap: var(--gap); }
+  .bt__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 40px var(--gap); margin-top: 56px; }
+  .bt__grid > :global(.bt__a) { grid-column: 1 / span 4; }
+  .bt__grid > :global(.bt__b) { grid-column: 5 / span 2; align-self: end; }
+  .bt__grid > :global(.bt__c) { grid-column: 1 / span 2; }
+  .bt__grid > :global(.bt__d) { grid-column: 3 / span 4; }
+  .bt__grid > :global(.bt__e), .bt__grid > :global(.bt__f), .bt__grid > :global(.bt__g) { grid-column: span 2; }
+  .unit { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px var(--gap); margin-top: 48px; }
+  .unit > :global(.unit__a) { grid-column: 1 / span 4; }
+  @media (max-width: 900px) { .unit { grid-template-columns: 1fr 1fr; } .unit > :global(.unit__a) { grid-column: 1 / -1; } }
+  .craft { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: 48px; }
+  @media (max-width: 900px) {
+    .bt__grid { grid-template-columns: 1fr 1fr; }
+    .bt__grid > :global(*) { grid-column: span 2 !important; }
+    .craft { grid-template-columns: 1fr 1fr; }
+  }
 </style>
