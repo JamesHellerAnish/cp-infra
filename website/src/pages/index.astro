@@ -6,7 +6,7 @@ import clips from '../data/clips.json';
 
 const reel = clips['home-reel'];
 
-// The reel is five four-second shots; the label under the headline follows them.
+// The reel is five four-second shots; the label in the hero's corner follows them.
 const shots = [
   { at: 0, name: 'Badrinath Dham', what: 'building an approach into the Alaknanda', href: '/projects/badrinath-dham/' },
   { at: 4, name: 'Hailang Dam', what: 'coffer dam of boulder-filled MS boxes', href: '/projects/hailang-dam/' },
@@ -15,12 +15,25 @@ const shots = [
   { at: 16, name: 'Badrinath Dham', what: 'a crew crossing the river in a bucket', href: '/projects/badrinath-dham/' },
 ];
 
-const showcase = [
-  { name: 'Tehri Dam', clip: 'tehri-ramp-concreting', line: 'Dredging, baffle wall, HRT/TRT and intake repair', fact: '2.5 lakh cum dredged in two shutdowns', thumb: '/images/pdf_page_20_img_142.jpg', href: '/projects/tehri-dam/' },
-  { name: 'Badrinath Dham', clip: 'badrinath-bucket-crossing', line: 'Riverfronts A and F1, a footbridge, a civic centre', fact: 'Foundations 5–7 m below the riverbed', thumb: '/images/slide_93_img_2.jpg', href: '/projects/badrinath-dham/' },
-  { name: 'Hailang Dam', clip: 'hailang-cofferdam-aerial', line: 'Gate groove restoration, VPHEP 444 MW', fact: 'Repaired against 50–60 cumec of flow', thumb: '/images/slide_10_img_1.jpg', href: '/projects/hailang-dam/' },
-  { name: 'Bhutan Granite Mine', clip: 'bhutan-wire-saw', line: 'CP-DRUK White Galaxy, Wangdue', fact: '8 million MT of reserves on 85 acres', thumb: '/images/pdf_fix_p6_img_1.jpg', href: '/projects/bhutan-mine/' },
+const specialities = [
+  { name: 'Hydropower & river dredging', what: 'Dredging, tunnel and spillway repair, gate grooves, grouting and epoxy, usually inside a shutdown.', img: '/media/posters/tehri-dredging.jpg', alt: 'Dredging the Bhagirathi below Tehri Dam', href: '/speciality/hydropower/' },
+  { name: 'Civil & mechanical works', what: 'Riverfronts, pilgrim buildings, treatment plants, pipeline coating and fire protection.', img: '/media/posters/badrinath-riverfront-wall.jpg', alt: 'Riverfront wall at Badrinath', href: '/speciality/civil/' },
+  { name: 'Mining & exploration', what: 'Granite quarried in Bhutan and Rajasthan, then cut and finished in our own units.', img: '/media/posters/bhutan-wire-saw.jpg', alt: 'Wire saw cutting granite in Bhutan', href: '/speciality/mining/' },
+];
+
+const flagship = [
+  { name: 'Tehri Dam', clip: 'tehri-ramp-concreting', line: 'Dredging, baffle wall, HRT/TRT and intake repair', fact: '2.5 lakh cum dredged in two shutdowns', href: '/projects/tehri-dam/' },
+  { name: 'Badrinath Dham', clip: 'badrinath-bucket-crossing', line: 'Riverfronts A and F1, a footbridge, a civic centre', fact: 'Foundations 5–7 m below the riverbed', href: '/projects/badrinath-dham/' },
+  { name: 'Hailang Dam', clip: 'hailang-cofferdam-aerial', line: 'Gate groove restoration, VPHEP 444 MW', fact: 'Repaired against 50–60 cumec of flow', href: '/projects/hailang-dam/' },
+  { name: 'Bhutan Granite Mine', clip: 'bhutan-wire-saw', line: 'CP-DRUK White Galaxy, Wangdue', fact: '8 million MT of reserves on 85 acres', href: '/projects/bhutan-mine/' },
 ] as const;
+
+const more = [
+  { name: 'Kedarnath Dham', place: 'Uttarakhand, 3,583 m', what: 'Pilgrim accommodation blocks Q2Q and Q1N, built between snowfalls.', img: '/images/expansion/kedarnath_q1n_1.jpg', alt: 'Pilgrim accommodation block at Kedarnath', href: '/projects/kedarnath-dham/' },
+  { name: 'Kekri Granite Mine', place: 'Rajasthan', what: 'Steel Grey, Black Galaxy and Red Galaxy, processed at Rajsamand.', img: '/images/pdf_page_9_img_90.jpg', alt: 'Granite blocks in the Kekri quarry', href: '/projects/kekri-mine/' },
+  { name: 'Koteshwar, Maneri Bhali, Tapovan', place: 'Uttarakhand and J&K', what: 'Slope stabilisation, spillway and roller bucket repair, a TBM freed by grouting.', img: '/images/other_projects/maneri_bhali_1.jpg', alt: 'Spillway repair at Maneri Bhali', href: '/projects/other/' },
+  { name: 'Civil works across India', place: 'Delhi, Punjab, Maharashtra, MP', what: 'Expressway fire protection, CETPs, 294 km of pipeline coating, refinery insulation.', img: '/media/posters/noida-building.jpg', alt: 'Column and slab work on a building in Noida', href: '/speciality/civil/' },
+];
 
 // Working windows, January 2023 = month 0. Dates are from the project records.
 const MONTHS = 30;
@@ -33,6 +46,14 @@ const windows = [
   { id: 'w-intake', site: 'Tehri Dam', job: 'Epoxy treatment, intake structures 1 & 2', from: 28, to: 29, when: '31 May – 14 Jun 2025', image: '/images/slide_39_img_0.jpg', fact: 'Planned for 30 days, handed over in 16', href: '/projects/tehri-dam/#epoxy-intake' },
 ] as const;
 const startMonth = 17;
+
+// Turnover, in crore rupees.
+const turnover = [
+  { year: 'FY 2022–23', cr: 24.3 },
+  { year: 'FY 2023–24', cr: 61.9, growth: '+154.7%' },
+  { year: 'FY 2024–25', cr: 143, growth: '+130.9%' },
+];
+const maxCr = 143;
 ---
 
 <BaseLayout title="CP Systems Pvt. Ltd. — Dams, tunnels, riverfronts and mines since 1999">
@@ -44,63 +65,89 @@ const startMonth = 17;
         <source src={reel.src} type="video/mp4" />
       </video>
     </div>
-    <div class="hero__sky wrap">
-      <h1 id="hero-title">Dams, tunnels,<br />rivers and rock</h1>
-      <p class="hero__line">
-        <span>CP Systems builds, repairs, dredges and quarries</span>
-        <span>in the Himalaya, Rajasthan and Bhutan.</span>
-      </p>
-    </div>
-    <div class="hero__foot wrap">
-      <a class="hero__now" id="heroNow" href={shots[0].href}>
-        <span class="hero__now-name">{shots[0].name}</span>
-        <span class="hero__now-what">{shots[0].what}</span>
-      </a>
-      <button class="hero__pause" id="heroPause" type="button" aria-label="Pause the site reel">Pause reel</button>
+    <div class="hero__body wrap">
+      <div class="hero__text">
+        <h1 id="hero-title">Dams, tunnels,<br />rivers and rock</h1>
+        <p class="hero__lead">CP Systems builds, repairs, dredges and quarries in the Himalaya, Rajasthan and Bhutan, often inside a shutdown or a lean season.</p>
+        <div class="hero__acts">
+          <a class="btn" href="#flagship">See the projects</a>
+          <a class="btn btn--paper" href="/contact/">Discuss a project</a>
+        </div>
+      </div>
+      <div class="hero__side">
+        <a class="hero__now" id="heroNow" href={shots[0].href}>
+          <span class="hero__now-name">{shots[0].name}</span>
+          <span class="hero__now-what">{shots[0].what}</span>
+        </a>
+        <button class="hero__pause" id="heroPause" type="button" aria-label="Pause the site reel">Pause reel</button>
+      </div>
     </div>
   </section>
 
-  <!-- Intro: the company in one paragraph -->
-  <section class="intro section" aria-labelledby="intro-title">
-    <div class="intro__grid wrap">
-      <div class="intro__text" data-reveal>
-        <h2 id="intro-title">Hard ground<br />since 1999</h2>
-        <p class="lead">Established in 1999, CPS works where timing is tight and access is worse: under running rivers, inside tunnels, at 3,000 metres and in the quarry.</p>
-        <p>Our clients are government departments, public sector undertakings such as THDC India, turnkey operators and builders. The work spans civil, anti-corrosive, mechanical and electrical execution, and a growing practice in civil and structural design.</p>
+  <!-- The company in four figures -->
+  <section class="stats field-deep" aria-label="CP Systems in brief">
+    <dl class="stats__list wrap">
+      <div><dt>Established, run from New Delhi</dt><dd>1999</dd></div>
+      <div><dt>Sites and units in India and Bhutan</dt><dd>22</dd></div>
+      <div><dt>Granite reserves in Bhutan and Kekri</dt><dd>9 million MT</dd></div>
+      <div><dt>Award for industrial contribution</dt><dd>Udyog Ratan</dd></div>
+    </dl>
+  </section>
+
+  <!-- Who we are and what we do -->
+  <section class="about section" aria-labelledby="about-title">
+    <div class="about__grid wrap">
+      <div class="about__text" data-reveal>
+        <h2 id="about-title">Hard ground since 1999</h2>
+        <p class="lead">CPS works where timing is tight and access is worse: under running rivers, inside tunnels, at 3,000 metres and in the quarry.</p>
+        <p>Clients are government departments, public sector undertakings such as THDC India, turnkey operators and builders. The work spans civil, anti-corrosive, mechanical and electrical execution, and a growing practice in civil and structural design.</p>
         <a class="link" href="/about/">How CPS works</a>
       </div>
-      <figure class="intro__tall shutter media">
-        <img src="/images/slide_32_img_0.jpg" alt="Gantry crane and lighting inside the Tehri tunnel works" width="1600" height="1200" />
-      </figure>
-      <figure class="intro__small">
-        <div class="media"><img src="/images/pdf_page_20_img_144.jpg" alt="The CPS site team at Tehri" loading="lazy" /></div>
-        <figcaption>The CPS site team at Tehri.</figcaption>
-      </figure>
+      <ul class="about__specs" data-reveal>
+        {specialities.map((s) => (
+          <li>
+            <a class="spec" href={s.href}>
+              <div class="media spec__img"><img src={s.img} alt={s.alt} loading="lazy" /></div>
+              <div class="spec__body">
+                <h3>{s.name}</h3>
+                <p>{s.what}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <!-- Showcase: four sites, each a full screen of its own footage -->
-  {showcase.map((s, i) => (
-    <section class="show" aria-labelledby={`show-${i}`} style={`--col:${i + 1}`}>
-      <div class="show__bg"><Clip name={s.clip} bare ratio="" class="show__clip" /></div>
-      <div class="show__grid wrap">
-        <article class="show__card" data-reveal>
-          <h2 id={`show-${i}`}>{s.name}</h2>
-          <p class="show__line">{s.line}</p>
-          <p class="show__fact">{s.fact}</p>
-          <div class="media show__thumb"><img src={s.thumb} alt="" loading="lazy" /></div>
-          <a class="btn btn--paper show__go" href={s.href}>See the project</a>
-        </article>
+  <!-- Flagship projects: four sites, each with its own footage -->
+  <section class="flag section field-surface" id="flagship" aria-labelledby="flag-title">
+    <div class="wrap">
+      <div class="shead" data-reveal>
+        <h2 id="flag-title">Flagship projects</h2>
+        <p>Four jobs that show the range: a dam in a shutdown, a shrine town on a glacial river, a tunnel under flow, a mine across the border.</p>
       </div>
-    </section>
-  ))}
+      <div class="flag__grid">
+        {flagship.map((f) => (
+          <article class="flag__card">
+            <Clip name={f.clip} bare ratio="ratio-11" class="flag__clip" />
+            <div class="flag__body">
+              <h3><a href={f.href}>{f.name}</a></h3>
+              <p class="flag__line">{f.line}</p>
+              <p class="flag__fact">{f.fact}</p>
+              <a class="flag__go" href={f.href} aria-hidden="true" tabindex="-1">See the project</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- The live thing: working windows, scrubbed month by month -->
   <section class="windows section field-navy" aria-labelledby="win-title">
     <div class="wrap">
-      <div class="windows__head" data-reveal>
+      <div class="shead" data-reveal>
         <h2 id="win-title">Work happens in windows</h2>
-        <p class="lead">Shutdowns, lean seasons and handover dates decide when a crew can stand in the river. Drag through 2023 to 2025 to see where CPS was working.</p>
+        <p>Shutdowns, lean seasons and handover dates decide when a crew can stand in the river. Drag through 2023 to 2025 to see where CPS was working.</p>
       </div>
 
       <div class="windows__body">
@@ -146,88 +193,75 @@ const startMonth = 17;
     </div>
   </section>
 
-  <!-- More work: a loose scatter -->
-  <section class="scatter section" aria-labelledby="more-title">
+  <!-- More of the work, two by two -->
+  <section class="more section" aria-labelledby="more-title">
     <div class="wrap">
-      <h2 id="more-title" data-reveal><span>More of the work</span></h2>
-      <div class="scatter__list">
-        <a class="sc sc--a" href="/projects/kedarnath-dham/" data-reveal>
-          <span class="sc__name">Kedarnath Dham</span>
-          <div class="media"><img src="/images/expansion/kedarnath_q1n_1.jpg" alt="Pilgrim accommodation block at Kedarnath" loading="lazy" /></div>
-          <span class="sc__what">Pilgrim accommodation blocks Q2Q and Q1N, built at 3,583 m between snowfalls.</span>
-        </a>
-        <a class="sc sc--b" href="/projects/bhutan-mine/" data-reveal>
-          <span class="sc__name">Bhutan Granite Mine</span>
-          <div class="media"><img src="/media/posters/bhutan-blocks-valley.jpg" alt="Granite blocks on the bench above the Wangdue valley" loading="lazy" /></div>
-          <span class="sc__what">85 acres, 8 million MT, and a 5-acre processing unit at Tagena.</span>
-        </a>
-        <p class="sc__remark" data-reveal><span>Most of this work happens in water that does not stop for anyone.</span></p>
-        <a class="sc sc--c" href="/projects/kekri-mine/" data-reveal>
-          <span class="sc__name">Kekri Granite Mine</span>
-          <div class="media"><img src="/images/pdf_page_9_img_90.jpg" alt="Granite blocks in the Kekri quarry" loading="lazy" /></div>
-          <span class="sc__what">Steel Grey, Black Galaxy and Red Galaxy, processed at Rajsamand.</span>
-        </a>
-        <a class="sc sc--a" href="/projects/other/" data-reveal>
-          <span class="sc__name">Koteshwar, Maneri Bhali, Tapovan and more</span>
-          <div class="media"><img src="/images/other_projects/maneri_bhali_1.jpg" alt="Spillway repair at Maneri Bhali" loading="lazy" /></div>
-          <span class="sc__what">Slope stabilisation, spillway and roller bucket repair, dam rectification.</span>
-        </a>
-        <a class="sc sc--b" href="/speciality/civil/" data-reveal>
-          <span class="sc__name">Civil works across India</span>
-          <div class="media"><img src="/media/posters/noida-building.jpg" alt="Column and slab work on a building in Noida" loading="lazy" /></div>
-          <span class="sc__what">Expressway fire protection, CETPs, a 294 km pipeline coating, refinery insulation.</span>
-        </a>
+      <div class="shead" data-reveal>
+        <h2 id="more-title">More of the work</h2>
+        <p>Pilgrim buildings, a second granite mine, dam rehabilitation across the Garhwal, and civil and protective work across India.</p>
       </div>
+      <ul class="more__grid" data-reveal>
+        {more.map((m) => (
+          <li>
+            <a class="mc" href={m.href}>
+              <div class="media mc__img"><img src={m.img} alt={m.alt} loading="lazy" /></div>
+              <div class="mc__body">
+                <p class="mc__place">{m.place}</p>
+                <h3>{m.name}</h3>
+                <p class="mc__what">{m.what}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <!-- The figure -->
-  <section class="fig" aria-labelledby="fig-title">
-    <div class="fig__photo media">
-      <img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam and its reservoir" loading="lazy" />
-      <h2 id="fig-title" class="fig__title">Growth</h2>
-      <div class="fig__base wrap">
-        <p class="fig__num"><span data-roll="143">143</span> Cr</p>
-        <p class="fig__say">Turnover in FY 2024–25, in rupees. Two years earlier it was ₹24.3 Cr.</p>
+  <!-- Growth: three years of turnover -->
+  <section class="growth section field-deep" aria-labelledby="growth-title">
+    <div class="growth__grid wrap">
+      <div class="growth__text" data-reveal>
+        <h2 id="growth-title">Growth</h2>
+        <p class="growth__num"><span data-roll="143">143</span> Cr</p>
+        <p>Turnover in FY 2024–25, in rupees: almost six times the ₹24.3 Cr of two years earlier.</p>
       </div>
-    </div>
-    <div class="fig__more wrap" data-reveal>
-      <p><strong>154.7%</strong> growth from FY 2022–23 to FY 2023–24, to ₹61.9 Cr</p>
-      <p><strong>130.9%</strong> growth from FY 2023–24 to FY 2024–25, to ₹143 Cr</p>
+      <ol class="bars" data-reveal aria-label="Turnover by financial year">
+        {turnover.map((t) => (
+          <li class="bars__row">
+            <span class="bars__year">{t.year}</span>
+            <span class="bars__track"><span class="bars__bar" style={`--w:${(t.cr / maxCr) * 100}%`}></span></span>
+            <span class="bars__val">₹{t.cr} Cr{t.growth && <small>{t.growth}</small>}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
   <!-- Where we work -->
   <section class="where section" aria-labelledby="where-title">
     <div class="wrap">
-      <div data-reveal>
+      <div class="shead" data-reveal>
         <h2 id="where-title">Pan India and Bhutan</h2>
-        <p class="lead where__lead">From the shrines of Uttarakhand to granite benches in Wangdue and Kekri, run from a head office in New Delhi.</p>
+        <p>From the shrines of Uttarakhand to granite benches in Wangdue and Kekri, run from a head office in New Delhi. Pick a site to see the work.</p>
       </div>
       <IndiaMap />
-      <div class="where__tiles">
-        <dl class="facts where__facts" style="--cols:4">
-          <div><dt>Established</dt><dd>1999</dd></div>
-          <div><dt>Recognition</dt><dd>Udyog Ratan Award</dd></div>
-          <div><dt>Granite reserves</dt><dd>9 million MT</dd></div>
-          <div><dt>Leadership</dt><dd>Sanjay Shandilya, CMD</dd></div>
-        </dl>
-      </div>
     </div>
   </section>
 
   <!-- Contact -->
   <section class="visit" aria-labelledby="visit-title">
-    <div class="visit__photo media"><img src="/images/pdf_page_20_img_143.jpg" alt="Tehri intake deck with the reservoir behind" loading="lazy" /></div>
-    <div class="visit__card">
-      <h2 id="visit-title">Bring us the hard one</h2>
-      <address>501, Krishna Apra Business Square,<br />Netaji Subhash Place, Pitampura, New Delhi 110034</address>
+    <div class="visit__grid wrap">
+      <div class="visit__head">
+        <h2 id="visit-title">Bring us the hard one</h2>
+        <p>Tell us the site, the window and the problem. We answer within a working day.</p>
+      </div>
+      <address>501, Krishna Apra Business Square,<br />Netaji Subhash Place, Pitampura,<br />New Delhi 110034</address>
       <dl class="visit__rows">
         <div><dt>Office</dt><dd><a href="tel:01140539469">011 4053 9469</a></dd></div>
         <div><dt>Mobile</dt><dd><a href="tel:+919212150206">+91 92121 50206</a></dd></div>
         <div><dt>Email</dt><dd><a href="mailto:info@cp-infra.in">info@cp-infra.in</a></dd></div>
       </dl>
-      <a class="btn visit__btn" href="/contact/">Discuss a project</a>
+      <a class="btn btn--navy visit__btn" href="/contact/">Discuss a project</a>
     </div>
   </section>
 </BaseLayout>
@@ -302,17 +336,16 @@ const startMonth = 17;
 </script>
 
 <style>
-  /* Hero */
-  .hero { position: relative; height: 100svh; min-height: 560px; color: #fff; display: grid; grid-template-rows: 1fr auto; isolation: isolate; background: #08152b; }
+  /* Hero: shorter than the screen, so the figures below it show on arrival */
+  .hero { position: relative; height: min(84svh, 860px); min-height: 540px; color: #fff; display: grid; align-items: end; isolation: isolate; background: #08152b; }
   .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
   .hero__media video { width: 100%; height: 100%; object-fit: cover; }
-  .hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(3, 10, 24, 0.62) 0%, rgba(3, 10, 24, 0.28) 46%, rgba(3, 10, 24, 0.1) 62%, rgba(3, 10, 24, 0.6) 100%); } /* taste-skill-ignore: photo scrim */
-  .hero__sky { text-align: center; padding-top: clamp(120px, 17vh, 180px); }
-  .hero h1 { color: #fff; font-size: clamp(3rem, 7.2vw, 7rem); line-height: 0.92; }
-  .hero__line { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 14vw, 240px); max-width: none; margin-top: clamp(32px, 7vh, 72px); font-size: var(--t-lead); font-weight: 600; line-height: 1.35; }
-  .hero__line span:first-child { text-align: right; }
-  .hero__line span:last-child { text-align: left; }
-  .hero__foot { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: clamp(20px, 3vw, 36px); }
+  .hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(3, 10, 24, 0.82) 0%, rgba(3, 10, 24, 0.42) 42%, rgba(3, 10, 24, 0.08) 70%), linear-gradient(to bottom, rgba(3, 10, 24, 0.55), rgba(3, 10, 24, 0) 160px); } /* taste-skill-ignore: photo scrim */
+  .hero__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 32px; padding-bottom: clamp(28px, 4vw, 56px); }
+  .hero h1 { color: #fff; font-size: clamp(2.75rem, 6.2vw, 6rem); line-height: 0.94; }
+  .hero__lead { margin-top: 24px; max-width: 44ch; font-size: var(--t-lead); font-weight: 500; line-height: 1.45; }
+  .hero__acts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero__side { display: grid; justify-items: end; gap: 14px; text-align: right; }
   .hero__now { display: grid; text-decoration: none; }
   .hero__now-name { font-weight: 800; font-size: var(--t-lead); }
   .hero__now-what { font-size: var(--t-small); color: var(--on-navy-muted); }
@@ -321,151 +354,152 @@ const startMonth = 17;
   .hero__pause { height: 44px; padding: 0 18px; font-weight: 700; font-size: var(--t-small); background: rgba(255, 255, 255, 0.16); color: #fff; transition: background-color var(--t-hover); }
   @media (hover: hover) and (pointer: fine) { .hero__pause:hover { background: var(--gold); color: var(--navy-deep); } .hero__now:hover .hero__now-name { text-decoration: underline; text-decoration-color: var(--gold); } }
   @media (max-width: 760px) {
-    .hero__sky { padding-top: 112px; }
-    .hero h1 { font-size: 12vw; }
-    .hero__line { grid-template-columns: 1fr; gap: 6px; font-size: 1.0625rem; margin-top: 24px; }
-    .hero__line span:first-child, .hero__line span:last-child { text-align: center; }
+    .hero { height: auto; min-height: 88svh; }
+    .hero h1 { font-size: 12.5vw; }
+    .hero__body { grid-template-columns: 1fr; gap: 24px; }
+    .hero__lead { font-size: 1.0625rem; margin-top: 18px; }
+    .hero__acts { margin-top: 24px; }
+    .hero__acts .btn { flex: 1 1 auto; }
+    .hero__side { grid-template-columns: 1fr auto; justify-items: start; align-items: end; text-align: left; }
   }
 
-  /* Intro */
-  .intro__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
-  .intro__text { grid-column: 1 / span 6; grid-row: 1; padding-top: 4vh; position: relative; z-index: 1; }
-  .intro__text h2 { font-size: clamp(2.5rem, 5.4vw, 5.25rem); white-space: nowrap; }
-  .intro__text .lead { margin-top: 32px; max-width: 30ch; }
-  .intro__text p + p { margin-top: 20px; }
-  .intro__text .link { display: inline-block; margin-top: 24px; }
-  .intro__tall { grid-column: 7 / -1; grid-row: 1 / span 2; aspect-ratio: 4 / 5; margin-top: 18vh; margin-right: calc(var(--margin) * -1); }
-  .intro__small { grid-column: 1 / span 4; grid-row: 2; margin-top: 64px; }
-  .intro__small .media { aspect-ratio: 4 / 3; }
-  @media (max-width: 900px) {
-    .intro__text, .intro__tall, .intro__small { grid-column: 1 / -1; grid-row: auto; }
-    .intro__tall { margin: 40px calc(var(--margin) * -1) 0 25%; }
-    .intro__small { width: 60%; margin-top: 32px; }
+  /* Stats strip */
+  .stats__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 var(--gap); padding-block: clamp(22px, 2.4vw, 32px); }
+  .stats__list div { display: flex; flex-direction: column; gap: 4px; align-content: start; padding-left: 18px; box-shadow: inset 3px 0 0 var(--gold); } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
+  .stats__list dd { order: 0; font-size: clamp(1.5rem, 2.4vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: #fff; }
+  .stats__list dt { order: 1; font-size: var(--t-small); line-height: 1.4; color: var(--on-navy-muted); font-weight: 500; }
+  @media (max-width: 900px) { .stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px var(--gap); } }
+
+  /* About and specialities */
+  .about__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); align-items: start; }
+  .about__text { grid-column: 1 / span 4; }
+  .about__text .lead { margin-top: 22px; }
+  .about__text p + p { margin-top: 16px; }
+  .about__text .link { display: inline-block; margin-top: 20px; }
+  .about__specs { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+  .about__specs li { display: flex; }
+  .spec { display: flex; flex-direction: column; width: 100%; text-decoration: none; color: inherit; background: var(--navy); color: #fff; }
+  .spec__img { aspect-ratio: 4 / 3; }
+  .spec__img img { transition: transform 700ms var(--ease-out); }
+  .spec__body { flex: 1; display: grid; align-content: start; gap: 8px; padding: 18px 20px 22px; transition: background-color var(--t-hover), color var(--t-hover); }
+  .spec h3 { color: #fff; font-size: 1.1875rem; display: flex; justify-content: space-between; gap: 12px; transition: color var(--t-hover); }
+  .spec h3::after { content: '→'; color: var(--gold); transition: transform 300ms var(--ease-out), color var(--t-hover); }
+  .spec p { font-size: 0.9375rem; line-height: 1.5; color: var(--on-navy-muted); transition: color var(--t-hover); }
+  @media (hover: hover) and (pointer: fine) {
+    .spec:hover .spec__img img { transform: scale(1.04); }
+    .spec:hover .spec__body { background: var(--gold); }
+    .spec:hover h3, .spec:hover p { color: var(--navy-deep); }
+    .spec:hover h3::after { color: var(--navy-deep); transform: translateX(4px); }
+  }
+  @media (max-width: 1100px) { .about__text, .about__specs { grid-column: 1 / -1; } }
+  @media (max-width: 700px) {
+    .about__specs { grid-template-columns: minmax(0, 1fr); }
+    .spec { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+    .spec__img { aspect-ratio: auto; min-height: 130px; }
+    .spec__body { padding: 14px 16px 16px; gap: 6px; }
+    .spec h3 { font-size: 1.0625rem; }
+    .spec p { font-size: 0.875rem; }
   }
 
-  /* Showcase */
-  .show { position: relative; min-height: 100svh; display: grid; align-items: center; isolation: isolate; color: #fff; }
-  .show__bg { position: absolute; inset: 0; z-index: -1; }
-  .show__bg :global(.clipfig), .show__bg :global(.clip) { width: 100%; height: 100%; }
-  .show__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gap); pointer-events: none; }
-  .show__card { grid-column: var(--col); background: var(--navy); color: #fff; padding: 28px; min-height: 52svh; display: flex; flex-direction: column; gap: 14px; pointer-events: auto; position: relative; z-index: 2; }
-  .show__card h2 { color: #fff; font-size: clamp(1.75rem, 2.4vw, 2.25rem); }
-  .show__line { font-size: var(--t-body); color: var(--on-navy-muted); }
-  .show__fact { font-size: var(--t-body); font-weight: 700; color: var(--gold); }
-  .show__thumb { aspect-ratio: 3 / 2; margin-top: auto; }
-  .show__go { width: 100%; }
-  @media (max-width: 1100px) { .show__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .show__card { grid-column: calc((var(--col) - 1) % 2 + 1); } }
-  @media (max-width: 760px) {
-    .show { align-items: end; min-height: 100svh; }
-    .show__grid { grid-template-columns: 1fr; padding: 0; }
-    .show__card { grid-column: 1; min-height: 46svh; padding: 24px 20px; }
-    .show__thumb { display: none; }
+  /* Flagship projects */
+  .flag__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+  .flag__card { display: flex; flex-direction: column; background: var(--paper); }
+  .flag__body { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 20px; }
+  .flag__body h3 a { text-decoration: none; }
+  .flag__line { font-size: 0.9375rem; line-height: 1.5; }
+  .flag__fact { display: grid; grid-template-columns: 10px 1fr; gap: 10px; font-size: 0.9375rem; font-weight: 700; color: var(--navy); line-height: 1.4; }
+  .flag__fact::before { content: ''; width: 10px; height: 10px; margin-top: 5px; background: var(--gold); }
+  .flag__go { margin-top: auto; padding-top: 10px; font-weight: 700; font-size: 0.9375rem; color: var(--navy); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  @media (hover: hover) and (pointer: fine) { .flag__body h3 a:hover { text-decoration: underline; text-decoration-color: var(--gold); } .flag__go:hover { text-decoration-color: currentColor; } }
+  @media (max-width: 1100px) { .flag__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .flag__card :global(.clip) { aspect-ratio: 16 / 9; } }
+  @media (max-width: 640px) {
+    .flag__grid { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 84%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--margin) * -1); padding-inline: var(--margin); scroll-padding-inline: var(--margin); }
+    .flag__grid::-webkit-scrollbar { display: none; }
+    .flag__card { scroll-snap-align: start; }
+    .flag__card :global(.clip) { aspect-ratio: 4 / 3; }
   }
 
   /* Windows */
-  .windows__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px var(--gap); align-items: end; }
-  .windows__head h2 { grid-column: 1 / span 6; font-size: clamp(2.5rem, 5vw, 4.75rem); }
-  .windows__head .lead { grid-column: 8 / span 5; color: var(--on-navy-muted); }
-  .windows__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 48px var(--gap); margin-top: 64px; align-items: start; }
-  .gantt { grid-column: 1 / span 7; position: relative; display: grid; gap: 10px; --cell: calc(100% / var(--months)); }
+  .windows .shead p { color: var(--on-navy-muted); }
+  .windows__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); align-items: start; }
+  .gantt { grid-column: 1 / span 7; position: relative; display: grid; gap: 8px; --cell: calc(100% / var(--months)); }
   .gantt__years, .gantt__row { display: grid; grid-template-columns: repeat(var(--months), minmax(0, 1fr)); }
   .gantt__years span { font-weight: 700; font-size: var(--t-small); color: var(--on-navy-muted); padding: 6px 0; box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.18); padding-left: 8px; } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
-  .gantt__row { position: relative; min-height: 64px; align-items: end; background: rgba(255, 255, 255, 0.05); }
-  .gantt__label { position: absolute; top: 8px; left: 10px; font-size: var(--t-small); font-weight: 600; color: var(--on-navy-muted); }
-  .gantt__bar { height: 24px; margin: 0 1px 10px; background: rgba(255, 180, 0, 0.42); transition: background-color var(--t-hover), transform 160ms var(--ease-out); }
+  .gantt__row { position: relative; min-height: 54px; align-items: end; background: rgba(255, 255, 255, 0.05); }
+  .gantt__label { position: absolute; top: 6px; left: 10px; font-size: var(--t-small); font-weight: 600; color: var(--on-navy-muted); }
+  .gantt__bar { height: 20px; margin: 0 1px 8px; background: rgba(255, 180, 0, 0.42); transition: background-color var(--t-hover), transform 160ms var(--ease-out); }
   .gantt__bar.is-on { background: var(--gold); }
   .gantt__bar:active { transform: scaleY(0.85); }
   @media (hover: hover) and (pointer: fine) { .gantt__bar:hover { background: var(--gold-strong); } }
-  .gantt__scrub { margin-top: 18px; }
-  .gantt__month { display: block; font-size: var(--t-lead); font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .gantt__scrub { margin-top: 14px; }
+  .gantt__month { display: block; font-size: var(--t-lead); font-weight: 800; color: #fff; margin-bottom: 6px; }
   .gantt__scrub input { width: 100%; height: 44px; accent-color: var(--gold); cursor: ew-resize; }
   .gantt__head { position: absolute; top: 0; bottom: 92px; left: calc((var(--m) + 0.5) * 100% / var(--months)); width: 3px; margin-left: -1px; background: #fff; pointer-events: none; transition: left 160ms var(--ease-out); }
-  .windows__panel { grid-column: 9 / span 4; }
+  .windows__panel { grid-column: 8 / span 5; }
   .win[hidden] { display: none; }
   .win { animation: winIn 420ms var(--ease-out); }
   @keyframes winIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  .win__media { margin-bottom: 20px; }
-  .win__when { font-weight: 700; color: var(--gold); margin-bottom: 6px; }
-  .win h3 { color: #fff; margin-bottom: 12px; }
+  .win__media { margin-bottom: 16px; }
+  .win__when { font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .win h3 { color: #fff; margin-bottom: 8px; }
   .win p { color: var(--on-navy); }
-  .win .link { display: inline-block; margin-top: 16px; }
+  .win .link { display: inline-block; margin-top: 12px; }
   @media (prefers-reduced-motion: reduce) { .win, .hero__now.is-swap { animation: none; } }
-  @media (max-width: 1000px) {
-    .windows__head h2, .windows__head .lead, .gantt, .windows__panel { grid-column: 1 / -1; }
-  }
+  @media (max-width: 1000px) { .gantt, .windows__panel { grid-column: 1 / -1; } }
 
-  /* Scatter */
-  .scatter h2 { font-size: clamp(2rem, 2.8vw, 2.5rem); }
-  .scatter__list { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); margin-top: 64px; }
-  .sc { display: grid; align-self: start; align-content: start; gap: 0; text-decoration: none; color: inherit; }
-  .sc .media { order: 0; }
-  .sc__name, .sc__what { background: var(--navy); transition: background-color var(--t-hover), color var(--t-hover); }
-  .sc__name { order: 1; display: flex; justify-content: space-between; gap: 16px; padding: 18px 20px 4px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.015em; color: #fff; }
-  .sc__name::after { content: '→'; color: var(--gold); transition: transform 300ms var(--ease-out); }
-  .sc__what { order: 2; padding: 0 20px 20px; font-size: 1rem; line-height: 1.45; color: var(--on-navy-muted); }
-  .sc .media img { transition: transform 700ms var(--ease-out); }
-  @media (hover: hover) and (pointer: fine) { .sc:hover .media img { transform: scale(1.04); } .sc:hover .sc__name, .sc:hover .sc__what { background: var(--gold); color: var(--navy-deep); } .sc:hover .sc__name::after { color: var(--navy-deep); transform: translateX(4px); } }
-  .sc--a { grid-column: 1 / span 6; }
-  .sc--a .media { aspect-ratio: 3 / 2; }
-  .sc--b { grid-column: 9 / span 4; margin-top: -80px; }
-  .sc--b .media { aspect-ratio: 4 / 5; }
-  .sc--c { grid-column: 3 / span 7; }
-  .sc--c .media { aspect-ratio: 16 / 9; }
-  .sc + .sc, .sc__remark + .sc { margin-top: 120px; }
-  .sc--a + .sc--b { margin-top: 40px; }
-  .sc__remark { grid-column: 2 / span 4; align-self: center; font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-top: 0 !important; }
-  .scatter__list > :first-child { margin-top: 0; }
-  .scatter__list > .sc--b:nth-child(2) { grid-row: 1; margin-top: 200px; }
-  @media (max-width: 900px) {
-    .scatter__list > * { grid-column: 1 / -1 !important; grid-row: auto !important; margin-top: 72px !important; }
-    .scatter__list > :first-child { margin-top: 0 !important; }
-    .sc--b { width: 68%; justify-self: end; }
-    .sc--c { width: 82%; }
+  /* More of the work: two by two, picture beside the words */
+  .more__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+  .more__grid li { display: flex; }
+  .mc { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); width: 100%; text-decoration: none; color: inherit; background: var(--navy); color: #fff; }
+  .mc__img { min-height: 190px; }
+  .mc__img img { transition: transform 700ms var(--ease-out); }
+  .mc__body { display: grid; align-content: center; gap: 6px; padding: 22px 24px; transition: background-color var(--t-hover); }
+  .mc__place { font-size: var(--t-small); font-weight: 700; color: var(--gold); transition: color var(--t-hover); }
+  .mc h3 { color: #fff; font-size: 1.25rem; display: flex; justify-content: space-between; gap: 12px; transition: color var(--t-hover); }
+  .mc h3::after { content: '→'; color: var(--gold); transition: transform 300ms var(--ease-out), color var(--t-hover); }
+  .mc__what { font-size: 0.9375rem; line-height: 1.5; color: var(--on-navy-muted); transition: color var(--t-hover); }
+  @media (hover: hover) and (pointer: fine) {
+    .mc:hover .mc__img img { transform: scale(1.04); }
+    .mc:hover .mc__body { background: var(--gold); }
+    .mc:hover h3, .mc:hover .mc__what, .mc:hover .mc__place { color: var(--navy-deep); }
+    .mc:hover h3::after { color: var(--navy-deep); transform: translateX(4px); }
   }
+  @media (max-width: 900px) { .more__grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .mc { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); } .mc__img { min-height: 150px; } .mc__body { padding: 16px 16px 18px; } .mc h3 { font-size: 1.0625rem; } .mc__what { font-size: 0.875rem; } }
 
-  /* Figure */
-  .fig__photo { position: relative; height: 88svh; min-height: 520px; color: #fff; }
-  .fig__photo img { width: 100%; height: 100%; object-fit: cover; }
-  .fig__photo::after { content: ''; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgba(3, 10, 24, 0.8), rgba(3, 10, 24, 0)); } /* taste-skill-ignore: photo scrim */
-  .fig__photo::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 30%; z-index: 1; background: linear-gradient(to bottom, rgba(3, 10, 24, 0.6), rgba(3, 10, 24, 0)); } /* taste-skill-ignore: photo scrim */
-  .fig__title { position: absolute; top: 32px; z-index: 2; left: var(--margin); color: #fff; font-size: 1.5rem; z-index: 1; }
-  .fig__base { position: absolute; inset: auto 0 0 0; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 24px; max-width: none; }
-  .fig__num { font-size: clamp(5rem, 15vw, 15rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; max-width: none; white-space: nowrap; }
-  .fig__num::before { content: '₹'; font-size: 0.5em; vertical-align: 0.7em; margin-right: 0.06em; }
-  .fig__say { max-width: 26ch; text-align: right; font-size: 1.125rem; font-weight: 500; }
-  .fig__more { display: grid; grid-template-columns: 1fr 1fr; gap: 24px var(--gap); padding-top: 40px; padding-bottom: 24px; }
-  .fig__more p { font-size: var(--t-body); }
-  .fig__more strong { display: block; font-size: 2.5rem; line-height: 1.05; letter-spacing: -0.03em; color: var(--navy); }
-  @media (max-width: 760px) {
-    .fig__base { flex-direction: column-reverse; align-items: start; }
-    .fig__say { text-align: left; font-size: 1rem; }
-    .fig__num { font-size: 30vw; }
-    .fig__more { grid-template-columns: 1fr; }
+  /* Growth */
+  .growth__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px var(--gap); align-items: center; }
+  .growth__text { grid-column: 1 / span 5; }
+  .growth__text h2 { font-size: var(--t-lead); color: var(--on-navy-muted); font-weight: 700; letter-spacing: 0; }
+  .growth__num { font-size: clamp(4rem, 9vw, 8.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; color: var(--gold); white-space: nowrap; margin: 12px 0 16px; font-variant-numeric: tabular-nums; }
+  .growth__num::before { content: '₹'; font-size: 0.5em; vertical-align: 0.62em; margin-right: 0.06em; }
+  .growth__text > p:last-child { color: var(--on-navy); max-width: 38ch; }
+  .bars { grid-column: 7 / -1; display: grid; gap: 22px; }
+  .bars__row { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) 7.5rem; align-items: center; gap: 16px; }
+  .bars__year { font-weight: 600; font-size: var(--t-small); color: var(--on-navy-muted); }
+  .bars__track { height: 34px; background: rgba(255, 255, 255, 0.07); }
+  .bars__bar { display: block; height: 100%; width: var(--w); background: var(--gold); }
+  .bars__val { display: grid; font-weight: 800; font-size: 1.125rem; color: #fff; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .bars__val small { font-size: var(--t-small); font-weight: 600; color: var(--gold); }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .bars .bars__bar { width: 0; transition: width 1100ms var(--ease-out); }
+    .js .bars.is-in .bars__bar { width: var(--w); }
+    .js .bars.is-in .bars__row:nth-child(2) .bars__bar { transition-delay: 150ms; }
+    .js .bars.is-in .bars__row:nth-child(3) .bars__bar { transition-delay: 300ms; }
   }
+  @media (max-width: 900px) { .growth__text, .bars { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .bars__row { grid-template-columns: 1fr auto; row-gap: 6px; } .bars__track { grid-column: 1 / -1; grid-row: 2; height: 22px; } .bars__val { grid-row: 1; justify-items: end; display: flex; gap: 8px; align-items: baseline; } }
 
-  /* Where */
-  .where h2 { font-size: clamp(2.5rem, 4vw, 3.75rem); }
-  .where__lead { margin-top: 24px; max-width: 40ch; }
-  .where__lead { margin-bottom: 56px; }
-  .where__tiles { margin-top: 48px; }
-  .where__facts { margin-top: 0; }
-
-  /* Visit */
-  .visit { position: relative; min-height: 100svh; }
-  .visit__photo { position: absolute; inset: 0; }
-  .visit__photo img { width: 100%; height: 100%; object-fit: cover; }
-  .visit__card { position: sticky; top: 96px; margin: 0 var(--margin) 0 auto; transform: translateY(60px); width: 400px; background: var(--paper); padding: 32px 32px 0; display: grid; gap: 18px; z-index: 1; }
-  .visit { padding-bottom: 160px; }
-  .visit__card h2 { font-size: 1.75rem; font-weight: 700; }
-  .visit__card address { font-style: normal; font-size: 1rem; }
-  .visit__rows div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; font-variant-numeric: tabular-nums; }
-  .visit__rows dt { font-weight: 600; color: var(--muted); font-size: 1rem; }
-  .visit__rows dd a { font-weight: 700; color: var(--navy); text-decoration: none; }
-  .visit__btn { margin: 8px -32px 0; min-height: 56px; }
-  @media (max-width: 760px) {
-    .visit { min-height: 0; padding-bottom: 0; display: grid; }
-    .visit__photo { position: relative; height: 70svh; }
-    .visit__card { position: relative; top: auto; transform: none; width: auto; margin: -80px 16px 0; padding: 24px 24px 0; }
-    .visit__btn { margin: 8px -24px 0; }
-  }
+  /* Visit: one gold band, everything needed to get in touch on one line */
+  .visit { background: var(--gold); color: var(--navy-deep); }
+  .visit__grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 28px var(--gap); align-items: center; padding-block: clamp(36px, 4vw, 56px); }
+  .visit__head h2 { color: var(--navy-deep); font-size: clamp(1.75rem, 2.6vw, 2.5rem); }
+  .visit__head p { margin-top: 8px; font-weight: 500; }
+  .visit address { font-style: normal; font-size: 0.9375rem; line-height: 1.55; font-weight: 500; }
+  .visit__rows div { display: flex; justify-content: space-between; gap: 16px; padding: 3px 0; font-variant-numeric: tabular-nums; font-size: 0.9375rem; }
+  .visit__rows dt { font-weight: 600; }
+  .visit__rows dd a { font-weight: 800; color: var(--navy-deep); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .visit__rows dd a:hover { text-decoration: underline; } }
+  @media (max-width: 1100px) { .visit__grid { grid-template-columns: 1fr 1fr; } .visit__head { grid-column: 1 / -1; } }
+  @media (max-width: 640px) { .visit__grid { grid-template-columns: 1fr; } .visit__btn { width: 100%; } }
 </style>

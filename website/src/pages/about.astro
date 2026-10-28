@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
 import Clip from '../components/Clip.astro';
 import Photo from '../components/Photo.astro';
 
@@ -10,28 +9,52 @@ const growth = [
   { year: 'FY 2024–25', value: 143 },
 ];
 const max = 143;
+
+// The hero collage: the best of the site photographs, one per kind of work.
+const collage = [
+  { slot: 'a', src: '/images/about/kedarnath-snow.jpg', full: '/images/slide_101_img_1.jpg', caption: 'Kedarnath: building between snowfalls at 3,583 m' },
+  { slot: 'b', src: '/images/about/hailang-rebar.jpg', full: '/images/slide_14_img_2.jpg', caption: 'Rebar crew in the gate groove, Hailang' },
+  { slot: 'c', src: '/images/about/tehri-intake.jpg', full: '/images/slide_39_img_0.jpg', caption: 'Tehri intake after epoxy treatment' },
+  { slot: 'd', src: '/images/about/tagena-unit.jpg', full: '/images/bhutan-factory/unit-in-valley.jpg', caption: 'The Tagena processing unit, Bhutan' },
+  { slot: 'e', src: '/images/about/badrinath-river.jpg', full: '/images/slide_97_img_1.jpg', caption: 'Working the Alaknanda at Badrinath' },
+  { slot: 'f', src: '/images/about/tehri-tunnel.jpg', full: '/images/slide_32_img_0.jpg', caption: 'Gantry inside the Tehri tunnel works' },
+  { slot: 'g', src: '/images/about/tehri-spillway.jpg', full: '/images/slide_59_img_1.jpg', caption: 'Excavator below the Tehri spillway' },
+];
 ---
 
 <BaseLayout title="About CP Systems — Since 1999" description="CP Systems Pvt. Ltd., established 1999: an infrastructure contractor led by Sanjay Shandilya, CMD, recognised with the Udyog Ratan Award and Excellence Award.">
-  <PageHero
-    title="About CP Systems"
-    lead="An infrastructure contractor founded in 1999 and built on one habit: finishing difficult work on time."
-    crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-    image="/images/pdf_page_20_img_144.jpg"
-    imageAlt="The CPS site team at Tehri"
-    facts={[
-      { label: 'Established', value: '1999' },
-      { label: 'Head office', value: 'New Delhi' },
-      { label: 'Turnover FY 2024–25', value: '₹143 Cr' },
-      { label: 'Recognition', value: 'Udyog Ratan Award' },
-    ]}
-  />
+  <!-- Hero: the company told through its sites -->
+  <section class="ahero field-deep" aria-labelledby="ahero-h">
+    <div class="ahero__grid wrap">
+      <div class="ahero__text" data-reveal>
+        <nav class="phero__crumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> / </span><span aria-current="page">About</span></nav>
+        <h1 id="ahero-h">About CP Systems</h1>
+        <p class="ahero__lead">An infrastructure contractor founded in 1999 and built on one habit: finishing difficult work on time, from glacial rivers to granite benches.</p>
+        <dl class="facts ahero__facts" style="--cols:2">
+          <div><dt>Established</dt><dd>1999</dd></div>
+          <div><dt>Head office</dt><dd>New Delhi</dd></div>
+          <div><dt>Turnover FY 2024–25</dt><dd>₹143 Cr</dd></div>
+          <div><dt>Recognition</dt><dd>Udyog Ratan Award</dd></div>
+        </dl>
+      </div>
+      <ul class="collage" data-gallery>
+        {collage.map((c) => (
+          <li class={`collage__${c.slot}`}>
+            <button type="button" data-lb={c.full} data-lb-caption={c.caption} aria-label={`Open photograph: ${c.caption}`}>
+              <img src={c.src} alt={c.caption} fetchpriority={c.slot === 'a' ? 'high' : undefined} loading={c.slot === 'a' ? 'eager' : 'lazy'} />
+              <span class="collage__cap">{c.caption}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
   <section class="section" id="content" aria-labelledby="story-h">
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="story-h">How we build</h2>
-        <p class="lead" style="margin-top:24px">CPS was founded on innovation, ingenuity and purpose, and on a firm belief in meaningful, timely execution.</p>
+        <p class="lead" style="margin-top:16px">CPS was founded on innovation, ingenuity and purpose, and on a firm belief in meaningful, timely execution.</p>
         <p style="margin-top:18px">We are judged by what we build and by how we build it: with integrity, precision and a forward-thinking mind. Alongside execution, CPS has grown into civil and structural design and into turnkey project delivery, end to end.</p>
         <p style="margin-top:18px">Our clients are government and semi-government departments, public sector undertakings, turnkey operators, promoters and builders.</p>
       </div>
@@ -42,14 +65,14 @@ const max = 143;
     </div>
   </section>
 
-  <section class="section field-navy" aria-labelledby="people-h">
+  <section class="section field-navy ab__people" aria-labelledby="people-h">
     <div class="wrap split">
       <div class="split__a" data-gallery>
-        <Photo src="/images/pdf_page_2_img_1.jpg" caption="Sanjay Shandilya, CMD, with His Majesty the King of Bhutan" ratio="ratio-45" showCaption />
+        <Photo src="/images/pdf_page_2_img_1.jpg" caption="Sanjay Shandilya, CMD, with His Majesty the King of Bhutan" ratio="ab__portrait" showCaption />
       </div>
       <div class="split__b" data-reveal>
         <h2 id="people-h">Led from the site</h2>
-        <p class="lead" style="margin-top:24px;color:var(--on-navy)">Under Sanjay Shandilya, CMD, CP Systems has grown from a specialist contractor into a multi-disciplinary infrastructure company working across India and in Bhutan.</p>
+        <p class="lead" style="margin-top:16px;color:var(--on-navy)">Under Sanjay Shandilya, CMD, CP Systems has grown from a specialist contractor into a multi-disciplinary infrastructure company working across India and in Bhutan.</p>
         <p style="margin-top:18px;color:var(--on-navy)">The team covers civil, anti-corrosive, mechanical and electrical execution. Many of our people came from leading infrastructure companies and helped shape the country's infrastructure map before joining CPS.</p>
       </div>
     </div>
@@ -59,7 +82,7 @@ const max = 143;
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="award-h">Udyog Ratan and Excellence Awards</h2>
-        <p class="lead" style="margin-top:24px">Recognised nationally in 2000–01 with the Udyog Ratan Award and the Excellence Award.</p>
+        <p class="lead" style="margin-top:16px">Recognised nationally in 2000–01 with the Udyog Ratan Award and the Excellence Award.</p>
         <p style="margin-top:18px">Our aim is to reach the top of the industry by delivering exceptional value: new markets, strong partnerships, a skilled team and quality clients can rely on.</p>
       </div>
       <div class="split__b" data-gallery>
@@ -72,7 +95,7 @@ const max = 143;
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="g-h">Growth, year by year</h2>
-        <p class="lead" style="margin-top:24px">Turnover rose 154.7% in FY 2023–24 and another 130.9% in FY 2024–25, driven by new markets, partnerships, skilled teams and reliable quality.</p>
+        <p class="lead" style="margin-top:16px">Turnover rose 154.7% in FY 2023–24 and another 130.9% in FY 2024–25, driven by new markets, partnerships, skilled teams and reliable quality.</p>
       </div>
       <figure class="split__b bars" aria-label="Turnover in crore rupees by financial year">
         {growth.map((g) => (
@@ -98,7 +121,50 @@ const max = 143;
 </BaseLayout>
 
 <style>
-  .ab__media { display: grid; gap: 32px; }
+  /* Hero collage */
+  .ahero { padding-top: 96px; }
+  .ahero__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px var(--gap); align-items: center; padding-bottom: clamp(32px, 4vw, 56px); }
+  .ahero__text { grid-column: 1 / span 4; }
+  .ahero h1 { color: #fff; font-size: clamp(2.5rem, 4.4vw, 4.25rem); }
+  .ahero__lead { margin-top: 18px; font-size: var(--t-lead); line-height: 1.45; font-weight: 500; color: var(--on-navy); }
+  .ahero__facts { margin-top: 28px; }
+  .ahero__facts dd { font-size: 1.125rem; }
+  .collage { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, clamp(120px, 12.5vw, 190px)); gap: 8px; }
+  .collage li { position: relative; overflow: hidden; background: #0a2350; }
+  .collage button { display: block; width: 100%; height: 100%; cursor: zoom-in; }
+  .collage img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out); }
+  .collage__a { grid-column: 1 / span 2; grid-row: 1 / span 2; }
+  .collage__b { grid-column: 3; grid-row: 1 / span 2; }
+  .collage__c { grid-column: 4; grid-row: 1; }
+  .collage__d { grid-column: 4; grid-row: 2; }
+  .collage__e { grid-column: 1; grid-row: 3; }
+  .collage__f { grid-column: 2; grid-row: 3; }
+  .collage__g { grid-column: 3 / span 2; grid-row: 3; }
+  .collage__cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 10px; font-size: 0.8125rem; font-weight: 600; line-height: 1.3; text-align: left; color: var(--navy-deep); background: var(--gold); transform: translateY(100%); transition: transform 300ms var(--ease-out); }
+  .collage button:focus-visible .collage__cap { transform: none; }
+  @media (hover: hover) and (pointer: fine) { .collage button:hover img { transform: scale(1.05); } .collage button:hover .collage__cap { transform: none; } }
+  @media (max-width: 1000px) {
+    .ahero__text, .collage { grid-column: 1 / -1; }
+    .collage { grid-template-rows: repeat(3, clamp(96px, 22vw, 180px)); }
+  }
+  @media (max-width: 560px) {
+    .ahero { padding-top: 84px; }
+    .collage { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, 30vw); gap: 6px; }
+    .collage__a { grid-column: 1 / -1; grid-row: 1 / span 2; }
+    .collage__b, .collage__f { display: none; }
+    .collage__c { grid-column: 1; grid-row: 3; }
+    .collage__d { grid-column: 2; grid-row: 3; }
+    .collage__e { grid-column: 1; grid-row: 4; }
+    .collage__g { grid-column: 2; grid-row: 4; }
+  }
+  .ab__people .split__a { grid-column: 1 / span 5; max-width: 400px; }
+  /* The photograph is shown whole: cropping it to a square cut off both faces. */
+  .ab__people :global(.ab__portrait) { aspect-ratio: 427 / 640; }
+  .ab__people :global(.ab__portrait img) { object-position: center top; }
+  .ab__people .split__b { grid-column: 7 / span 6; align-self: center; }
+  @media (max-width: 900px) { .ab__people .split__a, .ab__people .split__b { grid-column: 1 / -1; } }
+  .ab__media { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+  @media (max-width: 560px) { .ab__media { grid-template-columns: 1fr; } }
   .bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); align-items: end; height: 380px; }
   .bar { display: grid; grid-template-rows: auto 1fr auto; height: 100%; gap: 10px; }
   .bar__val { font-weight: 800; font-size: 1.375rem; color: var(--navy); font-variant-numeric: tabular-nums; align-self: end; }

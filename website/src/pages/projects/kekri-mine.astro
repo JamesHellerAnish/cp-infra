@@ -25,7 +25,7 @@ import NextProjects from '../../components/NextProjects.astro';
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">A small mine, three stones</h2>
-        <p class="lead" style="margin-top:24px">Kekri produces Steel Grey, Black Galaxy and Red Galaxy granite from about 1 million MT of reserves.</p>
+        <p class="lead" style="margin-top:16px">Kekri produces Steel Grey, Black Galaxy and Red Galaxy granite from about 1 million MT of reserves.</p>
         <p style="margin-top:18px">Blocks go to the CPS processing unit at Rajsamand near Udaipur, where they are cut and finished for flooring, countertops and facades.</p>
       </div>
       <div class="split__b kk" data-gallery>
@@ -57,8 +57,9 @@ import NextProjects from '../../components/NextProjects.astro';
 </BaseLayout>
 
 <style>
-  .kk { display: grid; grid-template-columns: 1fr 1fr; gap: 32px var(--gap); }
-  .kk > :global(.kk__wide) { grid-column: 1 / -1; }
-  .kk__proc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); margin-top: 48px; }
+  .kk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 32px var(--gap); }
+  .kk :global(.media) { aspect-ratio: 4 / 5; }
+  @media (max-width: 560px) { .kk { grid-template-columns: 1fr 1fr; } .kk > :global(.kk__wide) { grid-column: 1 / -1; } .kk > :global(.kk__wide .media) { aspect-ratio: 3 / 2; } }
+  .kk__proc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); margin-top: 28px; }
   @media (max-width: 900px) { .kk__proc { grid-template-columns: 1fr; } }
 </style>

@@ -31,9 +31,9 @@ const scope = [
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">Rooms for pilgrims at 3,583 m</h2>
-        <p class="lead" style="margin-top:24px">Blocks Q2Q and Q1N give pilgrims somewhere warm to sleep at one of India's most sacred sites.</p>
+        <p class="lead" style="margin-top:16px">Blocks Q2Q and Q1N give pilgrims somewhere warm to sleep at one of India's most sacred sites.</p>
         <p style="margin-top:18px">Every bag of cement and length of steel came up the valley; altitude and weather made the programme short and the work technically demanding. CPS did all of it, structure to finish.</p>
-        <ul class="scope" style="margin-top:32px">{scope.map((s) => <li>{s}</li>)}</ul>
+        <ul class="scope" style="margin-top:20px">{scope.map((s) => <li>{s}</li>)}</ul>
       </div>
       <div class="split__b kd__media" data-gallery>
         <Clip name="kedarnath-slab" />
@@ -60,6 +60,7 @@ const scope = [
 </BaseLayout>
 
 <style>
-  .kd__media { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
-  .kd__media :global(.kd__wide) { grid-column: 1 / -1; }
+  .kd__media { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); align-items: start; }
+  .kd__media :global(.kd__wide .media) { aspect-ratio: 9 / 16; }
+  @media (max-width: 560px) { .kd__media { grid-template-columns: 1fr 1fr; } .kd__media :global(.kd__wide) { grid-column: 1 / -1; } .kd__media :global(.kd__wide .media) { aspect-ratio: 4 / 3; } }
 </style>

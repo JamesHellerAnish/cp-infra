@@ -41,7 +41,7 @@ const works = [
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">Work on a running river</h2>
-        <p class="lead" style="margin-top:24px">Dam and tunnel rehabilitation, dredging, baffle walls, drilling and grouting, shotcreting, slope stabilisation, anchoring, micro piling and chemical treatments.</p>
+        <p class="lead" style="margin-top:16px">Dam and tunnel rehabilitation, dredging, baffle walls, drilling and grouting, shotcreting, slope stabilisation, anchoring, micro piling and chemical treatments.</p>
         <p style="margin-top:18px">CPS crews work with water still flowing, in extreme weather and under strict safety rules, and to the shutdown dates set by the plant.</p>
       </div>
       <div class="split__b hp__clips" data-gallery>
@@ -82,8 +82,8 @@ const works = [
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="w-h">Executed and ongoing</h2>
-        <p class="lead" style="margin-top:24px">Twelve hydropower jobs, from riverfronts to tunnel grouting.</p>
-        <div style="margin-top:40px" data-gallery><Photo src="/images/pdf_page_18_img_136.jpg" caption="Hume pipe and micro piling at the Tehri baffle wall" ratio="ratio-32" showCaption /></div>
+        <p class="lead" style="margin-top:16px">Twelve hydropower jobs, from riverfronts to tunnel grouting.</p>
+        <div style="margin-top:24px" data-gallery><Photo src="/images/pdf_page_18_img_136.jpg" caption="Hume pipe and micro piling at the Tehri baffle wall" ratio="ratio-32" showCaption /></div>
       </div>
       <nav class="split__b index" aria-label="Hydropower projects">
         {works.map(([n, h]) => h
@@ -116,13 +116,13 @@ const works = [
 
 <style>
   .hp__clips { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
-  .mat { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); margin-top: 56px; align-items: start; }
+  .mat { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px var(--gap); margin-top: 32px; align-items: start; }
   .mat__list { grid-column: 1 / span 4; display: grid; gap: 4px; }
   .mat__list button { text-align: left; padding: 18px 20px; font-weight: 700; font-size: 1.125rem; color: var(--on-navy-muted); background: rgba(255, 255, 255, 0.04); transition: background-color var(--t-hover), color var(--t-hover); }
   .mat__list button[aria-selected='true'] { background: var(--gold); color: var(--navy-deep); }
   .mat__list button:active { transform: scale(0.99); }
   @media (hover: hover) and (pointer: fine) { .mat__list button[aria-selected='false']:hover { background: rgba(255, 255, 255, 0.1); color: #fff; } }
-  .mat__panel { grid-column: 6 / span 7; display: grid; gap: 28px; animation: matIn 400ms var(--ease-out); }
+  .mat__panel { grid-column: 5 / span 8; display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 24px var(--gap); animation: matIn 400ms var(--ease-out); }
   .mat__panel[hidden] { display: none; }
   .mat__panel h3 { color: #fff; font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 800; letter-spacing: -0.025em; }
   .mat__for { font-size: var(--t-lead); color: var(--gold); font-weight: 600; margin: 12px 0 16px; }
@@ -133,4 +133,5 @@ const works = [
   .hp__name { font-size: clamp(1.125rem, 1.6vw, 1.375rem) !important; }
   .hp__plain { display: block; padding: 22px 0; box-shadow: inset 0 -2px 0 rgba(4, 45, 106, 0.1); } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
   @media (max-width: 900px) { .mat__list, .mat__panel { grid-column: 1 / -1; } }
+  @media (max-width: 560px) { .mat__panel { grid-template-columns: 1fr; } }
 </style>

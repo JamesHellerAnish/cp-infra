@@ -23,7 +23,7 @@ import GranitePicker from '../../components/GranitePicker.astro';
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">Stone from survey to slab</h2>
-        <p class="lead" style="margin-top:24px">Surveying, drilling and excavation that turn a hillside into dimension stone, with processing units at Tagena in Bhutan and Rajsamand in Rajasthan.</p>
+        <p class="lead" style="margin-top:16px">Surveying, drilling and excavation that turn a hillside into dimension stone, with processing units at Tagena in Bhutan and Rajsamand in Rajasthan.</p>
         <p style="margin-top:18px">The Bhutan mine is run by our subsidiary, Karma CP Systems Private Limited, and holds one of the largest white granite reserves in the region.</p>
       </div>
       <div class="split__b" data-gallery><Clip name="granite-processing" /></div>
@@ -69,12 +69,12 @@ import GranitePicker from '../../components/GranitePicker.astro';
 </BaseLayout>
 
 <style>
-  .mines { display: grid; grid-template-columns: 1fr 1fr; gap: 48px var(--gap); margin-top: 48px; }
+  .mines { display: grid; grid-template-columns: 1fr 1fr; gap: 28px var(--gap); margin-top: 28px; }
   .mine { display: grid; gap: 14px; text-decoration: none; }
   .mine h3 { color: #fff; font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 800; margin-top: 8px; }
   .mine p { color: var(--on-navy); }
   .mine img { transition: transform 700ms var(--ease-out); }
   @media (hover: hover) and (pointer: fine) { .mine:hover img { transform: scale(1.04); } .mine:hover h3 { color: var(--gold); } }
-  .craft { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: 48px; }
+  .craft { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: 28px; }
   @media (max-width: 900px) { .mines { grid-template-columns: 1fr; } .craft { grid-template-columns: 1fr 1fr; } }
 </style>

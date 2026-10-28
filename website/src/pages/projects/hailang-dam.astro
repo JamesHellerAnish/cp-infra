@@ -35,7 +35,7 @@ import NextProjects from '../../components/NextProjects.astro';
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">Two gates, one tunnel, no shutdown</h2>
-        <p class="lead" style="margin-top:24px">Two gates sit in the 10.5 × 10.5 m box section of the diversion tunnel, about 16 m from the portal and 50 m from the intake. Their grooves, pier and side walls were badly damaged.</p>
+        <p class="lead" style="margin-top:16px">Two gates sit in the 10.5 × 10.5 m box section of the diversion tunnel, about 16 m from the portal and 50 m from the intake. Their grooves, pier and side walls were badly damaged.</p>
         <p style="margin-top:18px">CPS repaired them one side at a time across two lean seasons: the right gate in 2024, the left in 2025. The tunnel kept carrying 50–60 cumec the whole time.</p>
       </div>
       <div class="split__b">
@@ -122,9 +122,9 @@ import NextProjects from '../../components/NextProjects.astro';
 </BaseLayout>
 
 <style>
-  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--gap); margin-top: 56px; counter-reset: step; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--gap); margin-top: 32px; counter-reset: step; }
   .steps li { counter-increment: step; display: grid; grid-template-columns: 2.25em 1fr; gap: 12px; padding: 18px 0; font-size: var(--t-body); color: var(--on-navy); box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.1); } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
   .steps li::before { content: counter(step); font-weight: 800; font-size: 1.375rem; color: var(--gold); line-height: 1.1; font-variant-numeric: tabular-nums; }
-  .method__clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); margin-top: 64px; }
+  .method__clips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); margin-top: 32px; }
   @media (max-width: 900px) { .steps, .method__clips { grid-template-columns: 1fr; } }
 </style>

@@ -41,10 +41,10 @@ const infra = [
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">Built to last up there</h2>
-        <p class="lead" style="margin-top:24px">Structures, utilities and integrated systems built for durability and safety: structural steel, reinforcement, formwork, concreting and MEP.</p>
+        <p class="lead" style="margin-top:16px">Structures, utilities and integrated systems built for durability and safety: structural steel, reinforcement, formwork, concreting and MEP.</p>
         <p style="margin-top:18px">The same crews have built at Kedarnath and Badrinath in snow, and at industrial plants, treatment works and highways across India.</p>
       </div>
-      <div class="split__b" data-gallery><Clip name="kedarnath-slab" ratio="ratio-45" /></div>
+      <div class="split__b" data-gallery><Clip name="kedarnath-slab" ratio="ratio-32" /></div>
     </div>
   </section>
 
@@ -54,7 +54,7 @@ const infra = [
       <div class="sk" data-gallery>
         {skills.map(([n, d, c]) => (
           <article class="sk__item" data-reveal>
-            <Clip name={c} ratio="ratio-32" bare />
+            <Clip name={c} ratio="ratio-169" bare />
             <h3>{n}</h3>
             <p>{d}</p>
           </article>
@@ -67,8 +67,8 @@ const infra = [
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="pf-h">Civil portfolio</h2>
-        <p class="lead" style="margin-top:24px">Pilgrimage buildings in the Himalaya, and plants, pipelines and highways across the country.</p>
-        <nav class="index" style="margin-top:40px" aria-label="Civil projects with pages">
+        <p class="lead" style="margin-top:16px">Pilgrimage buildings in the Himalaya, and plants, pipelines and highways across the country.</p>
+        <nav class="index" style="margin-top:24px" aria-label="Civil projects with pages">
           <a href="/projects/kedarnath-dham/"><span class="index__name">Kedarnath Dham</span><span class="index__what">Pilgrim accommodation</span></a>
           <a href="/projects/badrinath-dham/#bridge-civic"><span class="index__name">Badrinath Civic Centre</span><span class="index__what">Near Badrish Lake</span></a>
         </nav>
@@ -81,8 +81,8 @@ const infra = [
 </BaseLayout>
 
 <style>
-  .sk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px var(--gap); margin-top: 56px; }
-  .sk__item h3 { color: #fff; font-size: 1.5rem; font-weight: 800; margin: 20px 0 8px; }
+  .sk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px var(--gap); margin-top: 32px; }
+  .sk__item h3 { color: #fff; font-size: 1.5rem; font-weight: 800; margin: 16px 0 6px; }
   .sk__item p { color: var(--on-navy); }
   .cv { grid-template-columns: 1fr; }
   @media (max-width: 900px) { .sk { grid-template-columns: 1fr 1fr; } }

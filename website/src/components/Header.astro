@@ -30,6 +30,7 @@ const inSpeciality = path.startsWith('/speciality/');
 
     <nav class="hdr__nav" aria-label="Main">
       <ul class="hdr__list" id="hdrList">
+        <li class="hdr__item"><a class:list={['hdr__link', { 'is-current': path === '/' }]} href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a></li>
         <li class="hdr__item">
           <button class:list={['hdr__link', { 'is-current': inProjects }]} aria-expanded="false" aria-controls="menu-projects" data-menu>
             Projects

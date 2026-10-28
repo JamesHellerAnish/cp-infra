@@ -191,7 +191,7 @@ const first = sites[0];
 
 <style>
   .imap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px var(--gap); align-items: start; }
-  .imap__stage { grid-column: 1 / span 8; position: relative; overflow: hidden; aspect-ratio: 1920 / 1950; background: #A9C6DE; touch-action: pan-y; }
+  .imap__stage { grid-column: 1 / span 7; position: relative; overflow: hidden; aspect-ratio: 1920 / 1950; background: #A9C6DE; touch-action: pan-y; }
   .imap__stage[data-z='in'] { touch-action: none; cursor: grab; }
   .imap__stage[data-z='in']:active { cursor: grabbing; }
   .imap__layer { position: absolute; inset: 0; transform-origin: 0 0; --z: 1; will-change: transform; }
@@ -241,7 +241,7 @@ const first = sites[0];
   @media (hover: hover) and (pointer: fine) { .imap__zoom button:hover { background: var(--gold); color: var(--navy-deep); } }
   .imap__credit { position: absolute; left: 10px; bottom: 8px; z-index: 4; font-size: 0.8125rem; color: var(--navy-deep); background: rgba(255, 255, 255, 0.75); padding: 2px 8px; }
 
-  .imap__side { grid-column: 9 / span 4; display: grid; gap: 24px; }
+  .imap__side { grid-column: 8 / span 5; display: grid; gap: 24px; }
   .imap__filters { display: flex; flex-wrap: wrap; gap: 8px; }
   .imap__filter { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; font-weight: 700; font-size: 0.9375rem; background: var(--surface); color: var(--muted); transition: background-color var(--t-hover), color var(--t-hover); }
   .imap__filter[aria-pressed='true'] { background: var(--navy); color: #fff; }

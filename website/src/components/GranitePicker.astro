@@ -62,11 +62,11 @@ const uid = `gp-${Math.random().toString(36).slice(2, 7)}`;
 </script>
 
 <style>
-  .gp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); align-items: start; }
-  .gp__slab { grid-column: 1 / span 7; aspect-ratio: 1 / 1; position: relative; }
+  .gp { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px var(--gap); align-items: start; }
+  .gp__slab { grid-column: 1 / span 6; aspect-ratio: 4 / 3; position: relative; }
   .gp__slab img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 450ms ease, transform 900ms var(--ease-out); }
   .gp__slab img.is-on { opacity: 1; transform: none; }
-  .gp__side { grid-column: 9 / span 4; display: grid; gap: 28px; }
+  .gp__side { grid-column: 7 / span 6; display: grid; gap: 20px; }
   .gp__title { font-size: clamp(1.75rem, 2.4vw, 2.25rem); font-weight: 800; letter-spacing: -0.025em; }
   .gp__choices { display: grid; gap: 8px; }
   .gp__choices button { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 16px; padding: 8px; text-align: left; font-weight: 700; color: var(--navy); background: transparent; transition: background-color var(--t-hover); }

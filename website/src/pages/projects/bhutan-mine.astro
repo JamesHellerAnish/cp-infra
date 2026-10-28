@@ -25,7 +25,7 @@ import NextProjects from '../../components/NextProjects.astro';
     <div class="wrap split">
       <div class="split__a" data-reveal>
         <h2 id="ov-h">From the bench to the slab</h2>
-        <p class="lead" style="margin-top:24px">The mine is run by Karma CP Systems Private Limited, a CP Systems subsidiary, and produces CP-DRUK White Galaxy for flooring, countertops and facades.</p>
+        <p class="lead" style="margin-top:16px">The mine is run by Karma CP Systems Private Limited, a CP Systems subsidiary, and produces CP-DRUK White Galaxy for flooring, countertops and facades.</p>
         <p style="margin-top:18px">Blocks are freed from the face with diamond wire saws, squared on the bench, stacked for dispatch and cut into slabs on gang saws at Tagena.</p>
       </div>
       <div class="split__b bt__pair" data-gallery>
@@ -39,10 +39,10 @@ import NextProjects from '../../components/NextProjects.astro';
     <div class="wrap">
       <h2 id="q-h" data-reveal><span>A day on the quarry</span></h2>
       <div class="bt__grid" data-gallery>
-        <Clip name="bhutan-quarry-face" class="bt__a" />
-        <Clip name="bhutan-bench" class="bt__b" />
-        <Clip name="bhutan-stockyard" class="bt__c" />
-        <Clip name="bhutan-overlook" class="bt__d" />
+        <Clip name="bhutan-quarry-face" class="bt__a" ratio="ratio-45" />
+        <Clip name="bhutan-bench" class="bt__b" ratio="ratio-45" />
+        <Clip name="bhutan-stockyard" class="bt__c" ratio="ratio-45" />
+        <Clip name="bhutan-overlook" class="bt__d" ratio="ratio-45" />
         <Photo src="/images/pdf_page_6_img_76.jpg" caption="Excavator turning a block off the face" ratio="ratio-169" showCaption class="bt__e" />
         <Photo src="/images/pdf_page_6_img_75.jpg" caption="A block freed from the face" ratio="ratio-169" showCaption class="bt__f" />
         <Photo src="/images/pdf_page_6_img_73.jpg" caption="Squared blocks ready for dispatch" ratio="ratio-169" showCaption class="bt__g" />
@@ -91,20 +91,18 @@ import NextProjects from '../../components/NextProjects.astro';
 </BaseLayout>
 
 <style>
-  .bt__pair { display: grid; gap: var(--gap); }
-  .bt__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 40px var(--gap); margin-top: 56px; }
-  .bt__grid > :global(.bt__a) { grid-column: 1 / span 4; }
-  .bt__grid > :global(.bt__b) { grid-column: 5 / span 2; align-self: end; }
-  .bt__grid > :global(.bt__c) { grid-column: 1 / span 2; }
-  .bt__grid > :global(.bt__d) { grid-column: 3 / span 4; }
-  .bt__grid > :global(.bt__e), .bt__grid > :global(.bt__f), .bt__grid > :global(.bt__g) { grid-column: span 2; }
-  .unit { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px var(--gap); margin-top: 48px; }
-  .unit > :global(.unit__a) { grid-column: 1 / span 4; }
-  @media (max-width: 900px) { .unit { grid-template-columns: 1fr 1fr; } .unit > :global(.unit__a) { grid-column: 1 / -1; } }
-  .craft { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: 48px; }
+  .bt__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+  .bt__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px var(--gap); margin-top: 32px; align-items: start; }
+  .bt__grid > :global(.bt__a), .bt__grid > :global(.bt__b), .bt__grid > :global(.bt__c), .bt__grid > :global(.bt__d) { grid-column: span 3; }
+  .bt__grid > :global(.bt__e), .bt__grid > :global(.bt__f), .bt__grid > :global(.bt__g) { grid-column: span 4; }
+  .unit { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: dense; gap: 24px var(--gap); margin-top: 28px; }
+  .unit > :global(.unit__a) { grid-column: 1 / span 2; grid-row: span 2; }
+  .unit > :global(.unit__a .media) { aspect-ratio: auto; flex: 1; min-height: 240px; }
+  @media (max-width: 900px) { .unit { grid-template-columns: 1fr 1fr; } .unit > :global(.unit__a) { grid-column: 1 / -1; grid-row: auto; } .unit > :global(.unit__a .media) { aspect-ratio: 16 / 9; flex: none; } }
+  .craft { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); margin-top: 28px; }
   @media (max-width: 900px) {
     .bt__grid { grid-template-columns: 1fr 1fr; }
-    .bt__grid > :global(*) { grid-column: span 2 !important; }
+    .bt__grid > :global(*) { grid-column: span 1 !important; }
     .craft { grid-template-columns: 1fr 1fr; }
   }
 </style>
