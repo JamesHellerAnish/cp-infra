@@ -1,148 +1,136 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Clip from '../../components/Clip.astro';
+import Photo from '../../components/Photo.astro';
+
+const materials = [
+  { id: 'epoxy', name: 'Epoxy mortar and grout', for: 'High-strength repair of concrete surfaces and joints', used: 'Tehri HRT #3 and #4 (805 MT), Tehri intakes, Hailang gate grooves, Tapovan', img: '/images/slide_31_img_0.jpg', href: '/projects/tehri-dam/#hrt-repair' },
+  { id: 'pu', name: 'Polyurethane (PU)', for: 'Water stops and structural injection against running leaks', used: 'Sewa II HRT, Chamera-III, Koteshwar, Pipalkoti TBM', img: '/images/other_projects/pipalkoti_grouting_4.jpg', href: '/projects/other/#pipalkoti' },
+  { id: 'mfc', name: 'Micro fine cement', for: 'Deep-penetration grouting of fine cracks and joints', used: 'Pipalkoti TBM consolidation', img: '/images/other_projects/pipalkoti_grouting_5.jpg', href: '/projects/other/#pipalkoti' },
+  { id: 'silica', name: 'Colloidal silica', for: 'Ultra-fine sealing of sandy, fragile ground', used: 'Pipalkoti TBM release', img: '/images/other_projects/pipalkoti_grouting_2.jpg', href: '/projects/other/#pipalkoti' },
+  { id: 'opc', name: 'Ordinary Portland cement', for: 'Standard grouting and structural repair', used: 'General grouting and structural repair on CPS sites', img: '/images/slide_54_img_1.jpg', alt: 'Micro piling and grouting at the Tehri baffle wall', href: '#w-h' },
+  { id: 'pvc', name: 'PVC membranes', for: 'Waterproofing barriers for tunnel linings', used: 'AIIMS Bhopal, with PU foam insulation', img: '', href: '/projects/other/#more' },
+];
+
+const works = [
+  ['Riverfront development, Shri Badrinath Dham', '/projects/badrinath-dham/'],
+  ['River dredging and baffle wall, Tehri PSP, phases 1 and 2', '/projects/tehri-dam/#phase1-dredging'],
+  ['HRT/TRT repair by epoxy mortar, Tehri PSP', '/projects/tehri-dam/#hrt-repair'],
+  ['Epoxy treatment, intakes 1 and 2, Tehri HPP', '/projects/tehri-dam/#epoxy-intake'],
+  ['Surge shaft swirling device repair, Tehri HPP', '/projects/tehri-dam/#surge-shaft'],
+  ['Gate groove restoration, VPHEP diversion tunnel', '/projects/hailang-dam/'],
+  ['PU, MFC and colloidal silica grouting, VPHEP Pipalkoti', '/projects/other/#pipalkoti'],
+  ['Slope stabilisation and grouting, Koteshwar HEP', '/projects/other/#koteshwar'],
+  ['Spillway and roller bucket repair, Maneri Bhali Stage-I', '/projects/other/#maneri'],
+  ['Repair and rectification of RC dam, Tapovan', '/projects/other/#tapovan'],
+  ['HRT repair, NHPC Sewa II HEP, J&K', '/projects/other/#sewa'],
+  ['PU grouting, Chamera-III HE Project', ''],
+];
 ---
 
-<BaseLayout title="Hydropower & River Dredging — CP Systems" description="CP Systems expertise in hydropower dam rehabilitation, river dredging, baffle wall construction, tunnel repair, and grouting across major Indian projects.">
-  <Header />
+<BaseLayout title="Hydropower & river dredging — CP Systems" description="Dam and tunnel rehabilitation, river dredging, baffle walls, drilling and grouting, shotcreting, slope stabilisation and chemical treatments for hydropower projects.">
+  <PageHero
+    title="Hydropower and river dredging"
+    lead="Dams, tunnels and rivers that cannot be switched off: rehabilitation, dredging, grouting and repair done inside shutdown windows."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Expertise' }, { label: 'Hydropower' }]}
+    clip="hailang-ms-boxes"
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Hydropower & River Dredging</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Speciality</a> <span>/</span> <span>Hydropower</span>
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">Work on a running river</h2>
+        <p class="lead" style="margin-top:24px">Dam and tunnel rehabilitation, dredging, baffle walls, drilling and grouting, shotcreting, slope stabilisation, anchoring, micro piling and chemical treatments.</p>
+        <p style="margin-top:18px">CPS crews work with water still flowing, in extreme weather and under strict safety rules, and to the shutdown dates set by the plant.</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Intro -->
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Preserving the Ecosystem</span>
-          <h2 class="section-title">Hydropower & Dam Infrastructure</h2>
-          <p>
-            CPS has a proven track record in executing a wide range of technically demanding and time-sensitive hydropower infrastructure projects. Our expertise spans dam and tunnel rehabilitation, river dredging, baffle wall construction, drilling & grouting, shot-creting, slope stabilization, anchoring, micro piling, and various chemical treatments.
-          </p>
-          <br/>
-          <p>
-            Our dedicated team of engineers and workforce has successfully delivered projects in the most challenging terrains — working with continuous water flow, extreme weather, and strict safety requirements.
-          </p>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_18_img_136.jpg" alt="Hydropower Work at Tehri" />
-        </div>
+      <div class="split__b hp__clips" data-gallery>
+        <Clip name="tehri-dredging" />
+        <Clip name="tehri-surge-shaft" />
       </div>
     </div>
   </section>
 
-  <!-- Materials & Technologies -->
-  <section class="section section--beige">
-    <div class="container" style="text-align: center;">
-      <span class="section-label" style="justify-content: center;">Materials & Technologies</span>
-      <h2 class="section-title">Advanced Solutions for Complex Challenges</h2>
-      <div class="grid grid--3" style="margin-top: 40px;">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏗️</div>
-          <h4 class="service-card__title">Ordinary Portland Cement</h4>
-          <p class="service-card__desc">Standard grouting and structural repair applications</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🔬</div>
-          <h4 class="service-card__title">Micro Fine Cement</h4>
-          <p class="service-card__desc">High-penetration grouting for fine cracks and joints</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">💎</div>
-          <h4 class="service-card__title">Colloidal Silica</h4>
-          <p class="service-card__desc">Ultra-fine sealing for waterproofing applications</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🧪</div>
-          <h4 class="service-card__title">Polyurethanes (PU)</h4>
-          <p class="service-card__desc">Water stop and structural injection grouting</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🔧</div>
-          <h4 class="service-card__title">Epoxy Mortar & Grout</h4>
-          <p class="service-card__desc">High-strength repair of concrete surfaces and joints</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🛡️</div>
-          <h4 class="service-card__title">PVC Membranes</h4>
-          <p class="service-card__desc">Waterproofing barrier systems for tunnel linings</p>
-        </div>
+  <section class="section field-navy" aria-labelledby="mat-h">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <h2 id="mat-h" class="split__a">Matching the material to the leak</h2>
+        <p class="lead split__b" style="color:var(--on-navy)">Choose a material to see what it is for and where CPS has used it.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- Featured Projects -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label">Featured Projects</span>
-      <h2 class="section-title">Hydropower Portfolio</h2>
-
-      <div class="grid grid--3" style="margin-top: 40px;">
-        <a href="/projects/badrinath-dham/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_15_img_123.jpg" alt="Badrinath Dham" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Riverfront</span>
-            <h3 class="project-card__title">Badrinath Dham</h3>
-            <p class="project-card__desc">Riverfront development and pedestrian bridge at Shri Badrinath Dham</p>
-            <span class="project-card__link">View Details →</span>
+      <div class="mat" id="mat">
+        <div class="mat__list" role="tablist" aria-label="Materials">
+          {materials.map((m, i) => (
+            <button type="button" role="tab" id={`tab-${m.id}`} aria-controls={`pan-${m.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{m.name}</button>
+          ))}
+        </div>
+        {materials.map((m, i) => (
+          <div class="mat__panel" role="tabpanel" id={`pan-${m.id}`} aria-labelledby={`tab-${m.id}`} hidden={i !== 0}>
+            {m.img && <div class="media ratio-32"><img src={m.img} alt={m.alt ?? `${m.name} in use on a CPS site`} loading="lazy" /></div>}
+            <div>
+              <h3>{m.name}</h3>
+              <p class="mat__for">{m.for}</p>
+              <p><strong>Used at:</strong> {m.used}</p>
+              <a class="link" href={m.href}>See the work</a>
+            </div>
           </div>
-        </a>
-
-        <a href="/projects/tehri-dam/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Dam</span>
-            <h3 class="project-card__title">Tehri Dam</h3>
-            <p class="project-card__desc">River dredging, baffle wall, HRT/TRT repair at India's tallest dam</p>
-            <span class="project-card__link">View Details →</span>
-          </div>
-        </a>
-
-        <a href="/projects/hailang-dam/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_21_img_145.jpg" alt="Hailang Dam" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Tunnel</span>
-            <h3 class="project-card__title">Hailang Dam (VPHEP)</h3>
-            <p class="project-card__desc">Gate groove restoration in diversion tunnel at VPHEP</p>
-            <span class="project-card__link">View Details →</span>
-          </div>
-        </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Executed Works List -->
-  <section class="section section--beige">
-    <div class="container">
-      <span class="section-label">Complete Portfolio</span>
-      <h2 class="section-title">Executed & Ongoing Works</h2>
-      <div class="grid grid--2" style="margin-top: 30px;">
-        <ul class="scope-list">
-          <li>Riverfront Development at Shri Badrinath Dham</li>
-          <li>River Dredging & Baffle Wall at Tehri PSP (Phase 1 & 2)</li>
-          <li>HRT/TRT Repair by Epoxy Mortar at Tehri PSP</li>
-          <li>Epoxy Treatment at Intake Structures 1 & 2 at Tehri HPP</li>
-          <li>Gate Groove Restoration at VPHEP Diversion Tunnel</li>
-          <li>PU/MFC/Colloidal Silica Grouting at VPHEP Pipalkoti</li>
-        </ul>
-        <ul class="scope-list">
-          <li>Slope Stabilization & Grouting at Koteshwar HEP</li>
-          <li>Spillway & Roller Bucket Repair at Maneri Bhali Stage-I</li>
-          <li>Repair & Rectification of RC Dam at Tapovan VPHEP</li>
-          <li>HRT Repair at NHPC Sewa II HEP, J&K</li>
-          <li>Surge Shaft Swirling Device Repair at Tehri HPP</li>
-          <li>PU Grouting at Chamera-III HE Project</li>
-        </ul>
+  <section class="section" aria-labelledby="w-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="w-h">Executed and ongoing</h2>
+        <p class="lead" style="margin-top:24px">Twelve hydropower jobs, from riverfronts to tunnel grouting.</p>
+        <div style="margin-top:40px" data-gallery><Photo src="/images/pdf_page_18_img_136.jpg" caption="Hume pipe and micro piling at the Tehri baffle wall" ratio="ratio-32" showCaption /></div>
       </div>
+      <nav class="split__b index" aria-label="Hydropower projects">
+        {works.map(([n, h]) => h
+          ? <a href={h}><span class="index__name hp__name">{n}</span><span class="index__what">View</span></a>
+          : <span class="hp__plain"><span class="index__name hp__name">{n}</span></span>)}
+      </nav>
     </div>
   </section>
-
-  <Footer />
 </BaseLayout>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('#mat [role="tab"]')];
+  function select(t: HTMLButtonElement, focus = false) {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute('aria-selected', String(on));
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')!)!.hidden = !on;
+    });
+    if (focus) t.focus();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      const d = ['ArrowDown', 'ArrowRight'].includes(e.key) ? 1 : ['ArrowUp', 'ArrowLeft'].includes(e.key) ? -1 : 0;
+      if (d) { e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true); }
+    });
+  });
+</script>
+
+<style>
+  .hp__clips { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .mat { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px var(--gap); margin-top: 56px; align-items: start; }
+  .mat__list { grid-column: 1 / span 4; display: grid; gap: 4px; }
+  .mat__list button { text-align: left; padding: 18px 20px; font-weight: 700; font-size: 1.125rem; color: var(--on-navy-muted); background: rgba(255, 255, 255, 0.04); transition: background-color var(--t-hover), color var(--t-hover); }
+  .mat__list button[aria-selected='true'] { background: var(--gold); color: var(--navy-deep); }
+  .mat__list button:active { transform: scale(0.99); }
+  @media (hover: hover) and (pointer: fine) { .mat__list button[aria-selected='false']:hover { background: rgba(255, 255, 255, 0.1); color: #fff; } }
+  .mat__panel { grid-column: 6 / span 7; display: grid; gap: 28px; animation: matIn 400ms var(--ease-out); }
+  .mat__panel[hidden] { display: none; }
+  .mat__panel h3 { color: #fff; font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 800; letter-spacing: -0.025em; }
+  .mat__for { font-size: var(--t-lead); color: var(--gold); font-weight: 600; margin: 12px 0 16px; }
+  .mat__panel p { color: var(--on-navy); }
+  .mat__panel .link { display: inline-block; margin-top: 16px; }
+  @keyframes matIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .mat__panel { animation: none; } }
+  .hp__name { font-size: clamp(1.125rem, 1.6vw, 1.375rem) !important; }
+  .hp__plain { display: block; padding: 22px 0; box-shadow: inset 0 -2px 0 rgba(4, 45, 106, 0.1); } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
+  @media (max-width: 900px) { .mat__list, .mat__panel { grid-column: 1 / -1; } }
+</style>

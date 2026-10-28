@@ -1,0 +1,35 @@
+---
+// A site clip: a muted loop shown in place that opens full size in the viewer.
+import clips from '../data/clips.json';
+
+export interface Props {
+  name: keyof typeof clips;
+  caption?: string;
+  /** CSS aspect-ratio class: ratio-169, ratio-45, ratio-916 ... Defaults to the clip's own shape. */
+  ratio?: string;
+  class?: string;
+  /** Omit the caption under the frame (it still shows in the viewer). */
+  bare?: boolean;
+  eager?: boolean;
+}
+
+const { name, caption, ratio, class: cls, bare = false, eager = false } = Astro.props;
+const c = clips[name];
+const text = caption ?? c.caption;
+const shape = ratio ?? (c.h > c.w ? 'ratio-916' : 'ratio-169');
+---
+
+<figure class:list={['clipfig', cls]}>
+  <div class:list={['clip', shape]}>
+    <video muted loop playsinline preload={eager ? 'auto' : 'none'} poster={c.poster} width={c.w} height={c.h} aria-hidden="true">
+      <source src={c.src} type="video/mp4" />
+    </video>
+    <button class="clip__open" type="button" aria-label={`Watch full size: ${text}`}
+      data-lb={c.src} data-lb-type="video" data-lb-poster={c.poster} data-lb-caption={text}></button>
+    <button class="clip__toggle" type="button" aria-label="Pause video">
+      <svg class="i-pause" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
+      <svg class="i-play" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>
+    </button>
+  </div>
+  {!bare && <figcaption>{text}</figcaption>}
+</figure>

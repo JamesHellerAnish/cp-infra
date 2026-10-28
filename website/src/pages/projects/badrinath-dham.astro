@@ -1,160 +1,137 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Chapter from '../../components/Chapter.astro';
+import Clip from '../../components/Clip.astro';
+import Gallery from '../../components/Gallery.astro';
+import NextProjects from '../../components/NextProjects.astro';
+
+const chapters = [
+  ['conditions', 'Conditions'],
+  ['riverfront-a', 'Riverfront A'],
+  ['riverfront-f', 'Riverfront F1'],
+  ['bridge-civic', 'Bridge and civic centre'],
+];
 ---
 
-<BaseLayout title="Badrinath Dham Project — CP Systems" description="Riverfront development, pedestrian bridge, and civic center construction at Shri Badrinath Dham along the Alaknanda River.">
-  <Header />
+<BaseLayout title="Badrinath Dham — CP Systems" description="Riverfront development, a 47 m pedestrian bridge and a civic centre on the Alaknanda at Shri Badrinath Dham, Uttarakhand.">
+  <PageHero
+    title="Badrinath Dham"
+    lead="Three riverfronts, a 47 m footbridge and a civic centre, built on the Alaknanda in front of one of India's holiest shrines."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }, { label: 'Badrinath Dham' }]}
+    clip="badrinath-approach"
+    facts={[
+      { label: 'Client', value: 'THDCIL / Uttarakhand Govt.' },
+      { label: 'River', value: 'Alaknanda' },
+      { label: 'Bridge span', value: '47 m' },
+      { label: 'Working season', value: 'April – December' },
+    ]}
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Badrinath Dham</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Badrinath Dham</span>
+  <nav class="pindex" aria-label="Parts of the Badrinath work">
+    <div class="pindex__track">{chapters.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}</div>
+  </nav>
+
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">A riverfront for the yatra</h2>
+        <p class="lead" style="margin-top:24px">The redevelopment of Shri Badrinath Dham runs along both banks of the Alaknanda. CPS built three riverfronts, the pedestrian bridge between them and a civic centre near Badrish Lake.</p>
+        <p style="margin-top:18px">Every part of it had to be founded below a fast, freezing river, and finished between yatra crowds.</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Overview -->
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Heritage Infrastructure</span>
-          <h2 class="section-title">Riverfront Development at Shri Badrinath Dham</h2>
-          <p>
-            A comprehensive infrastructure development project at the holy pilgrimage site of Shri Badrinath Dham along the Alaknanda River, encompassing multiple sub-projects including three riverfronts, a 47m pedestrian bridge, and a civic center building.
-          </p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Client</strong><br/>
-              <span>THDCIL / Uttarakhand Govt.</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Location</strong><br/>
-              <span>Shri Badrinath Dham, Uttarakhand</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Bridge Span</strong><br/>
-              <span>47m Pedestrian Bridge</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Working Season</strong><br/>
-              <span>April – December</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_15_img_123.jpg" alt="Badrinath Dham" />
-        </div>
+      <div class="split__b" data-gallery>
+        <Clip name="badrinath-excavator-river" />
       </div>
     </div>
   </section>
 
-  <!-- Challenges -->
-  <section class="section section--navy">
-    <div class="container" style="text-align: center;">
-      <span class="section-label">Extreme Conditions</span>
-      <h2 class="section-title" style="color: var(--white);">Challenges Faced</h2>
-      <div class="grid grid--3" style="margin-top: 30px;">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🌡️</div>
-          <h4 class="service-card__title">-10°C to 20°C</h4>
-          <p class="service-card__desc">Extreme temperature variations. Concrete takes longer to set despite using chemicals. Below zero from Oct–Apr.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏔️</div>
-          <h4 class="service-card__title">Himalayan Terrain</h4>
-          <p class="service-card__desc">Foundations 5-7m below river bed with bouldery strata causing uncontrollable seepage despite 10-12 dewatering pumps.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🛕</div>
-          <h4 class="service-card__title">Active Yatra Season</h4>
-          <p class="service-card__desc">May–November yatra restricts equipment movement. Supply of materials hampered. Habitations on both banks interfere with work.</p>
-        </div>
+  <section id="conditions" class="section field-navy" aria-labelledby="cond-h">
+    <div class="wrap">
+      <h2 id="cond-h" data-reveal><span>What the site asked of us</span></h2>
+      <div class="cond" data-gallery>
+        <article class="cond__item" data-reveal>
+          <Clip name="badrinath-winter" ratio="ratio-45" bare />
+          <p class="cond__fig">−10 to 20 °C</p>
+          <p>Below zero from October to April. Concrete takes longer to set even with admixtures, so pours are planned around the cold.</p>
+        </article>
+        <article class="cond__item" data-reveal>
+          <Clip name="badrinath-bucket-crossing" ratio="ratio-45" bare />
+          <p class="cond__fig">5–7 m below the bed</p>
+          <p>Foundations in bouldery strata with seepage that 10–12 dewatering pumps could not fully stop. Some days the only way across was the bucket.</p>
+        </article>
+        <article class="cond__item" data-reveal>
+          <Clip name="badrinath-night" ratio="ratio-45" bare />
+          <p class="cond__fig">May – November yatra</p>
+          <p>Pilgrim traffic restricts equipment movement and slows material supply, with homes on both banks. Work carries on after dark.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- Sub-Project A: Riverfront A -->
-  <section class="section" id="riverfront-a">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge">Riverfront A</span>
-        <span class="phase-period">Right Bank of Alaknanda River</span>
-      </div>
-      <h2 class="section-title">Riverfront A — Right Bank Development</h2>
-      <p style="margin-bottom: 24px;">Construction of Riverfront A on the right bank of the Alaknanda River at Shri Badrinath Dham. Involved extensive dewatering, foundation excavation in bouldery strata, reinforcement binding, and concrete construction in freezing conditions.</p>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_93_img_1.jpg" alt="Riverfront A" /><span class="gallery-caption">Riverfront A at Shri Badrinath</span></div>
-        <div class="gallery-item"><img src="/images/slide_93_img_2.jpg" alt="Riverfront A Construction" /><span class="gallery-caption">Construction along Alaknanda</span></div>
-        <div class="gallery-item"><img src="/images/slide_95_img_1.jpg" alt="Dewatering" /><span class="gallery-caption">Dewatering in Riverfront A</span></div>
-        <div class="gallery-item"><img src="/images/slide_96_img_1.jpg" alt="Concreting" /><span class="gallery-caption">Dewatering & concreting</span></div>
-        <div class="gallery-item"><img src="/images/slide_97_img_1.jpg" alt="Reinforcement" /><span class="gallery-caption">Reinforcement binding</span></div>
-        <div class="gallery-item"><img src="/images/slide_98_img_1.jpg" alt="Rebar & Dewatering" /><span class="gallery-caption">Reinforcement, dewatering & concreting</span></div>
-      </div>
-    </div>
-  </section>
+  <Chapter id="riverfront-a" title="Riverfront A, right bank" when="Right bank" whenNote="Alaknanda River" pair
+    scope={['Extensive dewatering of the work area', 'Foundation excavation in bouldery strata', 'Reinforcement binding and wall concreting', 'Approaches built into the running river']}>
+    <p>Riverfront A on the right bank: dewatering, excavation through boulders, reinforcement and concrete, much of it in freezing conditions.</p>
+    <Fragment slot="media">
+      <Clip name="badrinath-riverfront-wall" />
+      <Clip name="badrinath-wall-concreting" />
+    </Fragment>
+    <Gallery slot="row" title="Riverfront A, photographed" items={[
+      { src: '/images/slide_93_img_1.jpg', caption: 'Riverfront A at Shri Badrinath' },
+      { src: '/images/slide_93_img_2.jpg', caption: 'Construction along the Alaknanda' },
+      { src: '/images/slide_95_img_1.jpg', caption: 'Dewatering in Riverfront A' },
+      { src: '/images/slide_96_img_1.jpg', caption: 'Dewatering and concreting' },
+      { src: '/images/slide_97_img_1.jpg', caption: 'Reinforcement binding' },
+      { src: '/images/slide_98_img_1.jpg', caption: 'Reinforcement, dewatering and concreting', tall: true },
+      { src: '/images/expansion/badrinath_rf_a_2.jpg', caption: 'Riverfront A wall along the river' },
+      { src: '/images/expansion/badrinath_rf_a_4.jpg', caption: 'Wall foundation works' },
+      { src: '/images/expansion/badrinath_rf_a_7.jpg', caption: 'Riverfront A in progress' },
+      { src: '/images/expansion/badrinath_rf_a_10.jpg', caption: 'Riverfront A reinforcement' },
+    ]} />
+  </Chapter>
 
-  <!-- Sub-Project B: Riverfront F1 -->
-  <section class="section section--beige" id="riverfront-f">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--2">Riverfront F1</span>
-        <span class="phase-period">Left Bank of Alaknanda River</span>
-      </div>
-      <h2 class="section-title">Riverfront F1 — Left Bank Development</h2>
-      <p style="margin-bottom: 24px;">Construction of Riverfront F on the left bank of the Alaknanda River. Similar challenges as Riverfront A with excessive seepage from banks and river side, requiring continuous dewatering operations.</p>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_99_img_1.jpg" alt="Riverfront F" /><span class="gallery-caption">Reinforcement binding at Riverfront F</span></div>
-        <div class="gallery-item"><img src="/images/slide_99_img_2.jpg" alt="Riverfront F Construction" /><span class="gallery-caption">Dewatering & concreting at Riverfront F</span></div>
-        <div class="gallery-item"><img src="/images/slide_94_img_1.jpg" alt="Temporary Approach" /><span class="gallery-caption">Making approach in Alaknanda River</span></div>
-      </div>
-    </div>
-  </section>
+  <Chapter id="riverfront-f" title="Riverfront F1, left bank" when="Left bank" whenNote="Alaknanda River" field="surface" flip pair
+    scope={['Seepage from the bank and the river side', 'Continuous dewatering with diesel pumps', 'Temporary approach built into the river', 'Reinforcement and concreting in the dewatered pit']}>
+    <p>Riverfront F on the left bank, with the same boulders and even more water coming in from both sides.</p>
+    <Fragment slot="media">
+      <Clip name="badrinath-dewatering" />
+      <Clip name="badrinath-river-approach" />
+    </Fragment>
+    <Gallery slot="row" title="Riverfront F1, photographed" items={[
+      { src: '/images/slide_99_img_1.jpg', caption: 'Reinforcement binding at Riverfront F' },
+      { src: '/images/slide_99_img_2.jpg', caption: 'Dewatering and concreting at Riverfront F' },
+      { src: '/images/slide_94_img_1.jpg', caption: 'Making an approach in the Alaknanda' },
+      { src: '/images/expansion/badrinath_rf_a_5.jpg', caption: 'Left bank works' },
+      { src: '/images/expansion/badrinath_rf_a_11.jpg', caption: 'Dewatered foundation' },
+    ]} />
+  </Chapter>
 
-  <!-- Sub-Project C: Pedestrian Bridge & Civic Center -->
-  <section class="section" id="bridge-civic">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--3">Bridge & Civic Center</span>
-        <span class="phase-period">47m Span Bridge + Civic Center Building</span>
-      </div>
-      <h2 class="section-title">Pedestrian Bridge & Civic Center Building</h2>
-      <p style="margin-bottom: 24px;">Construction of a 47m span pedestrian bridge across the Alaknanda River and a Civic Center Building near Badrish Lake. The bridge foundations are 5-7m below the river bed, making seepage control a major challenge.</p>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_100_img_1.jpg" alt="Civic Centre Raft" /><span class="gallery-caption">Reinforcement in raft & column of Civic Centre</span></div>
-        <div class="gallery-item"><img src="/images/slide_100_img_2.jpg" alt="Civic Centre Column" /><span class="gallery-caption">Column reinforcement binding</span></div>
-        <div class="gallery-item"><img src="/images/slide_94_img_2.jpg" alt="River Approach" /><span class="gallery-caption">River approach for bridge foundation</span></div>
-        <div class="gallery-item"><img src="/images/slide_101_img_1.jpg" alt="Bridge Construction" /><span class="gallery-caption">Bridge construction progress</span></div>
-        <div class="gallery-item"><img src="/images/slide_102_img_1.jpg" alt="Structure Progress" /><span class="gallery-caption">Building structure rising</span></div>
-        <div class="gallery-item"><img src="/images/slide_103_img_1.jpg" alt="Bridge & Civic" /><span class="gallery-caption">Bridge & civic center overview</span></div>
-      </div>
-    </div>
-  </section>
+  <Chapter id="bridge-civic" title="Footbridge and civic centre" when="47 m span" whenNote="Near Badrish Lake" pair
+    scope={['Bridge foundations 5–7 m below the riverbed', 'Raft and column reinforcement for the civic centre', 'Concrete pumped across the site', 'Structure carried on through winter snow']}>
+    <p>A 47 m pedestrian bridge across the Alaknanda, and a Civic Centre building near Badrish Lake. The bridge piers sit 5–7 m below the riverbed, so seepage control set the pace.</p>
+    <Fragment slot="media">
+      <Clip name="badrinath-bridge-pier" />
+      <Clip name="badrinath-raft-rebar" />
+      <Clip name="badrinath-civic-snow" />
+      <Clip name="badrinath-concrete-pump" />
+    </Fragment>
+    <Gallery slot="row" title="Bridge and civic centre, photographed" items={[
+      { src: '/images/slide_100_img_1.jpg', caption: 'Raft and column reinforcement, civic centre' },
+      { src: '/images/slide_100_img_2.jpg', caption: 'Column reinforcement binding' },
+      { src: '/images/slide_94_img_2.jpg', caption: 'River approach for the bridge foundation' },
+      { src: '/images/slide_101_img_1.jpg', caption: 'Bridge construction' },
+      { src: '/images/slide_102_img_1.jpg', caption: 'Building structure rising' },
+      { src: '/images/slide_103_img_1.jpg', caption: 'Bridge and civic centre overview' },
+      { src: '/images/expansion/badrinath_civic_1.jpg', caption: 'Civic centre frame' },
+      { src: '/images/expansion/badrinath_civic_2.jpg', caption: 'Civic centre and the valley' },
+    ]} />
+  </Chapter>
 
-  <Footer />
+  <NextProjects current="/projects/badrinath-dham/" />
 </BaseLayout>
 
 <style>
-  .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow-md); }
-  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-caption {
-    display: block; padding: 8px 12px; font-size: 0.8rem; color: var(--grey-text);
-    text-align: center; background: var(--white); font-weight: 500;
-  }
-  .phase-header {
-    display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .phase-badge {
-    display: inline-block; background: var(--navy); color: var(--gold); padding: 6px 20px;
-    border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  }
-  .phase-badge--2 { background: var(--gold); color: var(--navy); }
-  .phase-badge--3 { background: #059669; color: white; }
-  .phase-period {
-    font-size: 0.9rem; color: var(--grey-text); font-weight: 600; letter-spacing: 0.5px;
-  }
+  .cond { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px var(--gap); margin-top: 56px; }
+  .cond__fig { font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--gold); line-height: 1.05; margin: 24px 0 12px; }
+  .cond__item p:last-child { color: var(--on-navy); }
+  @media (max-width: 900px) { .cond { grid-template-columns: 1fr; } }
 </style>

@@ -1,0 +1,36 @@
+---
+// A sideways row of site photographs; each opens in the viewer with its neighbours.
+export interface Props {
+  title: string;
+  items: { src: string; caption: string; tall?: boolean }[];
+  /** Heading level for the row title. */
+  as?: 'h2' | 'h3';
+}
+const { title, items, as: H = 'h3' } = Astro.props;
+---
+
+<div class="row" data-gallery>
+  <div class="row__head wrap">
+    <H>{title}</H>
+    <div class="row__nav">
+      <button type="button" data-row-prev aria-label={`Previous photographs: ${title}`}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button type="button" data-row-next aria-label={`More photographs: ${title}`}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <ul class="row__track">
+    {items.map((it) => (
+      <li class:list={['row__item', { 'row__item--tall': it.tall }]}>
+        <figure>
+          <button type="button" data-lb={it.src} data-lb-caption={it.caption} aria-label={`Open photograph: ${it.caption}`}>
+            <div class="media"><img src={it.src} alt={it.caption} loading="lazy" decoding="async" /></div>
+          </button>
+          <figcaption>{it.caption}</figcaption>
+        </figure>
+      </li>
+    ))}
+  </ul>
+</div>

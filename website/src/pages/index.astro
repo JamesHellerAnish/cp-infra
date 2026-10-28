@@ -1,292 +1,471 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Clip from '../components/Clip.astro';
+import IndiaMap from '../components/IndiaMap.astro';
+import clips from '../data/clips.json';
+
+const reel = clips['home-reel'];
+
+// The reel is five four-second shots; the label under the headline follows them.
+const shots = [
+  { at: 0, name: 'Badrinath Dham', what: 'building an approach into the Alaknanda', href: '/projects/badrinath-dham/' },
+  { at: 4, name: 'Hailang Dam', what: 'coffer dam of boulder-filled MS boxes', href: '/projects/hailang-dam/' },
+  { at: 8, name: 'Bhutan Granite Mine', what: 'blocks on the bench above Wangdue', href: '/projects/bhutan-mine/' },
+  { at: 12, name: 'Tehri Dam', what: 'concreting the ramp in a 35-day shutdown', href: '/projects/tehri-dam/' },
+  { at: 16, name: 'Badrinath Dham', what: 'a crew crossing the river in a bucket', href: '/projects/badrinath-dham/' },
+];
+
+const showcase = [
+  { name: 'Tehri Dam', clip: 'tehri-ramp-concreting', line: 'Dredging, baffle wall, HRT/TRT and intake repair', fact: '2.5 lakh cum dredged in two shutdowns', thumb: '/images/pdf_page_20_img_142.jpg', href: '/projects/tehri-dam/' },
+  { name: 'Badrinath Dham', clip: 'badrinath-bucket-crossing', line: 'Riverfronts A and F1, a footbridge, a civic centre', fact: 'Foundations 5–7 m below the riverbed', thumb: '/images/slide_93_img_2.jpg', href: '/projects/badrinath-dham/' },
+  { name: 'Hailang Dam', clip: 'hailang-cofferdam-aerial', line: 'Gate groove restoration, VPHEP 444 MW', fact: 'Repaired against 50–60 cumec of flow', thumb: '/images/slide_10_img_1.jpg', href: '/projects/hailang-dam/' },
+  { name: 'Bhutan Granite Mine', clip: 'bhutan-wire-saw', line: 'CP-DRUK White Galaxy, Wangdue', fact: '8 million MT of reserves on 85 acres', thumb: '/images/pdf_fix_p6_img_1.jpg', href: '/projects/bhutan-mine/' },
+] as const;
+
+// Working windows, January 2023 = month 0. Dates are from the project records.
+const MONTHS = 30;
+const monthName = (m: number) => new Date(2023, m, 1).toLocaleString('en-GB', { month: 'short', year: 'numeric' });
+const windows = [
+  { id: 'w-tehri1', site: 'Tehri Dam', job: 'River dredging and baffle wall, phase 1', from: 1, to: 6, when: 'Feb – Jul 2023', clip: 'tehri-dredging', fact: '~1 lakh cum dredged and hauled 14–15 km, 47 m baffle wall across the Bhagirathi', href: '/projects/tehri-dam/#phase1-dredging' },
+  { id: 'w-hailang1', site: 'Hailang Dam', job: 'Right side gate groove, phase 1', from: 12, to: 14, when: 'Jan – Mar 2024', clip: 'hailang-cofferdam-aerial', fact: 'Lean season only: the diversion tunnel still carried 50–60 cumec', href: '/projects/hailang-dam/#phase1' },
+  { id: 'w-tehri2', site: 'Tehri Dam', job: 'Dredging and ramps, phase 2', from: 17, to: 18, when: 'Jun – Jul 2024', clip: 'tehri-ramp-concreting', fact: '1,50,000 cum dredged and 14,400 cum concreted inside a 35-day shutdown', href: '/projects/tehri-dam/#phase2-dredging' },
+  { id: 'w-hailang2', site: 'Hailang Dam', job: 'Left side gate groove, phase 2', from: 23, to: 26, when: 'Dec 2024 – Mar 2025', clip: 'hailang-rebaring', fact: 'Slab cut by wire saw, new steel anchored, micro concrete poured under water', href: '/projects/hailang-dam/#phase2' },
+  { id: 'w-intake', site: 'Tehri Dam', job: 'Epoxy treatment, intake structures 1 & 2', from: 28, to: 29, when: '31 May – 14 Jun 2025', image: '/images/slide_39_img_0.jpg', fact: 'Planned for 30 days, handed over in 16', href: '/projects/tehri-dam/#epoxy-intake' },
+] as const;
+const startMonth = 17;
 ---
 
-<BaseLayout title="CP Systems Pvt. Ltd. — Constructing a Better World">
-  <Header />
+<BaseLayout title="CP Systems Pvt. Ltd. — Dams, tunnels, riverfronts and mines since 1999">
 
-  <!-- Hero Section — Image Collage -->
-  <section class="hero">
-    <div class="hero__collage">
-      <div class="hero__collage-item hero__collage-item--1"><img src="/images/pdf_page_15_img_123.jpg" alt="Badrinath Dham Riverfront" /></div>
-      <div class="hero__collage-item hero__collage-item--2"><img src="/images/pdf_page_13_img_112.jpg" alt="Kedarnath Dham Construction" /></div>
-      <div class="hero__collage-item hero__collage-item--3"><img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam" /></div>
-      <div class="hero__collage-item hero__collage-item--4"><img src="/images/pdf_page_18_img_136.jpg" alt="River Dredging Operations" /></div>
-      <div class="hero__collage-item hero__collage-item--5"><img src="/images/pdf_fix_p6_img_1.jpg" alt="Bhutan Granite Blocks" /></div>
-      <div class="hero__collage-item hero__collage-item--6"><img src="/images/pdf_page_21_img_145.jpg" alt="Hailang Dam VPHEP" /></div>
-      <div class="hero__collage-item hero__collage-item--7"><img src="/images/pdf_page_14_img_116.jpg" alt="Kedarnath Building" /></div>
-      <div class="hero__collage-item hero__collage-item--8"><img src="/images/pdf_page_9_img_90.jpg" alt="Kekri Mine Operations" /></div>
-      <div class="hero__collage-item hero__collage-item--9"><img src="/images/slide_54_img_3.jpg" alt="Baffle Wall Construction" /></div>
-      <div class="hero__collage-item hero__collage-item--10"><img src="/images/pdf_page_16_img_127.jpg" alt="Civic Center Badrinath" /></div>
-      <div class="hero__collage-item hero__collage-item--11"><img src="/images/pdf_fix_p10_img_5.jpg" alt="White Galaxy Granite" /></div>
-      <div class="hero__collage-item hero__collage-item--12"><img src="/images/pdf_page_19_img_138.jpg" alt="Tehri Tunnel Repair" /></div>
+  <!-- Hero: the sites themselves, one after another -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <video id="heroReel" autoplay muted loop playsinline preload="auto" poster={reel.poster} aria-hidden="true">
+        <source src={reel.src} type="video/mp4" />
+      </video>
     </div>
-    <div class="hero__overlay"></div>
-    <div class="container hero__content">
-      <div class="hero__badge">🏆 Recipients of Udyog Ratan Award & Excellence Award</div>
-      <h1 class="hero__title">
-        Constructing a<br/><span>Better World</span>
-      </h1>
-      <p class="hero__subtitle">
-        Over 3 decades of delivering complex infrastructure projects across India and beyond — from hydropower dams to riverfront development, mining to civil construction.
+    <div class="hero__sky wrap">
+      <h1 id="hero-title">Dams, tunnels,<br />rivers and rock</h1>
+      <p class="hero__line">
+        <span>CP Systems builds, repairs, dredges and quarries</span>
+        <span>in the Himalaya, Rajasthan and Bhutan.</span>
       </p>
-      <div class="hero__actions">
-        <a href="/about/" class="btn btn--gold">Discover Our Story</a>
-        <a href="/contact/" class="btn btn--outline">Get In Touch</a>
+    </div>
+    <div class="hero__foot wrap">
+      <a class="hero__now" id="heroNow" href={shots[0].href}>
+        <span class="hero__now-name">{shots[0].name}</span>
+        <span class="hero__now-what">{shots[0].what}</span>
+      </a>
+      <button class="hero__pause" id="heroPause" type="button" aria-label="Pause the site reel">Pause reel</button>
+    </div>
+  </section>
+
+  <!-- Intro: the company in one paragraph -->
+  <section class="intro section" aria-labelledby="intro-title">
+    <div class="intro__grid wrap">
+      <div class="intro__text" data-reveal>
+        <h2 id="intro-title">Hard ground<br />since 1999</h2>
+        <p class="lead">Established in 1999, CPS works where timing is tight and access is worse: under running rivers, inside tunnels, at 3,000 metres and in the quarry.</p>
+        <p>Our clients are government departments, public sector undertakings such as THDC India, turnkey operators and builders. The work spans civil, anti-corrosive, mechanical and electrical execution, and a growing practice in civil and structural design.</p>
+        <a class="link" href="/about/">How CPS works</a>
+      </div>
+      <figure class="intro__tall shutter media">
+        <img src="/images/slide_32_img_0.jpg" alt="Gantry crane and lighting inside the Tehri tunnel works" width="1600" height="1200" />
+      </figure>
+      <figure class="intro__small">
+        <div class="media"><img src="/images/pdf_page_20_img_144.jpg" alt="The CPS site team at Tehri" loading="lazy" /></div>
+        <figcaption>The CPS site team at Tehri.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Showcase: four sites, each a full screen of its own footage -->
+  {showcase.map((s, i) => (
+    <section class="show" aria-labelledby={`show-${i}`} style={`--col:${i + 1}`}>
+      <div class="show__bg"><Clip name={s.clip} bare ratio="" class="show__clip" /></div>
+      <div class="show__grid wrap">
+        <article class="show__card" data-reveal>
+          <h2 id={`show-${i}`}>{s.name}</h2>
+          <p class="show__line">{s.line}</p>
+          <p class="show__fact">{s.fact}</p>
+          <div class="media show__thumb"><img src={s.thumb} alt="" loading="lazy" /></div>
+          <a class="btn btn--paper show__go" href={s.href}>See the project</a>
+        </article>
+      </div>
+    </section>
+  ))}
+
+  <!-- The live thing: working windows, scrubbed month by month -->
+  <section class="windows section field-navy" aria-labelledby="win-title">
+    <div class="wrap">
+      <div class="windows__head" data-reveal>
+        <h2 id="win-title">Work happens in windows</h2>
+        <p class="lead">Shutdowns, lean seasons and handover dates decide when a crew can stand in the river. Drag through 2023 to 2025 to see where CPS was working.</p>
+      </div>
+
+      <div class="windows__body">
+        <div class="gantt" id="gantt" style={`--months:${MONTHS}`}>
+          <div class="gantt__years" aria-hidden="true">
+            <span style="grid-column: 1 / span 12">2023</span>
+            <span style="grid-column: 13 / span 12">2024</span>
+            <span style="grid-column: 25 / span 6">2025</span>
+          </div>
+          {windows.map((w) => (
+            <div class="gantt__row">
+              <span class="gantt__label">{w.site}</span>
+              <button type="button" class="gantt__bar" data-from={w.from} data-to={w.to}
+                style={`grid-column: ${w.from + 1} / ${w.to + 2}`} aria-label={`${w.site}: ${w.job}, ${w.when}`}></button>
+            </div>
+          ))}
+          <div class="gantt__scrub">
+            <label for="month" class="gantt__month" id="monthOut">{monthName(startMonth)}</label>
+            <input id="month" type="range" min="0" max={MONTHS - 1} value={startMonth} step="1" aria-valuetext={monthName(startMonth)} />
+          </div>
+          <span class="gantt__head" id="playhead" aria-hidden="true" style={`--m:${startMonth}`}></span>
+        </div>
+
+        <div class="windows__panel" aria-live="polite">
+          {windows.map((w) => (
+            <article class="win" id={w.id} data-from={w.from} data-to={w.to}>
+              <div class="win__media">
+                {'clip' in w ? <Clip name={w.clip} bare ratio="ratio-169" /> : <div class="media ratio-169"><img src={w.image} alt="Intake structure after epoxy treatment" loading="lazy" /></div>}
+              </div>
+              <p class="win__when">{w.when}</p>
+              <h3>{w.site}: {w.job}</h3>
+              <p>{w.fact}</p>
+              <a class="link" href={w.href}>Read the phase</a>
+            </article>
+          ))}
+          <article class="win win--gap" id="w-gap" hidden>
+            <p class="win__when" id="gapWhen"></p>
+            <h3>Between windows</h3>
+            <p>No shutdown on record this month. Crews mobilise, plan the next window and keep the year-round work going: Badrinath runs April to December each year, and the mines in Bhutan and Rajasthan keep cutting.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Legacy Section -->
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">A Legacy of Transformation</span>
-          <h2 class="section-title">Over 3 Decades of Infra-Excellence</h2>
-          <p>
-            C P Systems Pvt. Ltd., established in 1999, is not just a company — it is an institution built on a foundation of innovation, ingenuity, and purpose. With a firm belief in meaningful and timely project execution, CPS stands out for its creative approach, technical excellence, and unwavering commitment to quality.
-          </p>
-          <br/>
-          <p>
-            After gaining experience and expertise, and profitably reaping the fruits of diversification, the portfolio of CPS has a variety in terms of both the activities undertaken and the clients served — Government & Semi Government Departments, Public Sector Undertakings, Turnkey Projects Operators and Promoters & Builders.
-          </p>
-          <br/>
-          <a href="/about/" class="btn btn--navy" style="margin-top: 12px;">Learn More →</a>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_2_img_1.jpg" alt="MD with King of Bhutan" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="section section--navy">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number" data-counter="25" data-suffix="+">0</div>
-          <div class="stat-label">Years of Experience</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-counter="143" data-prefix="₹" data-suffix=" Cr">0</div>
-          <div class="stat-label">Annual Turnover (FY 2024-25)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-counter="50" data-suffix="+">0</div>
-          <div class="stat-label">Major Projects</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-counter="154" data-suffix="%">0</div>
-          <div class="stat-label">Growth Rate</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Expertise Section -->
-  <section class="section section--beige">
-    <div class="container">
-      <span class="section-label">Our Expertise</span>
-      <h2 class="section-title">Comprehensive Infrastructure Solutions</h2>
-      <p class="section-desc" style="margin-bottom: 40px;">
-        Encompassing diverse areas of construction pan India and beyond, CPS delivers end-to-end infrastructure solutions powered by innovation and commitment.
-      </p>
-
-      <div class="grid grid--3">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏗️</div>
-          <h4 class="service-card__title">Civil & Mechanical Works</h4>
-          <p class="service-card__desc">Riverfront development, pedestrian bridges, civic center buildings, and pilgrimage accommodation — as executed at Badrinath Dham & Kedarnath Dham.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">💧</div>
-          <h4 class="service-card__title">Hydropower & River Dredging</h4>
-          <p class="service-card__desc">Multi-phase river dredging, baffle wall construction across flowing rivers, and hydropower infrastructure — as executed at Tehri Dam Phase 1 & 2.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">⛏️</div>
-          <h4 class="service-card__title">Mining & Exploration</h4>
-          <p class="service-card__desc">Granite quarrying, processing, and premium stone products — operating mines in Bhutan (85 acres) and Kekri, Rajasthan (1 Hectare).</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🔩</div>
-          <h4 class="service-card__title">Drilling & Grouting</h4>
-          <p class="service-card__desc">Consolidation grouting with microfine cement, PU grouting, colloidal silica injection, and micro piling — as executed at Tehri HRT/TRT and VPHEP.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🧪</div>
-          <h4 class="service-card__title">Epoxy & Repair Works</h4>
-          <p class="service-card__desc">Epoxy mortar application, underwater epoxy treatment, seal coats, and surface repair — as executed at Tehri Intake Structures and HRT #3 & #4.</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏛️</div>
-          <h4 class="service-card__title">Dam & Tunnel Rehabilitation</h4>
-          <p class="service-card__desc">Gate groove restoration, spillway repair, tunnel lining, and structural strengthening — as executed at Hailang Dam VPHEP and Maneri Bhali Dam.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Key Projects Section -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label">Projects Showcase</span>
-      <h2 class="section-title">Key Projects</h2>
-      <p class="section-desc" style="margin-bottom: 40px;">
-        Our track record speaks for itself — from sacred pilgrimage sites to massive hydropower dams, every project bears the stamp of quality and commitment.
-      </p>
-
-      <div class="grid grid--3">
-        <a href="/projects/badrinath-dham/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_15_img_123.jpg" alt="Badrinath Dham" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Hydropower</span>
-            <h3 class="project-card__title">Badrinath Dham</h3>
-            <p class="project-card__desc">Riverfront development, pedestrian bridge, and civic center at Shri Badrinath Dham along the Alaknanda River.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
+  <!-- More work: a loose scatter -->
+  <section class="scatter section" aria-labelledby="more-title">
+    <div class="wrap">
+      <h2 id="more-title" data-reveal><span>More of the work</span></h2>
+      <div class="scatter__list">
+        <a class="sc sc--a" href="/projects/kedarnath-dham/" data-reveal>
+          <span class="sc__name">Kedarnath Dham</span>
+          <div class="media"><img src="/images/expansion/kedarnath_q1n_1.jpg" alt="Pilgrim accommodation block at Kedarnath" loading="lazy" /></div>
+          <span class="sc__what">Pilgrim accommodation blocks Q2Q and Q1N, built at 3,583 m between snowfalls.</span>
         </a>
-
-        <a href="/projects/kedarnath-dham/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_13_img_112.jpg" alt="Kedarnath Dham" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Civil Works</span>
-            <h3 class="project-card__title">Kedarnath Dham</h3>
-            <p class="project-card__desc">Construction of Pilgrim Accommodation Block at Shri Kedarnath Dham in challenging Himalayan terrain.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
+        <a class="sc sc--b" href="/projects/bhutan-mine/" data-reveal>
+          <span class="sc__name">Bhutan Granite Mine</span>
+          <div class="media"><img src="/media/posters/bhutan-blocks-valley.jpg" alt="Granite blocks on the bench above the Wangdue valley" loading="lazy" /></div>
+          <span class="sc__what">85 acres, 8 million MT, and a 5-acre processing unit at Tagena.</span>
         </a>
-
-        <a href="/projects/tehri-dam/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Hydropower</span>
-            <h3 class="project-card__title">Tehri Dam</h3>
-            <p class="project-card__desc">River dredging, baffle wall construction, HRT/TRT repair, and epoxy treatment at India's tallest dam.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
+        <p class="sc__remark" data-reveal><span>Most of this work happens in water that does not stop for anyone.</span></p>
+        <a class="sc sc--c" href="/projects/kekri-mine/" data-reveal>
+          <span class="sc__name">Kekri Granite Mine</span>
+          <div class="media"><img src="/images/pdf_page_9_img_90.jpg" alt="Granite blocks in the Kekri quarry" loading="lazy" /></div>
+          <span class="sc__what">Steel Grey, Black Galaxy and Red Galaxy, processed at Rajsamand.</span>
         </a>
-
-        <a href="/projects/hailang-dam/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_21_img_145.jpg" alt="Hailang Dam" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Hydropower</span>
-            <h3 class="project-card__title">Hailang Dam (VPHEP)</h3>
-            <p class="project-card__desc">Restoration of gate groove in diversion tunnel at Vishnugadh Pipalkoti Hydroelectric Project.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
+        <a class="sc sc--a" href="/projects/other/" data-reveal>
+          <span class="sc__name">Koteshwar, Maneri Bhali, Tapovan and more</span>
+          <div class="media"><img src="/images/other_projects/maneri_bhali_1.jpg" alt="Spillway repair at Maneri Bhali" loading="lazy" /></div>
+          <span class="sc__what">Slope stabilisation, spillway and roller bucket repair, dam rectification.</span>
         </a>
-
-        <a href="/projects/bhutan-mine/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_fix_p6_img_1.jpg" alt="Bhutan Mine" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Mining</span>
-            <h3 class="project-card__title">Bhutan Granite Mine</h3>
-            <p class="project-card__desc">85-acre granite mine in Wangdue, Bhutan with 8 Million MT reserves — home to CP-DRUK White Galaxy.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
-        </a>
-
-        <a href="/projects/kekri-mine/" class="project-card animate-on-scroll">
-          <img src="/images/pdf_page_9_img_90.jpg" alt="Kekri Mine" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Mining</span>
-            <h3 class="project-card__title">Kekri Granite Mine</h3>
-            <p class="project-card__desc">1 Hectare granite mine in Kekri, Rajasthan with 1 Million MT reserves of premium quality granite.</p>
-            <span class="project-card__link">View Project →</span>
-          </div>
+        <a class="sc sc--b" href="/speciality/civil/" data-reveal>
+          <span class="sc__name">Civil works across India</span>
+          <div class="media"><img src="/media/posters/noida-building.jpg" alt="Column and slab work on a building in Noida" loading="lazy" /></div>
+          <span class="sc__what">Expressway fire protection, CETPs, a 294 km pipeline coating, refinery insulation.</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Presence Section -->
-  <section class="section section--navy" style="background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);">
-    <div class="container" style="text-align: center;">
-      <span class="section-label">Our Presence</span>
-      <h2 class="section-title" style="color: var(--white);">Pan India & Beyond</h2>
-      <p class="section-desc" style="margin: 0 auto 40px; color: rgba(255,255,255,0.7); text-align: center;">
-        From the sacred sites of Uttarakhand to the granite mines of Bhutan, CPS has established its footprint across diverse geographies, executing infrastructure projects in challenging terrains and extreme conditions.
-      </p>
-      <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 30px;">
-        <div style="text-align: center; padding: 20px 30px;">
-          <div style="font-size: 2rem; font-weight: 900; color: var(--gold);">Uttarakhand</div>
-          <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Tehri, Badrinath, Kedarnath, VPHEP</div>
-        </div>
-        <div style="text-align: center; padding: 20px 30px;">
-          <div style="font-size: 2rem; font-weight: 900; color: var(--gold);">Rajasthan</div>
-          <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Kekri Granite Mine</div>
-        </div>
-        <div style="text-align: center; padding: 20px 30px;">
-          <div style="font-size: 2rem; font-weight: 900; color: var(--gold);">Bhutan</div>
-          <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Wangdue Granite Mine</div>
-        </div>
-        <div style="text-align: center; padding: 20px 30px;">
-          <div style="font-size: 2rem; font-weight: 900; color: var(--gold);">Delhi NCR</div>
-          <div style="font-size: 0.85rem; color: rgba(255,255,255,0.6);">Corporate Headquarters</div>
-        </div>
+  <!-- The figure -->
+  <section class="fig" aria-labelledby="fig-title">
+    <div class="fig__photo media">
+      <img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam and its reservoir" loading="lazy" />
+      <h2 id="fig-title" class="fig__title">Growth</h2>
+      <div class="fig__base wrap">
+        <p class="fig__num"><span data-roll="143">143</span> Cr</p>
+        <p class="fig__say">Turnover in FY 2024–25, in rupees. Two years earlier it was ₹24.3 Cr.</p>
+      </div>
+    </div>
+    <div class="fig__more wrap" data-reveal>
+      <p><strong>154.7%</strong> growth from FY 2022–23 to FY 2023–24, to ₹61.9 Cr</p>
+      <p><strong>130.9%</strong> growth from FY 2023–24 to FY 2024–25, to ₹143 Cr</p>
+    </div>
+  </section>
+
+  <!-- Where we work -->
+  <section class="where section" aria-labelledby="where-title">
+    <div class="wrap">
+      <div data-reveal>
+        <h2 id="where-title">Pan India and Bhutan</h2>
+        <p class="lead where__lead">From the shrines of Uttarakhand to granite benches in Wangdue and Kekri, run from a head office in New Delhi.</p>
+      </div>
+      <IndiaMap />
+      <div class="where__tiles">
+        <dl class="facts where__facts" style="--cols:4">
+          <div><dt>Established</dt><dd>1999</dd></div>
+          <div><dt>Recognition</dt><dd>Udyog Ratan Award</dd></div>
+          <div><dt>Granite reserves</dt><dd>9 million MT</dd></div>
+          <div><dt>Leadership</dt><dd>Sanjay Shandilya, CMD</dd></div>
+        </dl>
       </div>
     </div>
   </section>
 
-  <!-- Financial Growth Section -->
-  <section class="section">
-    <div class="container" style="text-align: center;">
-      <span class="section-label">Our Growth</span>
-      <h2 class="section-title">Financial Growth Trajectory</h2>
-      <p class="section-desc" style="margin: 0 auto 40px; text-align: center;">
-        Driven by new markets, strong partnerships, skilled teams, and reliable quality — CPS has achieved exceptional growth year over year.
-      </p>
-
-      <div class="growth-chart animate-on-scroll">
-        <div class="growth-bar">
-          <div class="growth-bar__value">₹24.3 Cr</div>
-          <div class="growth-bar__bar" style="height: 80px;"></div>
-          <div class="growth-bar__year">FY 2022-23</div>
-        </div>
-        <div class="growth-bar">
-          <div class="growth-bar__value">₹61.9 Cr</div>
-          <div class="growth-bar__bar" style="height: 160px;"></div>
-          <div class="growth-bar__year">FY 2023-24</div>
-        </div>
-        <div class="growth-bar">
-          <div class="growth-bar__value">₹143 Cr</div>
-          <div class="growth-bar__bar" style="height: 280px;"></div>
-          <div class="growth-bar__year">FY 2024-25</div>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 40px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
-        <div style="text-align: center;">
-          <div style="font-size: 1.5rem; font-weight: 800; color: var(--navy);">154.7%</div>
-          <div style="font-size: 0.8rem; color: var(--grey-text);">Growth FY22-23 → FY23-24</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-size: 1.5rem; font-weight: 800; color: var(--navy);">130.9%</div>
-          <div style="font-size: 0.8rem; color: var(--grey-text);">Growth FY23-24 → FY24-25</div>
-        </div>
-      </div>
+  <!-- Contact -->
+  <section class="visit" aria-labelledby="visit-title">
+    <div class="visit__photo media"><img src="/images/pdf_page_20_img_143.jpg" alt="Tehri intake deck with the reservoir behind" loading="lazy" /></div>
+    <div class="visit__card">
+      <h2 id="visit-title">Bring us the hard one</h2>
+      <address>501, Krishna Apra Business Square,<br />Netaji Subhash Place, Pitampura, New Delhi 110034</address>
+      <dl class="visit__rows">
+        <div><dt>Office</dt><dd><a href="tel:01140539469">011 4053 9469</a></dd></div>
+        <div><dt>Mobile</dt><dd><a href="tel:+919212150206">+91 92121 50206</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:info@cp-infra.in">info@cp-infra.in</a></dd></div>
+      </dl>
+      <a class="btn visit__btn" href="/contact/">Discuss a project</a>
     </div>
   </section>
-
-  <!-- Contact CTA Section -->
-  <section class="section section--navy">
-    <div class="container" style="text-align: center;">
-      <span class="section-label">Get in Touch</span>
-      <h2 class="section-title" style="color: var(--white);">Reach Out to Excellence</h2>
-      <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 30px; font-size: 1.05rem;">
-        Ready to discuss your next infrastructure project? Our team of experienced engineers and managers is here to deliver excellence.
-      </p>
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="/contact/" class="btn btn--gold">Contact Us</a>
-        <a href="tel:+919212150206" class="btn btn--outline">📞 Call Now</a>
-      </div>
-    </div>
-  </section>
-
-  <Footer />
 </BaseLayout>
+
+<script define:vars={{ shots, MONTHS }}>
+  // Hero reel: the label names the site on screen; the button pauses the reel.
+  const v = document.getElementById('heroReel');
+  const now = document.getElementById('heroNow');
+  const pause = document.getElementById('heroPause');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) { v.removeAttribute('autoplay'); v.pause(); pause.textContent = 'Play reel'; }
+  let last = 0;
+  v.addEventListener('timeupdate', () => {
+    let i = 0;
+    for (let k = 0; k < shots.length; k++) if (v.currentTime >= shots[k].at) i = k;
+    if (i === last) return;
+    last = i;
+    now.href = shots[i].href;
+    now.querySelector('.hero__now-name').textContent = shots[i].name;
+    now.querySelector('.hero__now-what').textContent = shots[i].what;
+    now.classList.remove('is-swap'); void now.offsetWidth; now.classList.add('is-swap');
+  });
+  pause.addEventListener('click', () => {
+    if (v.paused) { v.play(); pause.textContent = 'Pause reel'; pause.setAttribute('aria-label', 'Pause the site reel'); }
+    else { v.pause(); pause.textContent = 'Play reel'; pause.setAttribute('aria-label', 'Play the site reel'); }
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); });
+
+  // Working windows: the month slider shows the site at work that month.
+  const input = document.getElementById('month');
+  const out = document.getElementById('monthOut');
+  const head = document.getElementById('playhead');
+  const wins = [...document.querySelectorAll('.win:not(.win--gap)')];
+  const gap = document.getElementById('w-gap');
+  const bars = [...document.querySelectorAll('.gantt__bar')];
+  const name = (m) => new Date(2023, m, 1).toLocaleString('en-GB', { month: 'long', year: 'numeric' });
+  function set(m) {
+    out.textContent = name(m);
+    input.setAttribute('aria-valuetext', name(m));
+    head.style.setProperty('--m', m);
+    let any = false;
+    wins.forEach((w) => {
+      const on = m >= +w.dataset.from && m <= +w.dataset.to;
+      w.hidden = !on || any;
+      if (on) any = true;
+    });
+    bars.forEach((b) => b.classList.toggle('is-on', m >= +b.dataset.from && m <= +b.dataset.to));
+    gap.hidden = any;
+    document.getElementById('gapWhen').textContent = name(m);
+  }
+  input.addEventListener('input', () => set(+input.value));
+  bars.forEach((b) => b.addEventListener('click', () => { input.value = b.dataset.from; set(+b.dataset.from); input.focus(); }));
+  set(+input.value);
+
+  // The figure rolls up once when it comes into view.
+  const roll = document.querySelector('[data-roll]');
+  if (roll && !reduced) {
+    const target = +roll.dataset.roll;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now();
+      const step = (t) => {
+        const p = Math.min((t - t0) / 1400, 1);
+        roll.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, { threshold: 0.4 });
+    io.observe(roll);
+  }
+</script>
+
+<style>
+  /* Hero */
+  .hero { position: relative; height: 100svh; min-height: 560px; color: #fff; display: grid; grid-template-rows: 1fr auto; isolation: isolate; background: #08152b; }
+  .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  .hero__media video { width: 100%; height: 100%; object-fit: cover; }
+  .hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(3, 10, 24, 0.62) 0%, rgba(3, 10, 24, 0.28) 46%, rgba(3, 10, 24, 0.1) 62%, rgba(3, 10, 24, 0.6) 100%); } /* taste-skill-ignore: photo scrim */
+  .hero__sky { text-align: center; padding-top: clamp(120px, 17vh, 180px); }
+  .hero h1 { color: #fff; font-size: clamp(3rem, 7.2vw, 7rem); line-height: 0.92; }
+  .hero__line { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 14vw, 240px); max-width: none; margin-top: clamp(32px, 7vh, 72px); font-size: var(--t-lead); font-weight: 600; line-height: 1.35; }
+  .hero__line span:first-child { text-align: right; }
+  .hero__line span:last-child { text-align: left; }
+  .hero__foot { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: clamp(20px, 3vw, 36px); }
+  .hero__now { display: grid; text-decoration: none; }
+  .hero__now-name { font-weight: 800; font-size: var(--t-lead); }
+  .hero__now-what { font-size: var(--t-small); color: var(--on-navy-muted); }
+  .hero__now.is-swap { animation: swap 600ms var(--ease-out); }
+  @keyframes swap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .hero__pause { height: 44px; padding: 0 18px; font-weight: 700; font-size: var(--t-small); background: rgba(255, 255, 255, 0.16); color: #fff; transition: background-color var(--t-hover); }
+  @media (hover: hover) and (pointer: fine) { .hero__pause:hover { background: var(--gold); color: var(--navy-deep); } .hero__now:hover .hero__now-name { text-decoration: underline; text-decoration-color: var(--gold); } }
+  @media (max-width: 760px) {
+    .hero__sky { padding-top: 112px; }
+    .hero h1 { font-size: 12vw; }
+    .hero__line { grid-template-columns: 1fr; gap: 6px; font-size: 1.0625rem; margin-top: 24px; }
+    .hero__line span:first-child, .hero__line span:last-child { text-align: center; }
+  }
+
+  /* Intro */
+  .intro__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
+  .intro__text { grid-column: 1 / span 6; grid-row: 1; padding-top: 4vh; position: relative; z-index: 1; }
+  .intro__text h2 { font-size: clamp(2.5rem, 5.4vw, 5.25rem); white-space: nowrap; }
+  .intro__text .lead { margin-top: 32px; max-width: 30ch; }
+  .intro__text p + p { margin-top: 20px; }
+  .intro__text .link { display: inline-block; margin-top: 24px; }
+  .intro__tall { grid-column: 7 / -1; grid-row: 1 / span 2; aspect-ratio: 4 / 5; margin-top: 18vh; margin-right: calc(var(--margin) * -1); }
+  .intro__small { grid-column: 1 / span 4; grid-row: 2; margin-top: 64px; }
+  .intro__small .media { aspect-ratio: 4 / 3; }
+  @media (max-width: 900px) {
+    .intro__text, .intro__tall, .intro__small { grid-column: 1 / -1; grid-row: auto; }
+    .intro__tall { margin: 40px calc(var(--margin) * -1) 0 25%; }
+    .intro__small { width: 60%; margin-top: 32px; }
+  }
+
+  /* Showcase */
+  .show { position: relative; min-height: 100svh; display: grid; align-items: center; isolation: isolate; color: #fff; }
+  .show__bg { position: absolute; inset: 0; z-index: -1; }
+  .show__bg :global(.clipfig), .show__bg :global(.clip) { width: 100%; height: 100%; }
+  .show__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gap); pointer-events: none; }
+  .show__card { grid-column: var(--col); background: var(--navy); color: #fff; padding: 28px; min-height: 52svh; display: flex; flex-direction: column; gap: 14px; pointer-events: auto; position: relative; z-index: 2; }
+  .show__card h2 { color: #fff; font-size: clamp(1.75rem, 2.4vw, 2.25rem); }
+  .show__line { font-size: var(--t-body); color: var(--on-navy-muted); }
+  .show__fact { font-size: var(--t-body); font-weight: 700; color: var(--gold); }
+  .show__thumb { aspect-ratio: 3 / 2; margin-top: auto; }
+  .show__go { width: 100%; }
+  @media (max-width: 1100px) { .show__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .show__card { grid-column: calc((var(--col) - 1) % 2 + 1); } }
+  @media (max-width: 760px) {
+    .show { align-items: end; min-height: 100svh; }
+    .show__grid { grid-template-columns: 1fr; padding: 0; }
+    .show__card { grid-column: 1; min-height: 46svh; padding: 24px 20px; }
+    .show__thumb { display: none; }
+  }
+
+  /* Windows */
+  .windows__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px var(--gap); align-items: end; }
+  .windows__head h2 { grid-column: 1 / span 6; font-size: clamp(2.5rem, 5vw, 4.75rem); }
+  .windows__head .lead { grid-column: 8 / span 5; color: var(--on-navy-muted); }
+  .windows__body { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 48px var(--gap); margin-top: 64px; align-items: start; }
+  .gantt { grid-column: 1 / span 7; position: relative; display: grid; gap: 10px; --cell: calc(100% / var(--months)); }
+  .gantt__years, .gantt__row { display: grid; grid-template-columns: repeat(var(--months), minmax(0, 1fr)); }
+  .gantt__years span { font-weight: 700; font-size: var(--t-small); color: var(--on-navy-muted); padding: 6px 0; box-shadow: inset 2px 0 0 rgba(255, 255, 255, 0.18); padding-left: 8px; } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
+  .gantt__row { position: relative; min-height: 64px; align-items: end; background: rgba(255, 255, 255, 0.05); }
+  .gantt__label { position: absolute; top: 8px; left: 10px; font-size: var(--t-small); font-weight: 600; color: var(--on-navy-muted); }
+  .gantt__bar { height: 24px; margin: 0 1px 10px; background: rgba(255, 180, 0, 0.42); transition: background-color var(--t-hover), transform 160ms var(--ease-out); }
+  .gantt__bar.is-on { background: var(--gold); }
+  .gantt__bar:active { transform: scaleY(0.85); }
+  @media (hover: hover) and (pointer: fine) { .gantt__bar:hover { background: var(--gold-strong); } }
+  .gantt__scrub { margin-top: 18px; }
+  .gantt__month { display: block; font-size: var(--t-lead); font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .gantt__scrub input { width: 100%; height: 44px; accent-color: var(--gold); cursor: ew-resize; }
+  .gantt__head { position: absolute; top: 0; bottom: 92px; left: calc((var(--m) + 0.5) * 100% / var(--months)); width: 3px; margin-left: -1px; background: #fff; pointer-events: none; transition: left 160ms var(--ease-out); }
+  .windows__panel { grid-column: 9 / span 4; }
+  .win[hidden] { display: none; }
+  .win { animation: winIn 420ms var(--ease-out); }
+  @keyframes winIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .win__media { margin-bottom: 20px; }
+  .win__when { font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+  .win h3 { color: #fff; margin-bottom: 12px; }
+  .win p { color: var(--on-navy); }
+  .win .link { display: inline-block; margin-top: 16px; }
+  @media (prefers-reduced-motion: reduce) { .win, .hero__now.is-swap { animation: none; } }
+  @media (max-width: 1000px) {
+    .windows__head h2, .windows__head .lead, .gantt, .windows__panel { grid-column: 1 / -1; }
+  }
+
+  /* Scatter */
+  .scatter h2 { font-size: clamp(2rem, 2.8vw, 2.5rem); }
+  .scatter__list { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); margin-top: 64px; }
+  .sc { display: grid; align-self: start; align-content: start; gap: 0; text-decoration: none; color: inherit; }
+  .sc .media { order: 0; }
+  .sc__name, .sc__what { background: var(--navy); transition: background-color var(--t-hover), color var(--t-hover); }
+  .sc__name { order: 1; display: flex; justify-content: space-between; gap: 16px; padding: 18px 20px 4px; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.015em; color: #fff; }
+  .sc__name::after { content: '→'; color: var(--gold); transition: transform 300ms var(--ease-out); }
+  .sc__what { order: 2; padding: 0 20px 20px; font-size: 1rem; line-height: 1.45; color: var(--on-navy-muted); }
+  .sc .media img { transition: transform 700ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .sc:hover .media img { transform: scale(1.04); } .sc:hover .sc__name, .sc:hover .sc__what { background: var(--gold); color: var(--navy-deep); } .sc:hover .sc__name::after { color: var(--navy-deep); transform: translateX(4px); } }
+  .sc--a { grid-column: 1 / span 6; }
+  .sc--a .media { aspect-ratio: 3 / 2; }
+  .sc--b { grid-column: 9 / span 4; margin-top: -80px; }
+  .sc--b .media { aspect-ratio: 4 / 5; }
+  .sc--c { grid-column: 3 / span 7; }
+  .sc--c .media { aspect-ratio: 16 / 9; }
+  .sc + .sc, .sc__remark + .sc { margin-top: 120px; }
+  .sc--a + .sc--b { margin-top: 40px; }
+  .sc__remark { grid-column: 2 / span 4; align-self: center; font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-top: 0 !important; }
+  .scatter__list > :first-child { margin-top: 0; }
+  .scatter__list > .sc--b:nth-child(2) { grid-row: 1; margin-top: 200px; }
+  @media (max-width: 900px) {
+    .scatter__list > * { grid-column: 1 / -1 !important; grid-row: auto !important; margin-top: 72px !important; }
+    .scatter__list > :first-child { margin-top: 0 !important; }
+    .sc--b { width: 68%; justify-self: end; }
+    .sc--c { width: 82%; }
+  }
+
+  /* Figure */
+  .fig__photo { position: relative; height: 88svh; min-height: 520px; color: #fff; }
+  .fig__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .fig__photo::after { content: ''; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(to top, rgba(3, 10, 24, 0.8), rgba(3, 10, 24, 0)); } /* taste-skill-ignore: photo scrim */
+  .fig__photo::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 30%; z-index: 1; background: linear-gradient(to bottom, rgba(3, 10, 24, 0.6), rgba(3, 10, 24, 0)); } /* taste-skill-ignore: photo scrim */
+  .fig__title { position: absolute; top: 32px; z-index: 2; left: var(--margin); color: #fff; font-size: 1.5rem; z-index: 1; }
+  .fig__base { position: absolute; inset: auto 0 0 0; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 24px; max-width: none; }
+  .fig__num { font-size: clamp(5rem, 15vw, 15rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.8; max-width: none; white-space: nowrap; }
+  .fig__num::before { content: '₹'; font-size: 0.5em; vertical-align: 0.7em; margin-right: 0.06em; }
+  .fig__say { max-width: 26ch; text-align: right; font-size: 1.125rem; font-weight: 500; }
+  .fig__more { display: grid; grid-template-columns: 1fr 1fr; gap: 24px var(--gap); padding-top: 40px; padding-bottom: 24px; }
+  .fig__more p { font-size: var(--t-body); }
+  .fig__more strong { display: block; font-size: 2.5rem; line-height: 1.05; letter-spacing: -0.03em; color: var(--navy); }
+  @media (max-width: 760px) {
+    .fig__base { flex-direction: column-reverse; align-items: start; }
+    .fig__say { text-align: left; font-size: 1rem; }
+    .fig__num { font-size: 30vw; }
+    .fig__more { grid-template-columns: 1fr; }
+  }
+
+  /* Where */
+  .where h2 { font-size: clamp(2.5rem, 4vw, 3.75rem); }
+  .where__lead { margin-top: 24px; max-width: 40ch; }
+  .where__lead { margin-bottom: 56px; }
+  .where__tiles { margin-top: 48px; }
+  .where__facts { margin-top: 0; }
+
+  /* Visit */
+  .visit { position: relative; min-height: 100svh; }
+  .visit__photo { position: absolute; inset: 0; }
+  .visit__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .visit__card { position: sticky; top: 96px; margin: 0 var(--margin) 0 auto; transform: translateY(60px); width: 400px; background: var(--paper); padding: 32px 32px 0; display: grid; gap: 18px; z-index: 1; }
+  .visit { padding-bottom: 160px; }
+  .visit__card h2 { font-size: 1.75rem; font-weight: 700; }
+  .visit__card address { font-style: normal; font-size: 1rem; }
+  .visit__rows div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; font-variant-numeric: tabular-nums; }
+  .visit__rows dt { font-weight: 600; color: var(--muted); font-size: 1rem; }
+  .visit__rows dd a { font-weight: 700; color: var(--navy); text-decoration: none; }
+  .visit__btn { margin: 8px -32px 0; min-height: 56px; }
+  @media (max-width: 760px) {
+    .visit { min-height: 0; padding-bottom: 0; display: grid; }
+    .visit__photo { position: relative; height: 70svh; }
+    .visit__card { position: relative; top: auto; transform: none; width: auto; margin: -80px 16px 0; padding: 24px 24px 0; }
+    .visit__btn { margin: 8px -24px 0; }
+  }
+</style>

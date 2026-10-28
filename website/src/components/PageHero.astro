@@ -1,0 +1,57 @@
+---
+// Inner-page hero: the site fills the screen and the name sits on its lower edge like a film title.
+import clips from '../data/clips.json';
+
+export interface Props {
+  title: string;
+  lead: string;
+  crumbs: { label: string; href?: string }[];
+  clip?: keyof typeof clips;
+  image?: string;
+  imageAlt?: string;
+  facts?: { label: string; value: string }[];
+  next?: string;
+}
+const { title, lead, crumbs, clip, image, imageAlt = '', facts = [], next = '#content' } = Astro.props;
+const c = clip ? clips[clip] : null;
+---
+
+<section class="phero">
+  <div class="phero__media">
+    {c ? (
+      <video class="phero__video" autoplay muted loop playsinline preload="auto" poster={c.poster} aria-hidden="true">
+        <source src={c.src} type="video/mp4" />
+      </video>
+    ) : (
+      <img class="drift" src={image} alt={imageAlt} fetchpriority="high" />
+    )}
+  </div>
+  <div class="phero__body wrap" data-reveal>
+    <nav class="phero__crumb" aria-label="Breadcrumb">
+      {crumbs.map((c, i) => (
+        <>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}{i < crumbs.length - 1 && <span aria-hidden="true"> / </span>}</>
+      ))}
+    </nav>
+    <h1>{title}</h1>
+    <p class="phero__lead">{lead}</p>
+    <div class="phero__foot on-media">
+      {facts.length > 0 && (
+        <dl class="facts" style={`--cols:${Math.min(facts.length, 4)}`}>
+          {facts.map((f) => (<div><dt>{f.label}</dt><dd>{f.value}</dd></div>))}
+        </dl>
+      )}
+      <a class="phero__cue" href={next}>Scroll to the work
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // The hero loop stops under reduced motion and while the tab is hidden.
+  const v = document.querySelector<HTMLVideoElement>('.phero__video');
+  if (v) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); else if (!matchMedia('(prefers-reduced-motion: reduce)').matches) v.play().catch(() => {}); });
+  }
+</script>

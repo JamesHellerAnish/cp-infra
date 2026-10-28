@@ -1,436 +1,274 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Chapter from '../../components/Chapter.astro';
+import Clip from '../../components/Clip.astro';
+import Gallery from '../../components/Gallery.astro';
+import NextProjects from '../../components/NextProjects.astro';
+
+const chapters = [
+  ['phase1-dredging', 'Dredging, phase 1'],
+  ['phase1-baffle', 'Baffle wall'],
+  ['phase2-dredging', 'Dredging, phase 2'],
+  ['phase2-baffle', 'Ramps'],
+  ['hrt-repair', 'HRT/TRT repair'],
+  ['drainage-gallery', 'Drainage gallery'],
+  ['surge-shaft', 'Surge shaft'],
+  ['epoxy-intake', 'Intake epoxy'],
+];
 ---
 
-<BaseLayout title="Tehri Dam Project — CP Systems" description="Multi-phase river dredging, baffle wall construction, HRT/TRT tunnel repair, and epoxy treatment at India's tallest dam.">
-  <Header />
+<BaseLayout title="Tehri Dam — CP Systems" description="River dredging, a 47 m baffle wall, HRT/TRT tunnel repair and intake epoxy treatment at Tehri HPP and PSP, Uttarakhand.">
+  <PageHero
+    title="Tehri Dam"
+    lead="Eight jobs at India's tallest dam: dredging the Bhagirathi below the spillway, walling it, and repairing the tunnels and intakes that feed 1,000 MW."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }, { label: 'Tehri Dam' }]}
+    clip="tehri-ramp-concreting"
+    facts={[
+      { label: 'Client', value: 'HCC / THDCIL' },
+      { label: 'Location', value: 'Tehri, Uttarakhand' },
+      { label: 'Dredged', value: '~2.5 lakh cum' },
+      { label: 'Baffle wall', value: '47 m across the river' },
+    ]}
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Tehri Dam</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Projects</a> <span>/</span> <span>Tehri Dam</span>
+  <nav class="pindex" aria-label="Phases of the Tehri work">
+    <div class="pindex__track">
+      {chapters.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+    </div>
+  </nav>
+
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">Working below the spillway</h2>
+        <p class="lead" style="margin-top:24px">Tehri HPP (1,000 MW) and Tehri PSP only stop for short, scheduled shutdowns. Each CPS job had to fit inside one.</p>
+        <p style="margin-top:18px">Below the dam the Bhagirathi rose and fell 8–10 m twice a day, leaving 3–4 hours of working time per shutdown. Inside the tunnels the only access was a crane down a 100 m surge shaft.</p>
+      </div>
+      <div class="split__b" data-gallery>
+        <Clip name="tehri-gorge" ratio="ratio-45" />
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Overview -->
-  <section class="section" style="padding-bottom: 30px;">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Mega Project</span>
-          <h2 class="section-title">Tehri Dam — India's Tallest Dam</h2>
-          <p>
-            Multiple phases of critical work at Tehri HPP (1000 MW) and Tehri PSP — including river dredging of the Bhagirathi River, construction of a 47m baffle wall, HRT/TRT tunnel repair with epoxy mortar, micro piling, drilling & grouting, and epoxy treatment at intake structures.
-          </p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;">
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Client</strong><br/>
-              <span>HCC / THDCIL</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Location</strong><br/>
-              <span>Tehri, Uttarakhand</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Dredged Volume</strong><br/>
-              <span>~2.5 Lakh Cum (Phase 1+2)</span>
-            </div>
-            <div style="background: var(--beige); padding: 16px; border-radius: 8px;">
-              <strong style="color: var(--navy); font-size: 0.85rem;">Baffle Wall</strong><br/>
-              <span>47m across Bhagirathi</span>
-            </div>
-          </div>
+  <Chapter id="phase1-dredging" title="River dredging, phase 1" when="Feb – Jul 2023" whenNote="Zero schedule of Tehri HPP" field="surface" pair
+    scope={[
+      'Dredging to THDCIL’s daily zero schedule',
+      '~1 lakh cum dredged and hauled 14–15 km',
+      '12 excavators (210) and 2 long-boom excavators (300)',
+      '50–60 dumpers for muck transport',
+      '12 dewatering pumps, 50 HP each, 7,000–8,000 LPM',
+      'Dedicated 30 cum batching plant and 6 transit mixers',
+      'All resources deployed 24 hours in two shifts',
+    ]}>
+    <p>Dredging across 640 Rm of the Bhagirathi downstream of the spillway, done while the river level swung 8–10 m twice a day.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-dredging" />
+      <Clip name="tehri-dumpers" />
+    </Fragment>
+    <Gallery slot="row" title="Phase 1 dredging, photographed" items={[
+      { src: '/images/slide_46_img_1.jpg', caption: 'River dredging operations' },
+      { src: '/images/slide_47_img_1.jpg', caption: 'Water level at 604+ m', tall: true },
+      { src: '/images/slide_48_img_1.jpg', caption: 'Excavation in variable water' },
+      { src: '/images/slide_49_img_1.jpg', caption: 'Dredging, March 2023', tall: true },
+      { src: '/images/slide_46_img_2.jpg', caption: 'Heavy machinery deployment', tall: true },
+      { src: '/images/slide_49_img_3.jpg', caption: 'Water level 603.75 m' },
+    ]} />
+  </Chapter>
+
+  <Chapter id="phase1-baffle" title="Baffle wall and micro piling" when="Feb – Jul 2023" whenNote="47 m across the Bhagirathi" flip pair
+    scope={[
+      '~2,000 cum RCC in 4 months',
+      '1,000 mm dia Hume pipe through the wall',
+      '700 m of micro piling in saturated foundation, ~400 Rm in one month',
+      'Built in 5–10 m segments',
+      'Underwater concreting by mobile boom placer',
+      'Drilling and grouting of anchors on both banks',
+    ]}>
+    <p>A baffle wall about 47 m long across the river between the spillway and the TRT of Tehri HPP, poured under water onto a micro-piled, saturated riverbed.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-boom-placer" />
+      <Clip name="tehri-hume-pipe" />
+    </Fragment>
+    <Gallery slot="row" title="Building the wall" items={[
+      { src: '/images/slide_54_img_3.jpg', caption: 'Baffle wall construction', tall: true },
+      { src: '/images/slide_54_img_1.jpg', caption: 'Micro piling operations', tall: true },
+      { src: '/images/slide_55_img_1.jpg', caption: 'Concreting in progress' },
+      { src: '/images/slide_56_img_1.jpg', caption: 'Wall segment formation' },
+      { src: '/images/slide_56_img_2.jpg', caption: 'Foundation reinforcement' },
+      { src: '/images/slide_57_img_1.jpg', caption: 'Completed phase 1 baffle wall' },
+    ]} />
+  </Chapter>
+
+  <Chapter id="phase2-dredging" title="River dredging, phase 2" when="Jun – Jul 2024" whenNote="A 35-day shutdown" field="surface"
+    scope={[
+      '1,50,000 cum dredged from chainage 260 m to 660 m',
+      'ILO discharge never stopped; water never below EL 601.5 m',
+      'A 12-day approach road built through the river',
+      'A 12 m deep area found across the full river width',
+      '20 more dumpers brought in mid-job',
+      'Emergency wall for an exposed THDCIL building foundation',
+    ]}>
+    <p>The second phase dredged 1,50,000 cum and built 70 m ramps either side of the baffle wall, all inside a 35-day shutdown and through monsoon rain.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-ramp-concreting" caption="Transit mixers on the ramp, June 2024" />
+    </Fragment>
+    <Gallery slot="row" title="Phase 2 on the riverbed" items={[
+      { src: '/images/slide_59_img_1.jpg', caption: 'Phase 2 dredging operations' },
+      { src: '/images/slide_63_img_1.jpg', caption: 'Excavation in progress' },
+      { src: '/images/slide_63_img_2.jpg', caption: 'Riverbed operations' },
+      { src: '/images/slide_64_img_1.jpg', caption: 'Machinery at work' },
+      { src: '/images/slide_59_img_2.jpg', caption: 'Dumper loading' },
+      { src: '/images/slide_64_img_2.jpg', caption: 'Approach construction' },
+    ]} />
+  </Chapter>
+
+  <Chapter id="phase2-baffle" title="Ramps and micro piling, phase 2" when="Jun – Jul 2024" whenNote="14,400 cum concreted" flip
+    scope={[
+      '70 m ramps, 5 m wide, upstream and downstream',
+      '~850 m of micro piling in the ramp foundation',
+      'Underwater concrete by boom placer',
+      'Built in 5–10 m segments because of seepage',
+      'Foundation held at EL 601 m against a target of EL 598–600 m',
+      'Shuttering fixed in standing water; buried formwork dug out',
+    ]}>
+    <p>Ramps 70 m long and 5 m wide along the Bhagirathi, piled and poured under water in the same shutdown.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-micro-piling" />
+      <div class="media ratio-32"><button type="button" data-lb="/images/slide_69_img_1.jpg" data-lb-caption="Underwater concrete pouring" aria-label="Open photograph: underwater concrete pouring"><img src="/images/slide_69_img_1.jpg" alt="Underwater concrete pouring" loading="lazy" /></button></div>
+    </Fragment>
+    <Gallery slot="row" title="The ramps" items={[
+      { src: '/images/slide_68_img_1.jpg', caption: 'Ramp construction', tall: true },
+      { src: '/images/slide_68_img_2.jpg', caption: 'Concreting by boom placer', tall: true },
+      { src: '/images/slide_69_img_2.jpg', caption: 'Ramp concreting in progress' },
+      { src: '/images/slide_68_img_3.jpg', caption: 'Ramp foundation' },
+    ]} />
+  </Chapter>
+
+  <section id="hrt-repair" class="chapter section field-navy" aria-labelledby="hrt-h">
+    <div class="wrap">
+      <header class="chapter__head" data-reveal>
+        <h2 class="chapter__title" id="hrt-h">Tunnel repair, 100 m down</h2>
+        <p class="chapter__when">HRT #3 and #4<span>Tehri PSP, 8.5 m diameter</span></p>
+      </header>
+      <div class="hrt">
+        <p class="lead hrt__lead" data-reveal>Repairing the 8.5 m head race tunnels meant lowering every worker and every bag through the surge shaft by crane, then moving the epoxy 700 m along the tunnel by hand.</p>
+        <div class="hrt__pair">
+          <article data-reveal>
+            <h3>HRT #3</h3>
+            <dl class="facts" style="--cols:2">
+              <div><dt>Length repaired</dt><dd>23 m</dd></div>
+              <div><dt>Epoxy mortar</dt><dd>~375 MT</dd></div>
+              <div><dt>Done in</dt><dd>36 days</dd></div>
+              <div><dt>Target</dt><dd>45 days</dd></div>
+            </dl>
+            <ul class="scope"><li>100–125 workers, round the clock</li><li>Material moved 700 m through the tunnel by hand</li></ul>
+          </article>
+          <article data-reveal>
+            <h3>HRT #4</h3>
+            <dl class="facts" style="--cols:2">
+              <div><dt>Length repaired</dt><dd>32 m</dd></div>
+              <div><dt>Epoxy mortar</dt><dd>~430 MT</dd></div>
+              <div><dt>Done in</dt><dd>37 days</dd></div>
+              <div><dt>Target</dt><dd>45 days</dd></div>
+            </dl>
+            <ul class="scope"><li>Custom electric mixers: a 110 kg batch in 5 minutes</li><li>12 mm shear connectors at 300 mm c/c, curved shuttering to the tunnel profile</li></ul>
+          </article>
         </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_20_img_142.jpg" alt="Tehri Dam" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase Navigator -->
-  <section class="phase-nav-section">
-    <div class="container">
-      <div class="phase-nav">
-        <a href="#phase1-dredging" class="phase-nav__item">
-          <span class="phase-nav__number">01</span>
-          <span class="phase-nav__label">River Dredging<br/><small>Phase 1</small></span>
-        </a>
-        <a href="#phase1-baffle" class="phase-nav__item">
-          <span class="phase-nav__number">02</span>
-          <span class="phase-nav__label">Baffle Wall<br/><small>Phase 1</small></span>
-        </a>
-        <a href="#phase2-dredging" class="phase-nav__item">
-          <span class="phase-nav__number">03</span>
-          <span class="phase-nav__label">River Dredging<br/><small>Phase 2</small></span>
-        </a>
-        <a href="#phase2-baffle" class="phase-nav__item">
-          <span class="phase-nav__number">04</span>
-          <span class="phase-nav__label">Baffle Wall<br/><small>Phase 2</small></span>
-        </a>
-        <a href="#hrt-repair" class="phase-nav__item">
-          <span class="phase-nav__number">05</span>
-          <span class="phase-nav__label">HRT/TRT<br/><small>Tunnel Repair</small></span>
-        </a>
-        <a href="#drainage-gallery" class="phase-nav__item">
-          <span class="phase-nav__number">06</span>
-          <span class="phase-nav__label">Drainage Gallery<br/><small>Drilling & Grouting</small></span>
-        </a>
-        <a href="#surge-shaft" class="phase-nav__item">
-          <span class="phase-nav__number">07</span>
-          <span class="phase-nav__label">Surge Shaft<br/><small>Morning Glory Repair</small></span>
-        </a>
-        <a href="#epoxy-intake" class="phase-nav__item">
-          <span class="phase-nav__number">08</span>
-          <span class="phase-nav__label">Epoxy Treatment<br/><small>Intake Structure</small></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase 1: River Dredging -->
-  <section class="section section--beige" id="phase1-dredging">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge">Phase 1</span>
-        <span class="phase-period">Feb – Jul 2023</span>
-      </div>
-      <h2 class="section-title">River Dredging at Tehri</h2>
-      <p style="margin-bottom: 24px;">River dredging across 640 Rm of the Bhagirathi River downstream of Tehri Dam spillway — executed during zero schedule of Tehri HPP. Water level varied 8-10m twice daily, with only 3-4 hours of working time per shutdown.</p>
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <ul class="scope-list">
-          <li>Dredging per daily zero schedule by THDCIL</li>
-          <li>~1 Lakh Cum material dredged and transported 14-15 Km</li>
-          <li>12 Excavators (210), 2 Excavators (300) with long boom</li>
-          <li>50-60 Dumpers for muck transportation</li>
-        </ul>
-        <ul class="scope-list">
-          <li>12 dewatering pumps (50HP each, 7000-8000 LPM)</li>
-          <li>Dedicated 30 Cum Batching Plant, 6 Transit Mixers</li>
-          <li>Boom Placer for underwater concreting</li>
-          <li>All resources deployed 24 Hrs in two shifts</li>
-        </ul>
-      </div>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_46_img_1.jpg" alt="River Dredging Phase 1" /><span class="gallery-caption">River dredging operations</span></div>
-        <div class="gallery-item"><img src="/images/slide_47_img_1.jpg" alt="Water Level 604m" /><span class="gallery-caption">Water level at 604+ MTR</span></div>
-        <div class="gallery-item"><img src="/images/slide_48_img_1.jpg" alt="Dredging Progress" /><span class="gallery-caption">Excavation in variable water</span></div>
-        <div class="gallery-item"><img src="/images/slide_49_img_1.jpg" alt="Dredging Mar 2023" /><span class="gallery-caption">Dredging March 2023</span></div>
-        <div class="gallery-item"><img src="/images/slide_46_img_2.jpg" alt="Dredging Operations" /><span class="gallery-caption">Heavy machinery deployment</span></div>
-        <div class="gallery-item"><img src="/images/slide_49_img_3.jpg" alt="Dredging Operations" /><span class="gallery-caption">Water level 603.75 MTR</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase 1: Baffle Wall -->
-  <section class="section" id="phase1-baffle">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge">Phase 1</span>
-        <span class="phase-period">Feb – Jul 2023</span>
-      </div>
-      <h2 class="section-title">Baffle Wall & Micro Piling Construction</h2>
-      <p style="margin-bottom: 24px;">Construction of approx 47m long Baffle Wall across the Bhagirathi River between Spillway & TRT of Tehri HPP (1000MW). Underwater concrete pouring, micro piling in saturated riverbed conditions.</p>
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <ul class="scope-list">
-          <li>47m Baffle Wall across flowing Bhagirathi River</li>
-          <li>~2000 Cum RCC constructed in 4 months</li>
-          <li>1000mm dia Hume Pipe in Baffle Wall</li>
-          <li>Micro Piling (700m) in saturated foundation</li>
-        </ul>
-        <ul class="scope-list">
-          <li>Baffle Wall built in 5-10m segments</li>
-          <li>Underwater concreting via mobile Boom Placer</li>
-          <li>Drilling & grouting of anchors on both banks</li>
-          <li>~400 Rm micro piling completed in 1 month</li>
-        </ul>
-      </div>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_54_img_3.jpg" alt="Baffle Wall" /><span class="gallery-caption">Baffle Wall construction</span></div>
-        <div class="gallery-item"><img src="/images/slide_54_img_1.jpg" alt="Micro Piling" /><span class="gallery-caption">Micro piling operations</span></div>
-        <div class="gallery-item"><img src="/images/slide_55_img_1.jpg" alt="Baffle Wall Progress" /><span class="gallery-caption">Concreting in progress</span></div>
-        <div class="gallery-item"><img src="/images/slide_56_img_1.jpg" alt="Baffle Wall Construction" /><span class="gallery-caption">Wall segment formation</span></div>
-        <div class="gallery-item"><img src="/images/slide_56_img_2.jpg" alt="Micro Piling" /><span class="gallery-caption">Foundation reinforcement</span></div>
-        <div class="gallery-item"><img src="/images/slide_57_img_1.jpg" alt="Completed Baffle Wall" /><span class="gallery-caption">Completed Phase 1 baffle wall</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase 2: River Dredging -->
-  <section class="section section--beige" id="phase2-dredging">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--2">Phase 2</span>
-        <span class="phase-period">Jun – Jul 2024 (35-Day Shutdown)</span>
-      </div>
-      <h2 class="section-title">River Dredging Phase 2</h2>
-      <p style="margin-bottom: 24px;">The second phase involved dredging 150,000 Cum from Chainage 260m to 660m and construction of Ramps (5m wide, 70m long) upstream & downstream of the Baffle Wall — all within a strict 35-day shutdown window.</p>
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <ul class="scope-list">
-          <li>1,50,000 Cum dredging in 35-day shutdown</li>
-          <li>Continuous ILO discharge — water never below EL 601.5m</li>
-          <li>12-day approach road construction through river</li>
-          <li>Encountered 12m depth area across full river width</li>
-        </ul>
-        <ul class="scope-list">
-          <li>20 additional dumpers mid-project for muck transport</li>
-          <li>Emergency concrete wall for exposed THDCIL building foundation</li>
-          <li>Rain interruptions during operations</li>
-          <li>Completed successfully within 35 days</li>
-        </ul>
-      </div>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_59_img_1.jpg" alt="Phase 2 Dredging" /><span class="gallery-caption">Phase 2 dredging operations</span></div>
-        <div class="gallery-item"><img src="/images/slide_63_img_1.jpg" alt="Dredging Progress" /><span class="gallery-caption">Excavation in progress</span></div>
-        <div class="gallery-item"><img src="/images/slide_63_img_2.jpg" alt="River Operations" /><span class="gallery-caption">River bed operations</span></div>
-        <div class="gallery-item"><img src="/images/slide_64_img_1.jpg" alt="Phase 2 Construction" /><span class="gallery-caption">Machinery at work</span></div>
-        <div class="gallery-item"><img src="/images/slide_59_img_2.jpg" alt="Dredging Operations" /><span class="gallery-caption">Dumper loading operations</span></div>
-        <div class="gallery-item"><img src="/images/slide_64_img_2.jpg" alt="River Dredging" /><span class="gallery-caption">Approach construction</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Phase 2: Baffle Wall & Ramps -->
-  <section class="section" id="phase2-baffle">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--2">Phase 2</span>
-        <span class="phase-period">Jun – Jul 2024</span>
-      </div>
-      <h2 class="section-title">Ramp Construction & Micro Piling Phase 2</h2>
-      <p style="margin-bottom: 24px;">Construction of 70m long, 5m wide Ramps upstream & downstream along the Bhagirathi River. Micro Piling (850m) in foundation. All carried out during the 35-day shutdown with underwater concreting via Boom Placer.</p>
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <ul class="scope-list">
-          <li>70m long Ramps upstream & downstream</li>
-          <li>14,400 Cum concreting</li>
-          <li>~850m Micro Piling in Ramp foundation</li>
-          <li>Underwater concrete via Boom Placer</li>
-        </ul>
-        <ul class="scope-list">
-          <li>Ramps built in 5-10m segments due to seepage</li>
-          <li>Foundation never below EL 601m (target: EL 598-600m)</li>
-          <li>Shuttering fixed in standing water</li>
-          <li>Formwork buried in muck, required excavation to remove</li>
-        </ul>
-      </div>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_68_img_1.jpg" alt="Phase 2 Baffle Wall" /><span class="gallery-caption">Ramp construction</span></div>
-        <div class="gallery-item"><img src="/images/slide_68_img_2.jpg" alt="Micro Piling Phase 2" /><span class="gallery-caption">Concreting by Boom Placer</span></div>
-        <div class="gallery-item"><img src="/images/slide_69_img_1.jpg" alt="Construction Progress" /><span class="gallery-caption">Underwater concrete pouring</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HRT/TRT Repair -->
-  <section class="section section--navy" id="hrt-repair">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--3">HRT/TRT</span>
-        <span class="phase-period" style="color: rgba(255,255,255,0.6);">Tunnel Repair Campaign</span>
-      </div>
-      <h2 class="section-title" style="color: var(--white);">Tunnel Repair by Drilling, Grouting & Epoxy at Tehri PSP</h2>
-      <p style="color: rgba(255,255,255,0.7); margin-bottom: 24px;">Repair of 8.5m diameter Head Race Tunnels (HRT #3 and #4) at Tehri PSP via surge shaft at 100m vertical depth — involving massive quantities of epoxy mortar, underwater repair, and custom engineering solutions.</p>
-
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <div class="phase-sub-card animate-on-scroll">
-          <h3 style="margin-bottom: 12px; color: var(--navy);">HRT #3 Repair</h3>
-          <ul class="scope-list">
-            <li>23m length of 8.5m dia HRT repaired</li>
-            <li>~375 MT Epoxy Mortar consumed</li>
-            <li>Completed in 36 days (target: 45 days)</li>
-            <li>Access via Surge Shaft crane (100m vertical)</li>
-            <li>Material manually transported 700m through tunnel</li>
-            <li>100-125 workers deployed 24/7</li>
-          </ul>
-        </div>
-        <div class="phase-sub-card animate-on-scroll">
-          <h3 style="margin-bottom: 12px; color: var(--navy);">HRT #4 Repair</h3>
-          <ul class="scope-list">
-            <li>32m length of 8.5m dia HRT repaired</li>
-            <li>~430 MT Epoxy Mortar consumed</li>
-            <li>Completed in 37 days (target: 45 days)</li>
-            <li>Custom electric mixers — 110kg batch in 5 mins</li>
-            <li>12mm dia shear connectors @ 300mm C/C</li>
-            <li>Special curved shuttering matching HRT profile</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_26_img_0.jpg" alt="TRT Repair" /><span class="gallery-caption">TRT/HRT repair work</span></div>
-        <div class="gallery-item"><img src="/images/slide_31_img_0.jpg" alt="HRT 3 Epoxy" /><span class="gallery-caption">Epoxy mortar in HRT #3</span></div>
-        <div class="gallery-item"><img src="/images/slide_32_img_0.jpg" alt="Material Transport" /><span class="gallery-caption">Material through trolley</span></div>
-        <div class="gallery-item"><img src="/images/slide_34_img_4.jpg" alt="HRT 4 Plug" /><span class="gallery-caption">HRT #4 plug breaking area</span></div>
-        <div class="gallery-item"><img src="/images/slide_35_img_1.jpg" alt="Epoxy Work" /><span class="gallery-caption">Foundation epoxy work</span></div>
-        <div class="gallery-item"><img src="/images/slide_26_img_3.jpg" alt="Tunnel Operations" /><span class="gallery-caption">Tunnel repair operations</span></div>
-        <div class="gallery-item"><img src="/images/expansion/tehri_trt_1.jpg" alt="TRT Repair Ongoing" /><span class="gallery-caption">TRT tunnel preparations</span></div>
-        <div class="gallery-item"><img src="/images/expansion/tehri_trt_2.jpg" alt="TRT Surface Prep" /><span class="gallery-caption">TRT surface preparation</span></div>
-        <div class="gallery-item"><img src="/images/expansion/tehri_trt_3.jpg" alt="TRT Epoxy Application" /><span class="gallery-caption">TRT epoxy application</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Drainage Gallery -->
-  <section class="section section--beige" id="drainage-gallery">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--2">Drilling & Grouting</span>
-        <span class="phase-period">Tehri PSP</span>
-      </div>
-      <h2 class="section-title">Drainage Gallery Upgrades</h2>
-      <p style="margin-bottom: 24px;">Specialized drilling and grouting works were performed throughout the Drainage Gallery networks at the Tehri PSP. This critical stabilization and seepage control measure was executed despite heavily restricted tunnel access and spatial constraints.</p>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/expansion/tehri_drainage_1.jpg" alt="Drainage Gallery Drilling" /><span class="gallery-caption">Drilling & Grouting Operations</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Surge Shaft -->
-  <section class="section" id="surge-shaft">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge">Surge Shaft Repair</span>
-        <span class="phase-period">T1, T2, T3, T4</span>
-      </div>
-      <h2 class="section-title">Vertical Shaft (Morning Glory) Epoxy Treatment</h2>
-      <p style="margin-bottom: 24px;">Repair of the swirling device bottom area in all four tunnel surge shafts. Faced with continuous waterfalls dropping from 150-160m heights, a spectacular engineering feat was executed: a 25m tall scaffolding was built inside the 16m diameter shaft. Water was funneled away using completely customized GI sheets, enabling full epoxy treatment, mortar seals, and fiberglass cloth wrapping of the shaft walls over 4 stipulated months.</p>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/expansion/tehri_surge_1.jpg" alt="Surge Shaft Scaffolding" /><span class="gallery-caption">Custom Scaffolding & Water Funnel</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Epoxy Treatment at Intake -->
-  <section class="section" id="epoxy-intake">
-    <div class="container">
-      <div class="phase-header">
-        <span class="phase-badge phase-badge--4">Intake Works</span>
-        <span class="phase-period">May – Jun 2025 (Completed in 16 days)</span>
-      </div>
-      <h2 class="section-title">Epoxy Treatment — Intake Structure 1 & 2</h2>
-      <p style="margin-bottom: 24px;">Epoxy treatment at Intake Structures 1 & 2 at EL 745m of Tehri HPP. Work proposed for 30 days but completed in just 16 days (May 31 – Jun 14, 2025).</p>
-      <div class="grid grid--2" style="margin-bottom: 30px;">
-        <ul class="scope-list">
-          <li>Epoxy Mortar filling at construction joints</li>
-          <li>Removal of existing cement concrete wearing coat</li>
-          <li>Epoxy Paint on steel structures</li>
-          <li>Steel work in gates and similar works</li>
-        </ul>
-        <ul class="scope-list">
-          <li>Removal of bitumen felt over construction joints</li>
-          <li>Four-course waterproofing treatment with bitumen felt</li>
-          <li>Stainless Steel Plate fixing over Bitumen Felt</li>
-          <li>Completed 47% ahead of schedule</li>
-        </ul>
-      </div>
-      <div class="grid grid--3" style="margin-top: 20px;">
-        <div class="gallery-item"><img src="/images/slide_38_img_0.jpg" alt="Tehri Intake 1" /><span class="gallery-caption">Intake structure epoxy work</span></div>
-        <div class="gallery-item"><img src="/images/slide_39_img_0.jpg" alt="Tehri Intake 2" /><span class="gallery-caption">Construction joint treatment</span></div>
-        <div class="gallery-item"><img src="/images/slide_39_img_1.jpg" alt="Tehri Intake 3" /><span class="gallery-caption">Completed intake repair</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Achievements -->
-  <section class="section section--beige">
-    <div class="container" style="text-align: center;">
-      <span class="section-label" style="justify-content: center;">Achievements</span>
-      <h2 class="section-title">Delivered Under Extreme Conditions</h2>
-      <div class="grid grid--3" style="margin-top: 30px;">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏔️</div>
-          <h4 class="service-card__title">2.5 Lakh Cum</h4>
-          <p class="service-card__desc">Total material dredged across Phase 1 & 2, transported 14km in adverse conditions</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🧱</div>
-          <h4 class="service-card__title">805 MT Epoxy</h4>
-          <p class="service-card__desc">Consumed in HRT #3 & #4 repair — both completed ahead of 45-day schedule</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">⚡</div>
-          <h4 class="service-card__title">16 Days</h4>
-          <p class="service-card__desc">Intake epoxy treatment completed in 16 days vs 30-day target — 47% early</p>
+        <div class="hrt__clips" data-gallery>
+          <Clip name="tehri-epoxy-batching" class="hrt__wide" />
+          <Clip name="tehri-curved-shuttering" />
+          <Clip name="tehri-hrt-repair" />
+          <Clip name="tehri-trt-outlet" />
         </div>
       </div>
     </div>
+    <div class="chapter__row">
+      <Gallery title="Inside the tunnels" items={[
+        { src: '/images/slide_26_img_0.jpg', caption: 'TRT/HRT repair work', tall: true },
+        { src: '/images/slide_31_img_0.jpg', caption: 'Epoxy mortar in HRT #3', tall: true },
+        { src: '/images/slide_32_img_0.jpg', caption: 'Material moved by trolley' },
+        { src: '/images/slide_34_img_4.jpg', caption: 'HRT #4 plug breaking area', tall: true },
+        { src: '/images/slide_35_img_1.jpg', caption: 'Foundation epoxy work', tall: true },
+        { src: '/images/slide_26_img_3.jpg', caption: 'Tunnel repair operations', tall: true },
+        { src: '/images/expansion/tehri_trt_1.jpg', caption: 'TRT preparations', tall: true },
+        { src: '/images/expansion/tehri_trt_2.jpg', caption: 'TRT surface preparation', tall: true },
+        { src: '/images/expansion/tehri_trt_3.jpg', caption: 'TRT epoxy application', tall: true },
+      ]} />
+    </div>
   </section>
 
-  <Footer />
+  <Chapter id="drainage-gallery" title="Drainage gallery drilling and grouting" when="Tehri PSP" whenNote="Seepage control" pair
+    scope={['Drilling and grouting through the gallery network', 'Work in restricted, low tunnel sections']}>
+    <p>Specialised drilling and grouting through the drainage galleries of Tehri PSP: stabilisation and seepage control done with very little room to move equipment.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-drainage-gallery" />
+      <div class="media ratio-916"><button type="button" data-lb="/images/expansion/tehri_drainage_1.jpg" data-lb-caption="Drilling and grouting in the drainage gallery" aria-label="Open photograph: drilling and grouting in the drainage gallery"><img src="/images/expansion/tehri_drainage_1.jpg" alt="Drilling and grouting in the drainage gallery" loading="lazy" /></button></div>
+    </Fragment>
+  </Chapter>
+
+  <Chapter id="surge-shaft" title="Morning glory shaft epoxy treatment" when="Shafts T1 to T4" whenNote="Four months" field="surface" flip pair
+    scope={['25 m scaffold built inside a 16 m shaft', 'Water falling 150–160 m turned aside with custom GI sheets', 'Epoxy treatment, mortar seals and fibreglass wrap']}>
+    <p>Repair of the swirling-device bottom in all four surge shafts, with water falling continuously from 150–160 m above. A 25 m scaffold went up inside each 16 m shaft and the water was funnelled away from the work.</p>
+    <Fragment slot="media">
+      <Clip name="tehri-surge-shaft" />
+      <div class="media ratio-916"><button type="button" data-lb="/images/expansion/tehri_surge_1.jpg" data-lb-caption="Scaffolding and water funnel in the surge shaft" aria-label="Open photograph: scaffolding and water funnel in the surge shaft"><img src="/images/expansion/tehri_surge_1.jpg" alt="Scaffolding and water funnel in the surge shaft" loading="lazy" /></button></div>
+    </Fragment>
+  </Chapter>
+
+  <Chapter id="epoxy-intake" title="Epoxy treatment, intakes 1 and 2" when="31 May – 14 Jun 2025" whenNote="16 days against 30 planned"
+    scope={[
+      'Epoxy mortar at construction joints',
+      'Old cement concrete wearing coat removed',
+      'Epoxy paint on steel; steel work in the gates',
+      'Bitumen felt removed over joints',
+      'Four-course waterproofing with bitumen felt',
+      'Stainless steel plates fixed over the felt',
+    ]}>
+    <p>Epoxy treatment at Intake Structures 1 and 2, EL 745 m, Tehri HPP. Planned for 30 days, handed over in 16.</p>
+    <Fragment slot="media">
+      <div class="media ratio-32"><button type="button" data-lb="/images/slide_39_img_0.jpg" data-lb-caption="Construction joint treatment at the intake" aria-label="Open photograph: construction joint treatment at the intake"><img src="/images/slide_39_img_0.jpg" alt="Construction joint treatment at the intake" loading="lazy" /></button></div>
+      <div class="intake-pair">
+        <div class="media ratio-45"><button type="button" data-lb="/images/slide_38_img_0.jpg" data-lb-caption="Intake structure epoxy work" aria-label="Open photograph: intake structure epoxy work"><img src="/images/slide_38_img_0.jpg" alt="Intake structure epoxy work" loading="lazy" /></button></div>
+        <div class="media ratio-45"><button type="button" data-lb="/images/slide_39_img_1.jpg" data-lb-caption="Completed intake repair" aria-label="Open photograph: completed intake repair"><img src="/images/slide_39_img_1.jpg" alt="Completed intake repair" loading="lazy" /></button></div>
+      </div>
+    </Fragment>
+  </Chapter>
+
+  <section class="section field-surface tally" aria-labelledby="tally-h">
+    <div class="wrap">
+      <h2 id="tally-h" data-reveal><span>Tehri in three numbers</span></h2>
+      <div class="tally__row">
+        <div data-reveal><p class="figure-num">2.5<small> lakh cum</small></p><p>dredged across phases 1 and 2 and hauled 14 km</p></div>
+        <div data-reveal><p class="figure-num">805<small> MT</small></p><p>of epoxy mortar in HRT #3 and #4, both inside the 45-day target</p></div>
+        <div data-reveal><p class="figure-num">16<small> days</small></p><p>for the intake epoxy treatment, planned for 30</p></div>
+      </div>
+    </div>
+  </section>
+
+  <NextProjects current="/projects/tehri-dam/" />
 </BaseLayout>
 
 <style>
-  .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow-md); }
-  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-caption {
-    display: block; padding: 8px 12px; font-size: 0.8rem; color: #000;
-    text-align: center; background: var(--white); font-weight: 500;
-  }
-
-  /* Phase Header */
-  .phase-header {
-    display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .phase-badge {
-    display: inline-block; background: var(--navy); color: var(--gold); padding: 6px 20px;
-    border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  }
-  .phase-badge--2 { background: var(--gold); color: var(--navy); }
-  .phase-badge--3 { background: #dc2626; color: white; }
-  .phase-badge--4 { background: #059669; color: white; }
-  .phase-period {
-    font-size: 0.9rem; color: var(--grey-text); font-weight: 600; letter-spacing: 0.5px;
-  }
-
-  /* Phase Navigation — flush tab bar */
-  .phase-nav-section {
-    background: var(--navy-dark);
-    padding: 0;
-    margin-top: -1px;
-    border-top: 2px solid var(--gold);
-  }
-  .phase-nav {
-    display: flex;
-    overflow-x: auto;
-    gap: 0;
-    justify-content: center;
-    scrollbar-width: none;
-  }
-  .phase-nav::-webkit-scrollbar { display: none; }
-  .phase-nav__item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 20px;
-    color: rgba(255,255,255,0.55);
-    font-size: 0.82rem;
-    white-space: nowrap;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-  }
-  .phase-nav__item:hover {
-    color: var(--white);
-    background: rgba(255,255,255,0.05);
-    border-bottom-color: var(--gold);
-  }
-  .phase-nav__number {
-    font-size: 1.2rem;
-    font-weight: 900;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .phase-nav__label { line-height: 1.3; }
-  .phase-nav__label small { font-size: 0.72rem; opacity: 0.5; }
-
-  /* Phase sub-cards for HRT */
-  .phase-sub-card {
-    background: var(--beige); border: 1px solid rgba(0,0,0,0.05);
-    border-radius: var(--radius-lg); padding: 28px;
+  .hrt { margin-top: 48px; }
+  .hrt__lead { max-width: 52ch; color: var(--on-navy); }
+  .hrt__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 40px var(--gap); margin-top: 56px; }
+  .hrt__pair h3 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 800; color: var(--gold); margin-bottom: 24px; }
+  .hrt__pair .scope { grid-template-columns: 1fr; margin-top: 20px; }
+  .hrt__clips { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: auto; gap: var(--gap); margin-top: 64px; align-items: start; }
+  .hrt__clips :global(.hrt__wide) { grid-column: 1; grid-row: span 2; }
+  .hrt__clips > :global(:nth-child(2)) { grid-column: 2; grid-row: span 2; }
+  .hrt__clips > :global(:nth-child(3)), .hrt__clips > :global(:nth-child(4)) { grid-column: 3; }
+  .intake-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+  .chapter__media :global(button[data-lb]) { display: block; width: 100%; height: 100%; cursor: zoom-in; }
+  .chapter__media :global(button[data-lb] img) { width: 100%; height: 100%; object-fit: cover; }
+  .tally__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px var(--gap); margin-top: 56px; }
+  .tally .figure-num small { font-size: 0.3em; letter-spacing: -0.01em; }
+  .tally__row p:last-child { margin-top: 16px; font-size: var(--t-body); max-width: 30ch; }
+  @media (max-width: 900px) {
+    .hrt__pair, .tally__row { grid-template-columns: 1fr; }
+    .hrt__clips { grid-template-columns: 1fr 1fr; }
+    .hrt__clips > :global(*) { grid-column: auto !important; grid-row: auto !important; }
+    .hrt__clips :global(.hrt__wide) { grid-column: 1 / -1 !important; }
   }
 </style>

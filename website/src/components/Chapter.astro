@@ -1,0 +1,37 @@
+---
+// One phase of a project: heading and dates, the account and its scope, its footage, then its photographs.
+export interface Props {
+  id: string;
+  title: string;
+  when?: string;
+  whenNote?: string;
+  field?: 'paper' | 'surface' | 'navy';
+  flip?: boolean;
+  scope?: string[];
+  /** Two clips side by side instead of stacked. */
+  pair?: boolean;
+}
+const { id, title, when, whenNote, field = 'paper', flip = false, scope = [], pair = false } = Astro.props;
+const fieldClass = field === 'navy' ? 'field-navy' : field === 'surface' ? 'field-surface' : '';
+---
+
+<section id={id} class:list={['chapter section', fieldClass, { 'chapter--flip': flip }]} aria-labelledby={`${id}-h`}>
+  <div class="wrap">
+    <header class="chapter__head" data-reveal>
+      <h2 class="chapter__title" id={`${id}-h`}>{title}</h2>
+      {when && <p class="chapter__when">{when}{whenNote && <span>{whenNote}</span>}</p>}
+    </header>
+    <div class="chapter__body">
+      <div class="chapter__text" data-reveal>
+        <slot />
+        {scope.length > 0 && <ul class="scope">{scope.map((s) => <li>{s}</li>)}</ul>}
+      </div>
+      {Astro.slots.has('media') && (
+        <div class:list={['chapter__media', { 'chapter__media--pair': pair }]} data-gallery>
+          <slot name="media" />
+        </div>
+      )}
+    </div>
+  </div>
+  {Astro.slots.has('row') && <div class="chapter__row"><slot name="row" /></div>}
+</section>

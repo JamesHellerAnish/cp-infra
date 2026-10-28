@@ -1,137 +1,90 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Clip from '../../components/Clip.astro';
+
+const skills = [
+  ['Concreting', 'High-performance concrete above and under water', 'badrinath-wall-concreting'],
+  ['Reinforcing', 'Cutting, binding and fixing reinforcement steel', 'badrinath-raft-rebar'],
+  ['Building work', 'Complete buildings from foundation to finish', 'kedarnath-finishes'],
+  ['Fabrication', 'Structural steel fabricated and erected', 'hailang-opening-rebar'],
+  ['Erection', 'Heavy lifting for civil and industrial structures', 'hailang-crane'],
+  ['MEP services', 'Plumbing, electrical and mechanical systems', 'noida-building'],
+] as const;
+
+const infra = [
+  'Passive fire protection, Nagpur–Mumbai Super Expressway',
+  'Raw water reservoir excavation, Barmer, Rajasthan',
+  'Industrial model township, Rohtak, Haryana',
+  'Industrial area infrastructure, Bhorgarh and Bawana',
+  'Civil works and site grading, 2 × 700 MW Rajpura Thermal Power',
+  '12 MLD and 24 MLD CETPs, Nagloi, Delhi',
+  '294 km GAIL gas pipeline joint coating, Jaipur to Loni',
+  'Cement mortar lining, Sonia Vihar phases I and II',
+  'Railway bridge, Nabha Power Ltd, Rajpura',
+  'Shot blasting and epoxy painting, Cairn Energy terminal',
+  'Insulation, HMEL Bhatinda Refinery',
+  'PU foam insulation and PVC waterproofing, AIIMS Bhopal',
+  'Concrete coating with shotcrete, GTCL Bangladesh',
+];
 ---
 
-<BaseLayout title="Civil & Mechanical Works — CP Systems" description="CP Systems civil and mechanical construction expertise: buildings, structures, fabrication, pilgrimage sites, thermal power, highways, and industrial projects.">
-  <Header />
+<BaseLayout title="Civil & mechanical works — CP Systems" description="Concreting, reinforcement, fabrication, erection, building work and MEP services, from pilgrimage sites to refineries and expressways.">
+  <PageHero
+    title="Civil and mechanical works"
+    lead="Foundations to finishing: concrete, steel, fabrication, erection and services, at pilgrimage sites, plants and highways."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Expertise' }, { label: 'Civil & mechanical' }]}
+    clip="badrinath-concrete-pump"
+  />
 
-  <div class="page-header">
-    <div class="container">
-      <h1 class="page-header__title">Civil & Mechanical Works</h1>
-      <div class="page-header__breadcrumb">
-        <a href="/">Home</a> <span>/</span> <a href="#">Speciality</a> <span>/</span> <span>Civil & Mechanical</span>
+  <section class="section" id="content" aria-labelledby="ov-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="ov-h">Built to last up there</h2>
+        <p class="lead" style="margin-top:24px">Structures, utilities and integrated systems built for durability and safety: structural steel, reinforcement, formwork, concreting and MEP.</p>
+        <p style="margin-top:18px">The same crews have built at Kedarnath and Badrinath in snow, and at industrial plants, treatment works and highways across India.</p>
       </div>
+      <div class="split__b" data-gallery><Clip name="kedarnath-slab" ratio="ratio-45" /></div>
     </div>
-  </div>
+  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="content-block animate-on-scroll">
-        <div>
-          <span class="section-label">Building for India</span>
-          <h2 class="section-title">Civil & Mechanical Construction</h2>
-          <p>
-            CPS delivers robust structures, efficient utilities, and integrated systems with unmatched durability and safety. Our expertise covers all aspects of civil construction — from foundation to finishing — including structural steel fabrication, reinforcement work, formwork, concreting, and MEP services.
-          </p>
-          <br/>
-          <p>
-            Our team has delivered landmark projects at sacred pilgrimage sites under extreme terrain and weather conditions, as well as industrial complexes, treatment plants, and highway infrastructure across India.
-          </p>
-        </div>
-        <div class="content-block__image">
-          <img src="/images/pdf_page_14_img_116.jpg" alt="Kedarnath Construction" />
-        </div>
+  <section class="section field-navy" aria-labelledby="sk-h">
+    <div class="wrap">
+      <h2 id="sk-h" data-reveal><span>Six trades, one contractor</span></h2>
+      <div class="sk" data-gallery>
+        {skills.map(([n, d, c]) => (
+          <article class="sk__item" data-reveal>
+            <Clip name={c} ratio="ratio-32" bare />
+            <h3>{n}</h3>
+            <p>{d}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Capabilities -->
-  <section class="section section--beige">
-    <div class="container" style="text-align: center;">
-      <span class="section-label" style="justify-content: center;">Our Capabilities</span>
-      <h2 class="section-title">Core Competencies</h2>
-      <div class="grid grid--3" style="margin-top: 40px;">
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🧱</div>
-          <h4 class="service-card__title">Concreting</h4>
-          <p class="service-card__desc">High-performance concrete work including underwater and above-water applications</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏢</div>
-          <h4 class="service-card__title">Building Work</h4>
-          <p class="service-card__desc">Complete building construction from foundation to finishing</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">⚙️</div>
-          <h4 class="service-card__title">Fabrication</h4>
-          <p class="service-card__desc">Structural steel fabrication and erection for complex structures</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🔩</div>
-          <h4 class="service-card__title">Reinforcing</h4>
-          <p class="service-card__desc">Cutting, binding and fixing of reinforcement steel with precision</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🏗️</div>
-          <h4 class="service-card__title">Erection</h4>
-          <p class="service-card__desc">Heavy lifting and structural erection for industrial and civil projects</p>
-        </div>
-        <div class="service-card animate-on-scroll">
-          <div class="service-card__icon">🔌</div>
-          <h4 class="service-card__title">MEP Services</h4>
-          <p class="service-card__desc">Plumbing, electrical, and mechanical systems integration</p>
-        </div>
+  <section class="section" aria-labelledby="pf-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="pf-h">Civil portfolio</h2>
+        <p class="lead" style="margin-top:24px">Pilgrimage buildings in the Himalaya, and plants, pipelines and highways across the country.</p>
+        <nav class="index" style="margin-top:40px" aria-label="Civil projects with pages">
+          <a href="/projects/kedarnath-dham/"><span class="index__name">Kedarnath Dham</span><span class="index__what">Pilgrim accommodation</span></a>
+          <a href="/projects/badrinath-dham/#bridge-civic"><span class="index__name">Badrinath Civic Centre</span><span class="index__what">Near Badrish Lake</span></a>
+        </nav>
       </div>
+      <ul class="split__b scope cv">
+        {infra.map((i) => <li>{i}</li>)}
+      </ul>
     </div>
   </section>
-
-  <!-- Featured Projects -->
-  <section class="section">
-    <div class="container">
-      <span class="section-label">Featured Projects</span>
-      <h2 class="section-title">Civil Works Portfolio</h2>
-      <div class="grid grid--2" style="margin-top: 40px;">
-        <a href="/projects/kedarnath-dham/" class="project-card animate-on-scroll" style="height: 360px;">
-          <img src="/images/pdf_page_13_img_112.jpg" alt="Kedarnath Dham" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Pilgrimage</span>
-            <h3 class="project-card__title">Kedarnath Dham</h3>
-            <p class="project-card__desc">Pilgrim Accommodation Block Q2Q at Shri Kedarnath Dham in challenging Himalayan terrain</p>
-            <span class="project-card__link">View Details →</span>
-          </div>
-        </a>
-        <a href="/projects/badrinath-dham/" class="project-card animate-on-scroll" style="height: 360px;">
-          <img src="/images/pdf_page_16_img_127.jpg" alt="Badrinath Civic Center" class="project-card__img" />
-          <div class="project-card__overlay">
-            <span class="project-card__tag">Civic Center</span>
-            <h3 class="project-card__title">Badrinath Civic Center</h3>
-            <p class="project-card__desc">Civic Center Building near Badrish Lake at Shri Badrinath Dham</p>
-            <span class="project-card__link">View Details →</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Other Infrastructure -->
-  <section class="section section--beige">
-    <div class="container">
-      <span class="section-label">Infrastructure Portfolio</span>
-      <h2 class="section-title">Executed Infrastructure Projects</h2>
-      <div class="grid grid--2" style="margin-top: 30px;">
-        <ul class="scope-list">
-          <li>Passive Fire Protection — Nagpur–Mumbai Super Expressway</li>
-          <li>Raw Water Reservoir Excavation, Barmer (Rajasthan)</li>
-          <li>Industrial Model Township, Rohtak (Haryana)</li>
-          <li>Industrial Area Infrastructure, Bhorgrah, Bawana Site</li>
-          <li>Misc Civil Works, Rajpura Thermal Power Project</li>
-          <li>Site Grading — 2×700 MW Rajpura Thermal Power</li>
-          <li>12 MLD & 24 MLD CETP Projects, Nagloi, Delhi</li>
-        </ul>
-        <ul class="scope-list">
-          <li>294 Km GAIL Gas Pipeline Joint Coating (Jaipur to Loni)</li>
-          <li>Cement Mortar Lining, Sonya Vihar Phase I & II</li>
-          <li>Railway Bridge, Nabha Power Ltd (Rajpura)</li>
-          <li>Shot Blasting & Epoxy Painting, CAIRN Energy Terminal</li>
-          <li>Insulation, HMEL Bhatinda Refinery</li>
-          <li>PU Foam Insulation & PVC Waterproofing, AIIMS Bhopal</li>
-          <li>Concrete Coating with Shotcreting — GTCL Bangladesh</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <Footer />
 </BaseLayout>
+
+<style>
+  .sk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px var(--gap); margin-top: 56px; }
+  .sk__item h3 { color: #fff; font-size: 1.5rem; font-weight: 800; margin: 20px 0 8px; }
+  .sk__item p { color: var(--on-navy); }
+  .cv { grid-template-columns: 1fr; }
+  @media (max-width: 900px) { .sk { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .sk { grid-template-columns: 1fr; } }
+</style>

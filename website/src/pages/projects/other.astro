@@ -1,294 +1,121 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import Chapter from '../../components/Chapter.astro';
+import Photo from '../../components/Photo.astro';
+import Clip from '../../components/Clip.astro';
+import Gallery from '../../components/Gallery.astro';
+import NextProjects from '../../components/NextProjects.astro';
+
+const more = [
+  ['Nagpur–Mumbai Expressway', 'Passive fire protection, package 14'],
+  ['Rajpura Thermal Power', 'Civil works, site grading and a minor bridge'],
+  ['Nagloi CETP, Delhi', 'Structural treatment of 12 and 24 MLD plants'],
+  ['GAIL gas pipeline', '294 km of joint coating, Jaipur to Loni'],
+  ['HMEL Bhatinda Refinery', 'Specialised insulation'],
+  ['AIIMS Bhopal', 'PU foam insulation and PVC membrane waterproofing'],
+];
 ---
 
-<BaseLayout title="Other Key Projects | CP Systems">
-  <Header />
+<BaseLayout title="Other projects — CP Systems" description="Dam repair, spillway rehabilitation, slope stabilisation and tunnel grouting at Tapovan, Maneri Bhali, Koteshwar, Pipalkoti and Sewa II.">
+  <PageHero
+    title="Other projects"
+    lead="Dam repair, spillway rehabilitation, slope stabilisation and tunnel grouting across the hydropower projects of Uttarakhand and J&K."
+    crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }, { label: 'Other projects' }]}
+    image="/images/other_projects/maneri_bhali_1.jpg"
+    imageAlt="Spillway repair at Maneri Bhali Stage-I"
+    facts={[
+      { label: 'Koteshwar', value: '36 months' },
+      { label: 'Pipalkoti TBM', value: '1.5 years' },
+      { label: 'Sewa II tunnel', value: '10 km' },
+    ]}
+  />
 
-  <!-- Hero Section -->
-  <section class="project-hero animate-on-scroll">
-    <div class="project-hero__bg">
-      <img src="/images/other_projects/tapovan_1.jpg" alt="Other Key Projects" />
-      <div class="project-hero__overlay"></div>
+  <nav class="pindex" aria-label="Projects on this page">
+    <div class="pindex__track">
+      <a href="#tapovan">Tapovan</a><a href="#maneri">Maneri Bhali</a><a href="#koteshwar">Koteshwar</a><a href="#pipalkoti">Pipalkoti TBM</a><a href="#sewa">Sewa II</a><a href="#more">Across India</a>
     </div>
-    <div class="container project-hero__content">
-      <div class="project-hero__badge">Project Gallery</div>
-      <h1 class="project-hero__title">Other Key Projects</h1>
-      <p class="project-hero__subtitle">Showcasing our diverse portfolio of critical infrastructure rehabilitation, grouting, and structural enhancements across India.</p>
-    </div>
-  </section>
+  </nav>
 
-  <!-- Project Details Matrix -->
-  <section class="project-info section">
-    <div class="container">
-      <div class="project-info__grid">
-        <div class="project-info__item animate-on-scroll">
-          <div class="project-info__label">Category</div>
-          <div class="project-info__value">Hydropower & Infrastructure</div>
-        </div>
-        <div class="project-info__item animate-on-scroll" style="transition-delay: 0.1s;">
-          <div class="project-info__label">Locations</div>
-          <div class="project-info__value">Uttarakhand, J&K, MP</div>
-        </div>
-        <div class="project-info__item animate-on-scroll" style="transition-delay: 0.2s;">
-          <div class="project-info__label">Status</div>
-          <div class="project-info__value">Successfully Delivered</div>
-        </div>
-        <div class="project-info__item animate-on-scroll" style="transition-delay: 0.3s;">
-          <div class="project-info__label">Scope</div>
-          <div class="project-info__value">Rehabilitation, Grouting, Stabilization</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Chapter id="tapovan" title="Tapovan Vishnugad HPP" when="RC dam repair" whenNote="Rebaring and micro concrete" pair
+    scope={['Loose concrete removed', 'Rebaring with couplers and shear connectors', 'High-strength micro concrete', 'Epoxy mortar finish']}>
+    <p id="content">Repair and structural strengthening of the dam's reinforced concrete: damaged concrete cut out, new steel coupled in, and the section rebuilt in micro concrete and epoxy mortar.</p>
+    <Fragment slot="media">
+      <Photo src="/images/other_projects/tapovan_3.jpg" caption="Rebaring" ratio="ratio-45" showCaption />
+      <Photo src="/images/other_projects/tapovan_5.jpg" caption="Micro concreting" ratio="ratio-45" showCaption />
+    </Fragment>
+    <Gallery slot="row" title="Tapovan, photographed" items={[
+      { src: '/images/other_projects/tapovan_1.jpg', caption: 'Structure under repair' },
+      { src: '/images/other_projects/tapovan_2.jpg', caption: 'Damaged concrete removed' },
+      { src: '/images/other_projects/tapovan_4.jpg', caption: 'Couplers on the new reinforcement' },
+      { src: '/images/other_projects/tapovan_6.jpg', caption: 'Completed repair' },
+    ]} />
+  </Chapter>
 
-  <!-- Tapovan -->
-  <section class="project-overview section">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">Tapovan Vishnugad HPP</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">Repair & Rectification of RC Dam Structure, Rebaring, and Micro Concreting.</p>
-      </div>
+  <Chapter id="maneri" title="Maneri Bhali Stage-I Dam" when="Spillway and roller bucket" whenNote="Lean season, under water" field="surface" flip pair
+    scope={['Profile matching in M80 concrete', 'Rebaring and epoxy grouting', 'MS plate liners for spillway and roller buckets', 'Seal beams and silt-eroded cavities rebuilt']}>
+    <p>Damaged seal beams, heavy silt erosion and deep cavities in the spillway and roller bucket, repaired under water in the lean season.</p>
+    <Fragment slot="media">
+      <Photo src="/images/other_projects/maneri_bhali_3.jpg" caption="Roller bucket repair" ratio="ratio-45" showCaption />
+      <Photo src="/images/other_projects/maneri_bhali_4.jpg" caption="Completed works" ratio="ratio-45" showCaption />
+    </Fragment>
+    <Gallery slot="row" title="Maneri Bhali, photographed" items={[
+      { src: '/images/other_projects/maneri_bhali_1.jpg', caption: 'Spillway repair' },
+      { src: '/images/other_projects/maneri_bhali_2.jpg', caption: 'Work in progress' },
+    ]} />
+  </Chapter>
 
-      <div class="content-text animate-on-scroll">
-        <p>This critical infrastructure project involved comprehensive repair and structural reinforcement of the dam RC components. The scope included removal of loose concrete, advanced rebaring using couplers and shear connectors, and supplying/applying high-strength micro-concrete and epoxy mortars to ensure the longevity of the structure.</p>
-      </div>
+  <Chapter id="koteshwar" title="Koteshwar Hydroelectric Project" when="36 months" whenNote="Left bank, up to 200 m" pair
+    scope={['20,000+ sqm secured with rock bolts and chain link', 'Shotcreting of the slope', 'Epoxy and PU grouting at the power intake', 'Turbine base plates and construction joints treated']}>
+    <p>Stabilisation of the left bank up to 200 m above the riverbed, then grouting and epoxy treatment at the power intake and turbine bases.</p>
+    <Fragment slot="media">
+      <Photo src="/images/other_projects/koteshwar_1.jpg" caption="Slope stabilisation on the left bank" ratio="ratio-45" showCaption />
+      <Photo src="/images/other_projects/koteshwar_2.jpg" caption="Shotcreting" ratio="ratio-45" showCaption />
+    </Fragment>
+  </Chapter>
 
-      <div class="project-gallery">
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_1.jpg" alt="Tapovan Structure Repair" /><span class="gallery-caption">Repair & Rectification</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_2.jpg" alt="Damaged Concrete Removal" /><span class="gallery-caption">Loose Concrete Removal</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_3.jpg" alt="Rebaring" /><span class="gallery-caption">Rebaring & Strengthening</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_4.jpg" alt="Couplers" /><span class="gallery-caption">Coupler & Shear Connectors</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_5.jpg" alt="Micro Concreting" /><span class="gallery-caption">Micro Concreting</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/tapovan_6.jpg" alt="Completed Repair" /><span class="gallery-caption">Strengthened RC Structure</span></div>
-      </div>
-    </div>
-  </section>
+  <Chapter id="pipalkoti" title="VPHEP Pipalkoti: freeing the TBM" when="From 2021" whenNote="1.5 years" field="navy" flip pair
+    scope={['Consolidation drilling in fragile, sandy strata', 'Polyurethane grouting', 'Microfine cement grouting', 'Colloidal silica injection']}>
+    <p>In 2021 the tunnel boring machine at VPHEP stuck fast in a fragile section of the HRT. Over a year and a half CPS drilled and grouted the sandy ground around it until the TBM could move again.</p>
+    <Fragment slot="media">
+      <Photo src="/images/other_projects/pipalkoti_grouting_4.jpg" caption="PU pumping" ratio="ratio-45" showCaption />
+      <Photo src="/images/other_projects/pipalkoti_grouting_6.jpg" caption="The TBM released" ratio="ratio-45" showCaption />
+    </Fragment>
+    <Gallery slot="row" title="Pipalkoti, photographed" items={[
+      { src: '/images/other_projects/pipalkoti_grouting_3.jpg', caption: 'Fragile strata at the TBM' },
+      { src: '/images/other_projects/pipalkoti_grouting_2.jpg', caption: 'Colloidal silica', tall: true },
+      { src: '/images/other_projects/pipalkoti_grouting_5.jpg', caption: 'Consolidation operations', tall: true },
+      { src: '/images/other_projects/pipalkoti_grouting_7.jpg', caption: 'Grouting inside the tunnel' },
+      { src: '/images/other_projects/pipalkoti_grouting_8.jpg', caption: 'Drilling for consolidation' },
+    ]} />
+  </Chapter>
 
-  <!-- Maneri Bhali -->
-  <section class="project-overview section section--beige">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">Maneri Bhali Stage-I Dam</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">Special repair of spillway and roller bucket.</p>
-      </div>
+  <Chapter id="sewa" title="Sewa II HEP, Jammu & Kashmir" when="2010" whenNote="10 km, 3.3 m diameter"
+    scope={['Heavy machinery carried in by hand from few entry points', 'PU grouting to stop severe leakage', 'Epoxy mortar repair of the HRT']}>
+    <p>Repair of a 10 km head race tunnel only 3.3 m across, with severe leakage. Machinery went in by hand through the few entry points.</p>
+    <Fragment slot="media">
+      <Photo src="/images/other_projects/sewa_1.jpg" caption="Inside the Sewa II HRT" ratio="ratio-32" showCaption />
+    </Fragment>
+  </Chapter>
 
-      <div class="content-text animate-on-scroll">
-        <p>Faced with heavily damaged seal beams, severe silt erosion, and deep cavities, CP Systems executed highly complex underwater repairs in the lean season. The works involved profile matching with high-performance M80 concrete, rebaring, epoxy grouting, and laying MS plate liners for the spillway and roller buckets.</p>
+  <section id="more" class="section field-surface" aria-labelledby="more-h">
+    <div class="wrap split">
+      <div class="split__a" data-reveal>
+        <h2 id="more-h">Across India</h2>
+        <p class="lead" style="margin-top:24px">Expressways, pipelines, refineries, treatment plants and buildings: the civil and protective work that runs alongside the hydropower.</p>
+        <div style="margin-top:40px" data-gallery><Clip name="noida-building" caption="Column and slab work on a building in Noida" /></div>
       </div>
-
-      <div class="project-gallery mt-4">
-        <div class="gallery-item"><img src="/images/other_projects/maneri_bhali_1.jpg" alt="Spillway Repair" /><span class="gallery-caption">Spillway Reinforcement</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/maneri_bhali_2.jpg" alt="Construction Progress" /><span class="gallery-caption">Profile Restructuring</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/maneri_bhali_3.jpg" alt="Roller Bucket Repair" /><span class="gallery-caption">Roller Bucket Treatment</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/maneri_bhali_4.jpg" alt="Completed Works" /><span class="gallery-caption">Advanced Rebaring</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Koteshwar HEP -->
-  <section class="project-overview section">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">Koteshwar Hydroelectric Project</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">Slope stabilization, shotcreting, and advanced structural grouting.</p>
-      </div>
-
-      <div class="content-text animate-on-scroll">
-        <p>Spanning 36 months, this monumental execution involved stabilization of the left bank reaching heights of 200m from the river bed. Over 20,000 sqm area was secured via rock-bolting and chainlink. Furthermore, the power intake, turbine base plates, and construction joints were rigorously treated with extensive Epoxy and PU grouting.</p>
-      </div>
-
-      <div class="project-gallery mt-4">
-        <div class="gallery-item"><img src="/images/other_projects/koteshwar_1.jpg" alt="Slope Stabilization" /><span class="gallery-caption">Extensive Slope Stabilization</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/koteshwar_2.jpg" alt="Shotcreting" /><span class="gallery-caption">Wet Shotcrete & Anchoring</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/koteshwar_3.jpg" alt="Epoxy Mortar Treatment" /><span class="gallery-caption">Epoxy Mortar Treatment</span></div>
-      </div>
+      <ul class="split__b index more">
+        {more.map(([n, w]) => <li><span class="index__name">{n}</span><span class="index__what">{w}</span></li>)}
+      </ul>
     </div>
   </section>
 
-  <!-- VPHEP Pipalkoti Grouting -->
-  <section class="project-overview section section--beige">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">VPHEP Pipalkoti - TBM Grouting</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">Consolidation of fragile strata using Polyurethane and Colloidal Silica.</p>
-      </div>
-
-      <div class="content-text animate-on-scroll">
-        <p>In 2021, the VPHEP Tunnel Boring Machine (TBM) was stuck in the highly fragile HRT section. Over a span of 1.5 years, CP Systems executed intricate consolidation drilling and PU/Microfine cement grouting to completely stabilize the sandy strata and successfully release the TBM.</p>
-      </div>
-
-      <div class="project-gallery mt-4">
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_1.png" alt="TBM Grouting" /><span class="gallery-caption">PU Consolidation Grouting</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_2.jpg" alt="Colloidal Silica" /><span class="gallery-caption">Colloidal Silica Treatment</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_3.jpg" alt="Fragile Strata" /><span class="gallery-caption">Fragile HRT Strata</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_4.jpg" alt="PU Pumping" /><span class="gallery-caption">High-Pressure PU Injection</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_5.jpg" alt="Consolidation Operations" /><span class="gallery-caption">TBM Surrounding Consolidation</span></div>
-        <div class="gallery-item"><img src="/images/other_projects/pipalkoti_grouting_6.jpg" alt="TBM Release" /><span class="gallery-caption">Successful Stabilization</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Sewa II HEP -->
-  <section class="project-overview section">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">Sewa II HEP (J&K)</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">HRT repair with Epoxy Mortar and severe leakage stoppage.</p>
-      </div>
-
-      <div class="content-text animate-on-scroll">
-        <p>Executed in 2010 across a challenging 10-kilometer-long, 3.3m diameter tunnel. Operations required massive logistical feats to manually transport heavy machinery deep into the tunnel from limited entry points. The persistent severe headwater leakages were fully addressed through focused PU grouting and epoxy treatments.</p>
-      </div>
-
-      <div class="project-gallery mt-4">
-        <div class="gallery-item"><img src="/images/other_projects/sewa_1.jpg" alt="Sewa II HRT" /><span class="gallery-caption">Sewa II HRT Repair</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Misc Infra Projects -->
-  <section class="project-overview section section--beige" style="padding-bottom: 80px;">
-    <div class="container">
-      <div class="section-header animate-on-scroll">
-        <h2 class="section-title">Other Notable Infrastructure Developments</h2>
-        <div class="section-divider"></div>
-        <p class="section-subtitle">Decades of expertise spanning expressways, pipelines, and thermal power across the country.</p>
-      </div>
-
-      <div class="content-text animate-on-scroll" style="margin-top: 2rem;">
-        <ul style="list-style-type: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">Nagpur-Mumbai Expressway:</strong> Passive Fire Protection (Pkg 14).</li>
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">Rajpura Thermal Power:</strong> Civil, grading, minor bridge execution.</li>
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">Nagloi CETP:</strong> High-capacity structural treatments (12 & 24 MLD).</li>
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">GAIL Gas Pipeline:</strong> 294km joint coating from Jaipur to Loni.</li>
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">HMEL Bhatinda Refinery:</strong> Specialized insulation deployment.</li>
-          <li style="background: var(--white); padding: 15px 20px; border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--gold);"><strong style="color:var(--navy);">AIIMS Bhopal:</strong> PU Foam Insulation and PVC membrane waterproofing.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <Footer />
+  <NextProjects current="/projects/other/" />
 </BaseLayout>
 
 <style>
-  /* Hero Section */
-  .project-hero {
-    position: relative;
-    height: 50vh;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    color: var(--white);
-    overflow: hidden;
-  }
-  .project-hero__bg {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-  }
-  .project-hero__bg img {
-    width: 100%; height: 100%; object-fit: cover;
-  }
-  .project-hero__overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to right, rgba(12,35,64,0.95), rgba(12,35,64,0.4));
-  }
-  .project-hero__content {
-    position: relative; z-index: 1; max-width: 800px;
-  }
-  .project-hero__badge {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(255,180,0,0.2);
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .project-hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
-  .project-hero__subtitle {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.6;
-    max-width: 600px;
-  }
-
-  /* Info Grid */
-  .project-info {
-    background: var(--white);
-    padding: 40px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-  }
-  .project-info__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
-  }
-  .project-info__item {
-    padding-left: 20px;
-    border-left: 3px solid var(--gold);
-  }
-  .project-info__label {
-    font-size: 0.85rem;
-    color: var(--grey-text);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-  .project-info__value {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  
-  .section--beige {
-    background: var(--beige);
-  }
-
-  .content-text {
-    font-size: 1.05rem;
-    color: var(--dark-text);
-    line-height: 1.8;
-    max-width: 900px;
-  }
-  
-  .mt-4 {
-    margin-top: 2.5rem;
-  }
-
-  /* Gallery Grid Matches Other Pages */
-  .project-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 40px;
-  }
-  .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; box-shadow: var(--shadow-md); }
-  .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.05); }
-  .gallery-caption {
-    display: block; padding: 8px 12px; font-size: 0.8rem; color: #000;
-    text-align: center; background: var(--white); font-weight: 500;
-  }
-
-  @media (max-width: 768px) {
-    .project-info__grid { grid-template-columns: 1fr 1fr; }
-  }
+  .more li { display: grid; gap: 6px; padding: 22px 0; box-shadow: inset 0 -2px 0 rgba(4, 45, 106, 0.1); } /* taste-skill-ignore: state indicator or list separator, not a resting shadow */
+  .more .index__name { font-size: clamp(1.375rem, 2.4vw, 2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--navy); line-height: 1.1; }
+  .more .index__what { font-size: 1rem; color: var(--ink); }
 </style>

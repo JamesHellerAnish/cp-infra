@@ -1,10 +1,15 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 export interface Props {
   title: string;
   description?: string;
+  /** The header sits over a full-screen picture until the visitor scrolls. */
+  overHero?: boolean;
 }
 
-const { title, description = "CP Systems Pvt Ltd — Over 3 decades of infra-excellence. Construction, Hydropower, Mining, Civil & Mechanical Works." } = Astro.props;
+const { title, description = "CP Systems Pvt. Ltd. has delivered dams, tunnel repairs, riverfronts, pilgrimage buildings and granite mines across India and Bhutan since 1999.", overHero = true } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -13,75 +18,175 @@ const { title, description = "CP Systems Pvt Ltd — Over 3 decades of infra-exc
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="keywords" content="CP Systems, construction, infrastructure, hydropower, mining, civil works, dam, India" />
+  <meta name="theme-color" content="#042D6A" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://cp-infra.in" />
+  <meta property="og:url" content={new URL(Astro.url.pathname, 'https://cp-infra.in')} />
+  <meta property="og:image" content="https://cp-infra.in/media/posters/home-reel.jpg" />
   <title>{title}</title>
   <link rel="icon" type="image/webp" href="/images/cp-logo.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-  <slot />
+  <a class="skip" href="#main">Skip to content</a>
+  <Header overHero={overHero} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
 
-  <!-- Scroll to top -->
-  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+  <dialog class="lightbox" id="lightbox" aria-label="Media viewer">
+    <div class="lightbox__bar">
+      <span class="lightbox__count" id="lbCount"></span>
+      <button class="lb-btn" id="lbClose" aria-label="Close viewer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div class="lightbox__stage" id="lbStage"></div>
+    <div class="lightbox__foot">
+      <p class="lightbox__caption" id="lbCaption"></p>
+      <div class="lightbox__nav">
+        <button class="lb-btn" id="lbPrev" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="lb-btn" id="lbNext" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </dialog>
 
-  <!-- Scroll animations -->
   <script>
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Entrances: each [data-reveal] block staggers its children once as it enters.
+    const revealIO = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); revealIO.unobserve(e.target); }
+      }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('[data-reveal], .shutter').forEach((el) => revealIO.observe(el));
+
+    // Site clips: play only while on screen, never under reduced motion; the button pauses and resumes.
+    const clips = [...document.querySelectorAll<HTMLElement>('.clip')];
+    const clipIO = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const box = e.target as HTMLElement;
+        const v = box.querySelector('video');
+        if (!v) continue;
+        if (e.isIntersecting && !reduced && !box.classList.contains('is-held')) {
+          if (v.preload === 'none') v.preload = 'auto';
+          v.play().then(() => box.classList.remove('is-paused')).catch(() => box.classList.add('is-paused'));
+        } else {
+          v.pause();
+          box.classList.add('is-paused');
         }
+      }
+    }, { threshold: 0.25 });
+    clips.forEach((c) => { c.classList.add('is-paused'); clipIO.observe(c); });
+    document.querySelectorAll<HTMLButtonElement>('.clip__toggle').forEach((btn) => {
+      btn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const box = btn.closest('.clip') as HTMLElement;
+        const v = box.querySelector('video')!;
+        if (v.paused) { box.classList.remove('is-held'); v.preload = 'auto'; v.play(); box.classList.remove('is-paused'); btn.setAttribute('aria-label', 'Pause video'); }
+        else { box.classList.add('is-held'); v.pause(); box.classList.add('is-paused'); btn.setAttribute('aria-label', 'Play video'); }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    // Drag rows: arrow buttons scroll one card; buttons disable at the ends.
+    document.querySelectorAll<HTMLElement>('.row').forEach((row) => {
+      const track = row.querySelector<HTMLElement>('.row__track');
+      const prev = row.querySelector<HTMLButtonElement>('[data-row-prev]');
+      const next = row.querySelector<HTMLButtonElement>('[data-row-next]');
+      if (!track) return;
+      const step = () => (track.firstElementChild as HTMLElement)?.getBoundingClientRect().width ?? 300;
+      const sync = () => {
+        if (prev) prev.disabled = track.scrollLeft < 8;
+        if (next) next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 8;
+      };
+      prev?.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }));
+      next?.addEventListener('click', () => track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }));
+      track.addEventListener('scroll', sync, { passive: true });
+      sync();
+    });
 
-    // Counter animation
-    function animateCounters() {
-      document.querySelectorAll('[data-counter]').forEach(el => {
-        const target = parseInt(el.getAttribute('data-counter') || '0');
-        const prefix = el.getAttribute('data-prefix') || '';
-        const suffix = el.getAttribute('data-suffix') || '';
-        const duration = 2000;
-        const start = performance.now();
+    // Lightbox: every [data-lb] inside the same [data-gallery] is one sequence.
+    const dlg = document.getElementById('lightbox') as HTMLDialogElement;
+    const stage = document.getElementById('lbStage')!;
+    const cap = document.getElementById('lbCaption')!;
+    const count = document.getElementById('lbCount')!;
+    let items: HTMLElement[] = [];
+    let idx = 0;
+    let opener: HTMLElement | null = null;
+    function show(i: number) {
+      idx = (i + items.length) % items.length;
+      const it = items[idx];
+      stage.replaceChildren();
+      if (it.dataset.lbType === 'video') {
+        const v = document.createElement('video');
+        v.src = it.dataset.lb!; v.poster = it.dataset.lbPoster || '';
+        v.controls = true; v.loop = true; v.muted = true; v.playsInline = true; v.autoplay = !reduced;
+        stage.append(v);
+      } else {
+        const img = document.createElement('img');
+        img.src = it.dataset.lb!; img.alt = it.dataset.lbCaption || '';
+        stage.append(img);
+      }
+      cap.textContent = it.dataset.lbCaption || '';
+      count.textContent = items.length > 1 ? `${idx + 1} of ${items.length}` : '';
+    }
+    document.addEventListener('click', (ev) => {
+      const t = (ev.target as HTMLElement).closest<HTMLElement>('[data-lb]');
+      if (!t) return;
+      ev.preventDefault();
+      const group = t.closest('[data-gallery]');
+      items = group ? [...group.querySelectorAll<HTMLElement>('[data-lb]')] : [t];
+      opener = t;
+      show(items.indexOf(t));
+      dlg.showModal();
+    });
+    document.getElementById('lbClose')!.addEventListener('click', () => dlg.close());
+    document.getElementById('lbPrev')!.addEventListener('click', () => show(idx - 1));
+    document.getElementById('lbNext')!.addEventListener('click', () => show(idx + 1));
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+    let x0 = 0;
+    stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+    });
+    dlg.addEventListener('click', (e) => { if (e.target === dlg || e.target === stage) dlg.close(); });
+    dlg.addEventListener('close', () => { stage.replaceChildren(); opener?.focus(); });
 
-        function update(now: number) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const current = Math.floor(target * eased);
-          el.textContent = prefix + current.toLocaleString() + suffix;
-          if (progress < 1) requestAnimationFrame(update);
+    // Phase index: underline the chapter on screen.
+    const pindex = document.querySelector('.pindex');
+    if (pindex) {
+      const links = [...pindex.querySelectorAll<HTMLAnchorElement>('a')];
+      const map = new Map(links.map((a) => [a.hash.slice(1), a]));
+      const spy = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          links.forEach((a) => a.classList.remove('is-current'));
+          const a = map.get(e.target.id);
+          if (a) { a.classList.add('is-current'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
         }
-        requestAnimationFrame(update);
-      });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      map.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
     }
 
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          counterObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-
-    const statsSection = document.querySelector('.stats-grid');
-    if (statsSection) counterObserver.observe(statsSection);
-
-    // Scroll to top button
-    const scrollBtn = document.getElementById('scrollTop');
-    window.addEventListener('scroll', () => {
-      if (scrollBtn) {
-        scrollBtn.classList.toggle('visible', window.scrollY > 400);
-      }
-    });
-    scrollBtn?.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Before / after sliders.
+    document.querySelectorAll<HTMLElement>('.compare').forEach((c) => {
+      const input = c.querySelector('input')!;
+      const set = () => c.style.setProperty('--pos', input.value + '%');
+      input.addEventListener('input', set);
+      set();
     });
   </script>
 </body>

@@ -1,0 +1,290 @@
+---
+// Terrain map of India and Bhutan with CPS offices and project sites.
+// Relief: Natural Earth 1 shaded relief with hypsometric tints (public domain).
+// Boundaries: Natural Earth admin-0, India point of view (public domain).
+import map from '../data/indiaMap.json';
+import { sites, routes, kindLabel, type Kind } from '../data/sites';
+
+const { w: W, h: H, lon0, lat1, px } = map;
+const toXY = (lat: number, lon: number) => [(lon - lon0) * px, (lat1 - lat) * px];
+const pct = (lat: number, lon: number) => { const [x, y] = toXY(lat, lon); return [(x / W) * 100, (y / H) * 100]; };
+const routeD = (pts: number[][]) => 'M' + pts.map(([la, lo]) => toXY(la, lo).map((n) => n.toFixed(1)).join(',')).join('L');
+const kinds: Kind[] = ['office', 'hydro', 'civil', 'mining'];
+const count = (k: Kind) => sites.filter((s) => s.kinds.includes(k)).length;
+const labels = [
+  { t: 'Uttarakhand', lat: 31.35, lon: 78.2 },
+  { t: 'Rajasthan', lat: 26.9, lon: 72.6 },
+  { t: 'Bhutan', lat: 28.0, lon: 90.4 },
+  { t: 'Delhi', lat: 29.05, lon: 77.55 },
+  { t: 'Arabian Sea', lat: 15.5, lon: 67.6, sea: true },
+  { t: 'Bay of Bengal', lat: 15.5, lon: 87.2, sea: true },
+];
+const first = sites[0];
+---
+
+<div class="imap" id="imap">
+  <div class="imap__stage" id="imapStage" data-z="1">
+    <div class="imap__layer" id="imapLayer">
+      <img class="imap__relief" src="/images/map/india-relief.jpg" srcset="/images/map/india-relief-960.jpg 960w, /images/map/india-relief.jpg 1920w"
+        sizes="(max-width: 900px) 100vw, 60vw" width={W} height={H} alt="Shaded relief map of India and Bhutan" loading="lazy" decoding="async" />
+      <svg class="imap__svg" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+        <path class="imap__fade" d={`M0,0H${W}V${H}H0Z${map.india}${map.bhutan}`} fill-rule="evenodd" />
+        {map.rivers.map((r) => <path class="imap__river" d={r.d} />)}
+        <path class="imap__states" d={map.states} />
+        <path class="imap__border" d={map.india} />
+        <path class="imap__border imap__border--btn" d={map.bhutan} />
+        {routes.map((r) => <path class="imap__route" data-route={r.id} d={routeD(r.points)} />)}
+        {labels.map((l) => { const [x, y] = toXY(l.lat, l.lon); return <text class:list={['imap__label', { 'imap__label--sea': l.sea }]} x={x} y={y}>{l.t}</text>; })}
+      </svg>
+      {sites.map((s) => {
+        const [x, y] = pct(s.lat, s.lon);
+        return (
+          <button type="button" class="imap__pin" data-site={s.id} data-kinds={s.kinds.join(' ')} data-kind={s.kinds[0]}
+            style={`left:${x.toFixed(3)}%;top:${y.toFixed(3)}%`} aria-label={`${s.name}, ${s.place}`}>
+            <span class="imap__dot" aria-hidden="true"></span>
+            <span class="imap__tip" aria-hidden="true">{s.name}</span>
+          </button>
+        );
+      })}
+    </div>
+    <div class="imap__zoom" role="group" aria-label="Map zoom">
+      <button type="button" data-zoom="in" aria-label="Zoom in">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14"/></svg>
+      </button>
+      <button type="button" class="imap__preset" data-zoom="garhwal">Garhwal<span class="imap__long">&nbsp;Himalaya</span></button>
+      <button type="button" class="imap__preset" data-zoom="all"><span class="imap__long">All of&nbsp;</span>India</button>
+    </div>
+    <p class="imap__credit">Relief and boundaries: Natural Earth</p>
+  </div>
+
+  <div class="imap__side">
+    <div class="imap__filters" role="group" aria-label="Show on the map">
+      {kinds.map((k) => (
+        <button type="button" class="imap__filter" data-filter={k} aria-pressed="true">
+          <span class="imap__key" data-kind={k} aria-hidden="true"></span>{kindLabel[k]}<span class="imap__n">{count(k)}</span>
+        </button>
+      ))}
+    </div>
+
+    <article class="imap__card" id="imapCard" aria-live="polite">
+      <div class="imap__img media"><img id="imapImg" src={first.img} alt="" loading="lazy" /></div>
+      <div class="imap__body">
+        <p class="imap__kinds" id="imapKinds">{first.kinds.map((k) => kindLabel[k]).join(' · ')}</p>
+        <h3 id="imapName">{first.name}</h3>
+        <p class="imap__place" id="imapPlace">{first.place}</p>
+        <p id="imapWhat">{first.what}</p>
+        <a class="link" id="imapLink" href={first.href}>Open</a>
+      </div>
+    </article>
+
+    <ul class="imap__list" id="imapList">
+      {sites.map((s) => (
+        <li data-kinds={s.kinds.join(' ')}>
+          <button type="button" data-site={s.id}><span class="imap__key" data-kind={s.kinds[0]} aria-hidden="true"></span><span>{s.name}</span><small>{s.place}</small></button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<script define:vars={{ sites, kindLabel, W, H }}>
+  const root = document.getElementById('imap');
+  const stage = document.getElementById('imapStage');
+  const layer = document.getElementById('imapLayer');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const byId = Object.fromEntries(sites.map((s) => [s.id, s]));
+  let z = 1, tx = 0, ty = 0;
+
+  // Centre of the Garhwal cluster, as a fraction of the map.
+  const gar = sites.filter((s) => s.garhwal);
+  const gx = gar.reduce((a, s) => a + s.lon, 0) / gar.length, gy = gar.reduce((a, s) => a + s.lat, 0) / gar.length;
+  const frac = (lat, lon) => [((lon - 66.5) * 60) / W, ((38 - lat) * 60) / H];
+
+  function apply(animate = true) {
+    const r = stage.getBoundingClientRect();
+    tx = Math.min(0, Math.max(r.width - r.width * z, tx));
+    ty = Math.min(0, Math.max(r.height - r.height * z, ty));
+    layer.style.transition = animate && !reduced ? 'transform 650ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+    layer.style.transform = `translate(${tx}px, ${ty}px) scale(${z})`;
+    layer.style.setProperty('--z', z);
+    stage.dataset.z = z > 1.05 ? 'in' : '1';
+  }
+  function zoomTo(nz, fx, fy) {
+    const r = stage.getBoundingClientRect();
+    z = Math.min(8, Math.max(1, nz));
+    tx = r.width / 2 - fx * r.width * z;
+    ty = r.height / 2 - fy * r.height * z;
+    apply();
+  }
+  function zoomBy(f) {
+    const r = stage.getBoundingClientRect();
+    const fx = (r.width / 2 - tx) / (r.width * z), fy = (r.height / 2 - ty) / (r.height * z);
+    zoomTo(z * f, fx, fy);
+  }
+  root.querySelector('[data-zoom="in"]').addEventListener('click', () => zoomBy(1.6));
+  root.querySelector('[data-zoom="out"]').addEventListener('click', () => zoomBy(1 / 1.6));
+  root.querySelector('[data-zoom="garhwal"]').addEventListener('click', () => zoomTo(5.5, ...frac(gy, gx)));
+  root.querySelector('[data-zoom="all"]').addEventListener('click', () => zoomTo(1, 0.5, 0.5));
+
+  // Drag to pan once zoomed in.
+  let drag = null;
+  stage.addEventListener('pointerdown', (e) => {
+    if (z <= 1.05 || e.target.closest('button')) return;
+    drag = { x: e.clientX, y: e.clientY, tx, ty };
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    tx = drag.tx + e.clientX - drag.x; ty = drag.ty + e.clientY - drag.y;
+    apply(false);
+  });
+  stage.addEventListener('pointerup', () => { drag = null; });
+  stage.addEventListener('pointercancel', () => { drag = null; });
+
+  // Selecting a site fills the card and highlights the pin; Garhwal sites zoom in first.
+  const card = {
+    img: document.getElementById('imapImg'), kinds: document.getElementById('imapKinds'), name: document.getElementById('imapName'),
+    place: document.getElementById('imapPlace'), what: document.getElementById('imapWhat'), link: document.getElementById('imapLink'),
+  };
+  function select(id, fromList) {
+    const s = byId[id];
+    root.querySelectorAll('[data-site]').forEach((b) => b.classList.toggle('is-on', b.dataset.site === id));
+    root.querySelectorAll('[data-route]').forEach((p) => p.classList.toggle('is-on', p.dataset.route === id));
+    card.img.parentElement.hidden = !s.img;
+    if (s.img) { card.img.src = s.img; card.img.alt = s.name; }
+    card.kinds.textContent = s.kinds.map((k) => kindLabel[k]).join(' · ');
+    card.name.textContent = s.name;
+    card.place.textContent = s.place;
+    card.what.textContent = s.what;
+    card.link.hidden = !s.href;
+    if (s.href) card.link.href = s.href;
+    const c = document.getElementById('imapCard');
+    c.classList.remove('is-swap'); void c.offsetWidth; c.classList.add('is-swap');
+    if (fromList) {
+      if (s.garhwal) zoomTo(Math.max(z, 6), ...frac(s.lat, s.lon));
+      else if (z > 1.05) zoomTo(z, ...frac(s.lat, s.lon));
+    }
+  }
+  root.querySelectorAll('.imap__pin').forEach((b) => b.addEventListener('click', () => select(b.dataset.site, false)));
+  root.querySelectorAll('.imap__list button').forEach((b) => b.addEventListener('click', () => select(b.dataset.site, true)));
+
+  // Filters: show or hide each kind of site.
+  const filters = [...root.querySelectorAll('.imap__filter')];
+  function syncFilters() {
+    const on = new Set(filters.filter((f) => f.getAttribute('aria-pressed') === 'true').map((f) => f.dataset.filter));
+    root.querySelectorAll('.imap__pin, .imap__list li').forEach((el) => {
+      el.hidden = !el.dataset.kinds.split(' ').some((k) => on.has(k));
+    });
+    root.querySelectorAll('[data-route]').forEach((p) => p.classList.toggle('is-hidden', !on.has('civil')));
+  }
+  filters.forEach((f) => f.addEventListener('click', () => {
+    f.setAttribute('aria-pressed', String(f.getAttribute('aria-pressed') !== 'true'));
+    syncFilters();
+  }));
+
+  window.addEventListener('resize', () => apply(false));
+  select('hq', false);
+</script>
+
+<style>
+  .imap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px var(--gap); align-items: start; }
+  .imap__stage { grid-column: 1 / span 8; position: relative; overflow: hidden; aspect-ratio: 1920 / 1950; background: #A9C6DE; touch-action: pan-y; }
+  .imap__stage[data-z='in'] { touch-action: none; cursor: grab; }
+  .imap__stage[data-z='in']:active { cursor: grabbing; }
+  .imap__layer { position: absolute; inset: 0; transform-origin: 0 0; --z: 1; will-change: transform; }
+  .imap__relief { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+  .imap__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .imap__fade { fill: #F3F2EF; fill-opacity: 0.58; }
+  .imap__river { fill: none; stroke: #2F78C4; stroke-opacity: 0.75; stroke-width: 1.4px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .imap__states { fill: none; stroke: #fff; stroke-opacity: 0.75; stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+  .imap__border { fill: none; stroke: var(--navy); stroke-width: 2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+  .imap__border--btn { stroke-dasharray: 5 3; }
+  .imap__route { fill: none; stroke: var(--navy-deep); stroke-width: 3px; stroke-dasharray: 2 6; stroke-linecap: round; vector-effect: non-scaling-stroke; transition: stroke 200ms, opacity 200ms; }
+  .imap__route.is-on { stroke: var(--gold); stroke-width: 4px; }
+  .imap__route.is-hidden { opacity: 0; }
+  .imap__label { font-family: var(--font); font-weight: 700; font-size: calc(30px / var(--z)); fill: var(--navy-deep); paint-order: stroke; stroke: rgba(255, 255, 255, 0.85); stroke-width: calc(6px / var(--z)); stroke-linejoin: round; letter-spacing: 0.5px; }
+  .imap__label--sea { font-style: italic; font-weight: 600; fill: #1B4F86; stroke: rgba(255, 255, 255, 0.5); }
+
+  .imap__pin { position: absolute; width: 0; height: 0; z-index: 2; }
+  .imap__pin[hidden] { display: none; }
+  .imap__dot {
+    position: absolute; left: 0; top: 0; width: 18px; height: 18px; margin: -9px 0 0 -9px;
+    transform: scale(calc(1 / var(--z))); transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .imap__dot::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--navy); outline: 3px solid #fff; transition: transform 160ms var(--ease-out), background-color 160ms; }
+  .imap__pin[data-kind='civil'] .imap__dot::before { background: #fff; outline: 4px solid var(--navy); outline-offset: -4px; }
+  .imap__pin[data-kind='mining'] .imap__dot::before { border-radius: 2px; transform: rotate(45deg) scale(0.86); background: #7A4A1E; }
+  .imap__pin[data-kind='office'] .imap__dot { width: 22px; height: 22px; margin: -11px 0 0 -11px; }
+  .imap__pin[data-kind='office'] .imap__dot::before { border-radius: 3px; background: var(--gold); outline-color: var(--navy-deep); }
+  .imap__pin.is-on { z-index: 3; }
+  .imap__pin.is-on .imap__dot::after { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 3px solid var(--gold); }
+  @media (prefers-reduced-motion: no-preference) {
+    .imap__pin.is-on .imap__dot::after { animation: pinPulse 1.6s ease-out infinite; }
+    @keyframes pinPulse { from { transform: scale(0.7); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+  }
+  .imap__tip {
+    position: absolute; left: 0; top: 0; transform: translate(-50%, calc(-100% - 16px)) scale(calc(1 / var(--z))); transform-origin: 50% 100%;
+    white-space: nowrap; padding: 6px 10px; background: var(--navy-deep); color: #fff; font-size: 0.875rem; font-weight: 700;
+    opacity: 0; pointer-events: none; transition: opacity 140ms;
+  }
+  .imap__pin:hover .imap__tip, .imap__pin:focus-visible .imap__tip, .imap__pin.is-on .imap__tip { opacity: 1; }
+  .imap__pin:focus-visible { outline: none; }
+  .imap__pin:focus-visible .imap__dot::before { outline-color: var(--gold); }
+  @media (hover: hover) and (pointer: fine) { .imap__pin:hover .imap__dot::before { background: var(--gold); } }
+
+  .imap__zoom { position: absolute; top: 12px; right: 12px; z-index: 4; display: flex; flex-wrap: wrap; justify-content: end; gap: 6px; max-width: 70%; }
+  .imap__zoom button { height: 44px; min-width: 44px; display: grid; place-items: center; padding: 0 12px; background: var(--navy-deep); color: #fff; font-weight: 700; font-size: 0.875rem; transition: background-color var(--t-hover), color var(--t-hover); }
+  .imap__zoom button:active { transform: scale(0.96); }
+  @media (hover: hover) and (pointer: fine) { .imap__zoom button:hover { background: var(--gold); color: var(--navy-deep); } }
+  .imap__credit { position: absolute; left: 10px; bottom: 8px; z-index: 4; font-size: 0.8125rem; color: var(--navy-deep); background: rgba(255, 255, 255, 0.75); padding: 2px 8px; }
+
+  .imap__side { grid-column: 9 / span 4; display: grid; gap: 24px; }
+  .imap__filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .imap__filter { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; font-weight: 700; font-size: 0.9375rem; background: var(--surface); color: var(--muted); transition: background-color var(--t-hover), color var(--t-hover); }
+  .imap__filter[aria-pressed='true'] { background: var(--navy); color: #fff; }
+  .imap__filter:active { transform: scale(0.97); }
+  .imap__n { font-variant-numeric: tabular-nums; opacity: 0.7; font-weight: 600; }
+  .imap__key { width: 12px; height: 12px; flex: none; border-radius: 50%; background: var(--navy); outline: 2px solid #fff; }
+  .imap__key[data-kind='civil'] { background: #fff; outline: 3px solid var(--navy); outline-offset: -3px; }
+  .imap__key[data-kind='mining'] { border-radius: 1px; transform: rotate(45deg) scale(0.85); background: #7A4A1E; }
+  .imap__key[data-kind='office'] { border-radius: 2px; background: var(--gold); outline-color: var(--navy-deep); }
+
+  .imap__card { background: var(--navy); color: #fff; }
+  .imap__card.is-swap { animation: cardIn 420ms var(--ease-out); }
+  @keyframes cardIn { from { opacity: 0.2; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .imap__card.is-swap { animation: none; } }
+  .imap__img { aspect-ratio: 16 / 9; }
+  .imap__img[hidden] { display: none; }
+  .imap__body { padding: 20px 22px 24px; display: grid; gap: 8px; }
+  .imap__kinds { font-size: 0.875rem; font-weight: 700; color: var(--gold); }
+  .imap__card h3 { color: #fff; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  .imap__place { font-weight: 600; color: var(--on-navy-muted); }
+  .imap__card p { color: #fff; }
+  .imap__card .link { color: #fff; justify-self: start; margin-top: 6px; }
+
+  .imap__list { display: grid; max-height: 340px; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; }
+  .imap__list li[hidden] { display: none; }
+  .imap__list button { width: 100%; display: grid; grid-template-columns: 12px 1fr; column-gap: 12px; align-items: center; text-align: left; padding: 10px 10px; transition: background-color var(--t-hover); }
+  .imap__list button span:nth-child(2) { font-weight: 700; color: var(--navy); }
+  .imap__list button small { grid-column: 2; font-size: 0.875rem; color: var(--muted); }
+  .imap__list button.is-on { background: var(--surface); }
+  @media (hover: hover) and (pointer: fine) { .imap__list button:hover { background: var(--surface); } }
+
+  @media (max-width: 1000px) {
+    .imap__stage, .imap__side { grid-column: 1 / -1; }
+    .imap__side { grid-template-columns: 1fr 1fr; }
+    .imap__filters { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .imap__side { grid-template-columns: 1fr; }
+    .imap__zoom { top: auto; bottom: 40px; right: 10px; max-width: none; flex-wrap: nowrap; gap: 4px; }
+    .imap__zoom button { padding: 0 10px; }
+    .imap__long { display: none; }
+    .imap__dot { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; }
+    .imap__pin[data-kind='office'] .imap__dot { width: 16px; height: 16px; margin: -8px 0 0 -8px; }
+    .imap__label { font-size: calc(44px / var(--z)); stroke-width: calc(8px / var(--z)); }
+  }
+</style>
